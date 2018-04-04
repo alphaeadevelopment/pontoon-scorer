@@ -8,7 +8,7 @@ export default ({ players }) => (
     <p>Leaderboard</p>
     <ul>
       {sortPlayersByPot(players).map(p => (
-        <li>{p.name}: {p.pot}</li>
+        <li key={p.idx}>{p.name}: {p.pot}</li>
       ))}
     </ul>
   </div>

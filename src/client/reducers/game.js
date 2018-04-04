@@ -15,6 +15,7 @@ const resetHands = player => ({
   name: player.name,
   pot: player.pot,
   hands: [newHand(0)],
+  idx: player.idx,
 });
 
 // const getTotalStake = players => players.reduce((tot, p) => tot + (p.))
@@ -25,16 +26,17 @@ const resetHands = player => ({
 //   players: state.players.map(p => allPlayersLoseUpdatePlayer(p, getTotalStake(state.players))),
 // });
 
-const newPlayer = n => ({
-  name: `Player ${n}`,
+const newPlayer = idx => ({
+  name: `Player ${idx + 1}`,
   pot: STARTING_POT,
   hands: [newHand(0)],
+  idx,
 });
 export default (state = initial, { type, payload }) => {
   switch (type) {
     case Types.ADD_PLAYER:
       return update(state, {
-        players: { $push: [newPlayer(state.players.length + 1)] },
+        players: { $push: [newPlayer(state.players.length)] },
         dealer: { $apply: v => (v === null ? state.players.length : v) },
       });
     case Types.NEW_ROUND:
