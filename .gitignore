@@ -1,0 +1,9 @@
+node_modules
+dist
+config/module-config
+mochawesome-report-unit
+.tmp
+data
+.vscode
+dist-server
+.auth0.json
