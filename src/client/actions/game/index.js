@@ -13,3 +13,4 @@ export const handWinsDouble = createAction(Types.HAND_WINS_DOUBLE);
 export const handLoses = createAction(Types.HAND_LOSES);
 export const makeDealer = createAction(Types.MAKE_DEALER);
 export const allLose = createAction(Types.ALL_LOSE);
+export const allWin = createAction(Types.ALL_WIN);

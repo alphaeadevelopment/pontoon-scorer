@@ -18,13 +18,43 @@ const resetHands = player => ({
   idx: player.idx,
 });
 
-// const getTotalStake = players => players.reduce((tot, p) => tot + (p.))
+const getPlayerHandsTotalStake = player => player.hands.reduce((tot, h) => (tot + h.stake), 0);
 
-// const allPlayersLoseUpdatePlayer = (p, totalStake) => p;
+const getTotalStake = players => players.reduce((tot, p) => {
+  const playerTotal = getPlayerHandsTotalStake(p);
+  return (tot + playerTotal);
+}, 0);
 
-// const allPlayersLose = state => ({
-//   players: state.players.map(p => allPlayersLoseUpdatePlayer(p, getTotalStake(state.players))),
-// });
+const updateAllHandsPlayerUpdate = (p, isDealer, totalStake, dealerWins) => {
+  let newPot;
+  if (isDealer) {
+    if (dealerWins) {
+      newPot = p.pot + totalStake;
+    }
+    else {
+      newPot = p.pot - totalStake;
+    }
+  }
+  else {
+    const playerTotal = getPlayerHandsTotalStake(p);
+    if (dealerWins) {
+      newPot = p.pot - playerTotal;
+    }
+    else {
+      newPot = p.pot + playerTotal;
+    }
+  }
+  return {
+    ...p,
+    hands: [],
+    pot: newPot,
+  };
+};
+
+const updateAllHands = (state, dealerWins) => {
+  const totalStake = getTotalStake(state.players);
+  return state.players.map(p => updateAllHandsPlayerUpdate(p, p.idx === state.dealer, totalStake, dealerWins));
+};
 
 const newPlayer = idx => ({
   name: `Player ${idx + 1}`,
@@ -48,7 +78,7 @@ export default (state = initial, { type, payload }) => {
     case Types.SET_PLAYER_NAME:
       return update(state, { players: { [payload.playerIdx]: { name: { $set: payload.name } } } });
     case Types.SET_STAKE:
-      return update(state, { players: { [payload.playerIdx]: { hands: { [payload.handIdx]: { stake: { $set: payload.stake } } } } } });
+      return update(state, { players: { [payload.playerIdx]: { hands: { [payload.handIdx]: { stake: { $set: Number(payload.stake) } } } } } });
     case Types.SPLIT_HAND:
       return update(state, {
         players: {
@@ -123,10 +153,14 @@ export default (state = initial, { type, payload }) => {
           },
         },
       });
-    // case Types.ALL_LOSE:
-    //   return update(state, {
-    //     players: allPlayersLose(state),
-    //   });
+    case Types.ALL_LOSE:
+      return update(state, {
+        players: { $set: updateAllHands(state, true) },
+      });
+    case Types.ALL_WIN:
+      return update(state, {
+        players: { $set: updateAllHands(state, false) },
+      });
     default:
       return state;
   }

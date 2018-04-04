@@ -57,6 +57,7 @@ const dispatchToActions = dispatch => ({
   onWinDouble: playerIdx => handIdx => () => dispatch(Actions.handWinsDouble({ playerIdx, handIdx })),
   onLose: playerIdx => handIdx => () => dispatch(Actions.handLoses({ playerIdx, handIdx })),
   onAllLose: () => dispatch(Actions.allLose()),
+  onAllWin: () => dispatch(Actions.allWin()),
   onMakeDealer: playerIdx => () => dispatch(Actions.makeDealer({ playerIdx })),
 });
 

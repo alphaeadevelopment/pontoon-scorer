@@ -25,7 +25,7 @@ const styles = theme => ({
 class RawPlayer extends React.Component {
   render() {
     const { classes, player, isDealer, onChangeName, onSetStake, onSplit, onBust, onMakeDealer,
-      onWin, onLose, onWinDouble, onAllLose } = this.props;
+      onWin, onLose, onWinDouble, onAllLose, onAllWin } = this.props;
     return (
       <Grid item xs={4} className={classes.root}>
         <Paper>
@@ -48,7 +48,8 @@ class RawPlayer extends React.Component {
             />
           ))}
           {!isDealer && <Button onClick={onMakeDealer}>Make Dealer</Button>}
-          {isDealer && false && <Button onClick={onAllLose}>Pontoon / All Lose</Button>}
+          {isDealer && <Button onClick={onAllLose}>Pontoon / All Lose</Button>}
+          {isDealer && <Button onClick={onAllWin}>Bust / All Win</Button>}
         </Paper>
       </Grid>
     );

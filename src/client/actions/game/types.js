@@ -10,4 +10,5 @@ export const HAND_WINS_DOUBLE = 'HAND_WINS_DOUBLE';
 export const HAND_LOSES = 'HAND_LOSES';
 export const MAKE_DEALER = 'MAKE_DEALER';
 export const ALL_LOSE = 'ALL_LOSE';
+export const ALL_WIN = 'ALL_WIN';
 
