@@ -6,18 +6,19 @@ import { connect } from 'react-redux';
 import * as Selectors from '../selectors';
 import Player from './Player';
 import * as Actions from '../actions';
+import Leaderboard from './Leaderboard';
 
 const styles = theme => ({
   root: {
-    'position': 'relative',
+    // 'position': 'relative',
     'width': '100%',
     'height': '100%',
-    '&>div': {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translateX(-50%) translateY(-50%)',
-    },
+    // '&>div': {
+    //   position: 'absolute',
+    //   top: '50%',
+    //   left: '50%',
+    //   transform: 'translateX(-50%) translateY(-50%)',
+    // },
   },
   playersCtr: {
     width: '100%',
@@ -32,34 +33,38 @@ export class RawHome extends React.Component { // eslint-disable-line react/pref
     } = this.props;
     return (
       <div className={classes.root}>
-        <Grid container>
-          <Grid item xs={8}>
-            <Grid container className={classes.playersCtr}>
-              {players.map((p, playerIdx) => (
-                <Player
-                  isDealer={dealerIdx === playerIdx}
-                  onChangeName={onChangePlayerName(playerIdx)}
-                  key={playerIdx}
-                  onSetStake={onSetStake(playerIdx)}
-                  onSplit={onSplit(playerIdx)}
-                  onBust={onBust(playerIdx)}
-                  onWin={onWin(playerIdx)}
-                  onWinDouble={onWinDouble(playerIdx)}
-                  onLose={onLose(playerIdx)}
-                  onMakeDealer={onMakeDealer(playerIdx)}
-                  onAllLose={onAllLose}
-                  player={p}
-                />
-              ))}
+        <div>
+          <Grid container>
+            <Grid item xs={9}>
+              <div>
+                <Button onClick={addPlayer}>Add Player</Button>
+                <Button onClick={newRound}>New Round</Button>
+                <Button onClick={resetGame}>Reset Game</Button>
+              </div>
+              <Grid container className={classes.playersCtr}>
+                {players.map((p, playerIdx) => (
+                  <Player
+                    isDealer={dealerIdx === playerIdx}
+                    onChangeName={onChangePlayerName(playerIdx)}
+                    key={playerIdx}
+                    onSetStake={onSetStake(playerIdx)}
+                    onSplit={onSplit(playerIdx)}
+                    onBust={onBust(playerIdx)}
+                    onWin={onWin(playerIdx)}
+                    onWinDouble={onWinDouble(playerIdx)}
+                    onLose={onLose(playerIdx)}
+                    onMakeDealer={onMakeDealer(playerIdx)}
+                    onAllLose={onAllLose}
+                    player={p}
+                  />
+                ))}
+              </Grid>
             </Grid>
-            <Button onClick={addPlayer}>Add Player</Button>
-            <Button onClick={newRound}>New Round</Button>
-            <Button onClick={resetGame}>Reset Game</Button>
+            <Grid item xs={3}>
+              <Leaderboard players={players} />
+            </Grid>
           </Grid>
-          <Grid item xs={4}>
-            <Leaderboard />
-          </Grid>
-        </Grid>
+        </div>
       </div>
     );
   }

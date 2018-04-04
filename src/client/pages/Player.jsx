@@ -14,6 +14,12 @@ const styles = theme => ({
       'padding': theme.spacing.unit * 4,
     },
   },
+  playerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: theme.spacing.unit,
+  },
 });
 
 class RawPlayer extends React.Component {
@@ -24,9 +30,9 @@ class RawPlayer extends React.Component {
       <Grid item xs={4} className={classes.root}>
         <Paper>
           {isDealer && <Typography variant={'display1'}>Dealer</Typography>}
-          <TextField value={player.name} onChange={e => onChangeName(e.target.value)} />
-          <div>
-            <Typography>Pot: {player.pot}</Typography>
+          <div className={classes.playerHeader}>
+            <TextField value={player.name} onChange={e => onChangeName(e.target.value)} />
+            <Typography>{player.pot}</Typography>
           </div>
           {!isDealer && player.hands.map((h, handIdx) => (
             <Hand
