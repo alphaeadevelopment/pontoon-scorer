@@ -32,27 +32,34 @@ export class RawHome extends React.Component { // eslint-disable-line react/pref
     } = this.props;
     return (
       <div className={classes.root}>
-        <Grid container className={classes.playersCtr}>
-          {players.map((p, playerIdx) => (
-            <Player
-              isDealer={dealerIdx === playerIdx}
-              onChangeName={onChangePlayerName(playerIdx)}
-              key={playerIdx}
-              onSetStake={onSetStake(playerIdx)}
-              onSplit={onSplit(playerIdx)}
-              onBust={onBust(playerIdx)}
-              onWin={onWin(playerIdx)}
-              onWinDouble={onWinDouble(playerIdx)}
-              onLose={onLose(playerIdx)}
-              onMakeDealer={onMakeDealer(playerIdx)}
-              onAllLose={onAllLose}
-              player={p}
-            />
-          ))}
+        <Grid container>
+          <Grid item xs={8}>
+            <Grid container className={classes.playersCtr}>
+              {players.map((p, playerIdx) => (
+                <Player
+                  isDealer={dealerIdx === playerIdx}
+                  onChangeName={onChangePlayerName(playerIdx)}
+                  key={playerIdx}
+                  onSetStake={onSetStake(playerIdx)}
+                  onSplit={onSplit(playerIdx)}
+                  onBust={onBust(playerIdx)}
+                  onWin={onWin(playerIdx)}
+                  onWinDouble={onWinDouble(playerIdx)}
+                  onLose={onLose(playerIdx)}
+                  onMakeDealer={onMakeDealer(playerIdx)}
+                  onAllLose={onAllLose}
+                  player={p}
+                />
+              ))}
+            </Grid>
+            <Button onClick={addPlayer}>Add Player</Button>
+            <Button onClick={newRound}>New Round</Button>
+            <Button onClick={resetGame}>Reset Game</Button>
+          </Grid>
+          <Grid item xs={4}>
+            <Leaderboard />
+          </Grid>
         </Grid>
-        <Button onClick={addPlayer}>Add Player</Button>
-        <Button onClick={newRound}>New Round</Button>
-        <Button onClick={resetGame}>Reset Game</Button>
       </div>
     );
   }
