@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
@@ -20,6 +21,9 @@ const styles = theme => ({
     justifyContent: 'space-between',
     marginBottom: theme.spacing.unit,
   },
+  negative: {
+    background: '#f98f8f',
+  },
 });
 
 class RawPlayer extends React.Component {
@@ -28,7 +32,7 @@ class RawPlayer extends React.Component {
       onWin, onLose, onWinDouble, onAllLose, onAllWin } = this.props;
     return (
       <Grid item xs={4} className={classes.root}>
-        <Paper>
+        <Paper className={classNames({ [classes.negative]: player.pot < 0 })}>
           {isDealer && <Typography variant={'display1'}>Dealer</Typography>}
           <div className={classes.playerHeader}>
             <TextField value={player.name} onChange={e => onChangeName(e.target.value)} />
@@ -51,7 +55,7 @@ class RawPlayer extends React.Component {
           {isDealer && <Button onClick={onAllLose}>Pontoon / All Lose</Button>}
           {isDealer && <Button onClick={onAllWin}>Bust / All Win</Button>}
         </Paper>
-      </Grid>
+      </Grid >
     );
   }
 }

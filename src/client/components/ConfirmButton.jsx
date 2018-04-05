@@ -27,7 +27,7 @@ export class RawConfirmButton extends React.Component {
   }
   render() {
     const { showConfirm } = this.state;
-    const { children, message = 'Confirm?', title = 'Confirmation', ...rest } = this.props;
+    const { children, message = 'Confirm?', title = 'Confirmation', onConfirm, onCancel, ...rest } = this.props;
     return (
       <div>
         <Button onClick={this.onClickButton} {...rest}>{children}</Button>

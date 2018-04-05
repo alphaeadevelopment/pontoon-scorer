@@ -28,7 +28,7 @@ const styles = theme => ({
 export class RawHome extends React.Component {
   render() {
     const {
-      classes, players, addPlayer, newRound, resetGame, ...rest
+      classes, players, addPlayer, newRound, resetGame, handsInPlay, ...rest
     } = this.props;
     return (
       <div className={classes.root}>
@@ -37,7 +37,7 @@ export class RawHome extends React.Component {
             <Grid item xs={9}>
               <div>
                 <Button onClick={addPlayer}>Add Player</Button>
-                <Button onClick={newRound}>New Round</Button>
+                <Button disabled={handsInPlay > 0} onClick={newRound}>New Round</Button>
               </div>
               <PlayersGrid {...rest} players={players} />
             </Grid>
@@ -56,13 +56,14 @@ export class RawHome extends React.Component {
             </ConfirmButton>
           </div>
         </div>
-      </div>
+      </div >
     );
   }
 }
 const mapStateToProps = state => ({
   players: Selectors.getPlayers(state),
   dealerIdx: Selectors.getDealerIdx(state),
+  handsInPlay: Selectors.handsInPlay(state),
 });
 
 const dispatchToActions = dispatch => ({
