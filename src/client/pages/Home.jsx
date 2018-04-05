@@ -7,11 +7,22 @@ import * as Selectors from '../selectors';
 import PlayersGrid from './PlayersGrid';
 import * as Actions from '../actions';
 import Leaderboard from './Leaderboard';
+import { ConfirmButton } from '../components';
 
-const styles = () => ({
+const styles = theme => ({
   root: {
     'width': '100%',
     'height': '100%',
+  },
+  reset: {
+    background: 'red',
+    width: '50%',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    color: theme.palette.common.white,
+    fontWeight: '700',
+    fontSize: '150%',
+    marginTop: theme.spacing.unit * 5,
   },
 });
 export class RawHome extends React.Component {
@@ -27,7 +38,6 @@ export class RawHome extends React.Component {
               <div>
                 <Button onClick={addPlayer}>Add Player</Button>
                 <Button onClick={newRound}>New Round</Button>
-                <Button onClick={resetGame}>Reset Game</Button>
               </div>
               <PlayersGrid {...rest} players={players} />
             </Grid>
@@ -35,6 +45,16 @@ export class RawHome extends React.Component {
               <Leaderboard players={players} />
             </Grid>
           </Grid>
+          <div>
+            <ConfirmButton
+              className={classes.reset}
+              onConfirm={resetGame}
+              title={'Reset Game'}
+              message={'You will lose all game scores, are you sure?'}
+            >
+              Reset Game
+            </ConfirmButton>
+          </div>
         </div>
       </div>
     );
