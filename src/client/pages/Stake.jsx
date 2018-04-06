@@ -88,7 +88,7 @@ class RawStake extends React.Component {
     return (
       <div className={classes.root}>
         <Typography>Stake: {hand.stake}</Typography>
-        <TextField className={classNames({ [classes.error]: error })} value={value} onChange={this.onChange} />
+        <TextField tabIndex={0} className={classNames({ [classes.error]: error })} value={value} onChange={this.onChange} />
         {hand.stake === 0 && <Button onClick={this.onSetStake}>Set Stake</Button>}
         {hand.stake > 0 &&
           <Button onClick={this.onBuyCard}>

@@ -16,14 +16,15 @@ const resetHands = player => ({
   hands: [newHand(0)],
 });
 
-const getPlayerHandsTotalStake = player => player.hands.reduce((tot, h) => (tot + h.stake), 0);
+const getPlayerHandsTotalStake = (player, multiple) =>
+  player.hands.reduce((tot, h) => (tot + (h.stake * multiple)), 0);
 
-const getTotalStake = players => players.reduce((tot, p) => {
-  const playerTotal = getPlayerHandsTotalStake(p);
+const getTotalStake = (players, multiple) => players.reduce((tot, p) => {
+  const playerTotal = getPlayerHandsTotalStake(p, multiple);
   return (tot + playerTotal);
 }, 0);
 
-const updateAllHandsPlayerUpdate = (p, isDealer, totalStake, dealerWins) => {
+const updateAllHandsPlayerUpdate = (p, isDealer, totalStake, dealerWins, multiple) => {
   let newPot;
   if (isDealer) {
     if (dealerWins) {
@@ -34,7 +35,7 @@ const updateAllHandsPlayerUpdate = (p, isDealer, totalStake, dealerWins) => {
     }
   }
   else {
-    const playerTotal = getPlayerHandsTotalStake(p);
+    const playerTotal = getPlayerHandsTotalStake(p, multiple);
     if (dealerWins) {
       newPot = p.pot - playerTotal;
     }
@@ -49,9 +50,9 @@ const updateAllHandsPlayerUpdate = (p, isDealer, totalStake, dealerWins) => {
   };
 };
 
-const updateAllHands = (state, dealerWins) => {
-  const totalStake = getTotalStake(state.players);
-  return state.players.map(p => updateAllHandsPlayerUpdate(p, p.idx === state.dealer, totalStake, dealerWins));
+const updateAllHands = (state, dealerWins, multiple) => {
+  const totalStake = getTotalStake(state.players, multiple);
+  return state.players.map(p => updateAllHandsPlayerUpdate(p, p.idx === state.dealer, totalStake, dealerWins, multiple));
 };
 
 const newPlayer = idx => ({
@@ -176,11 +177,11 @@ export default (state = initial, { type, payload }) => {
       });
     case Types.ALL_LOSE:
       return update(state, {
-        players: { $set: updateAllHands(state, true) },
+        players: { $set: updateAllHands(state, true, payload.multiple) },
       });
     case Types.ALL_WIN:
       return update(state, {
-        players: { $set: updateAllHands(state, false) },
+        players: { $set: updateAllHands(state, false, 1) },
       });
     default:
       return state;
