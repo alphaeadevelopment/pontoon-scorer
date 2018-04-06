@@ -31,11 +31,13 @@ const alias = {
   // 'styles': path.join(__dirname, '../src/client/styles'),
 }
 
+const publicPath = path.join(__dirname, '../../dist');
 const config = {
   entry: path.join(__dirname, '../src/server', 'main.js'),
   output: {
     path: outputPath,
     filename: 'index.js',
+    publicPath,
   },
   devtool: 'source-map',
   module: {
@@ -69,6 +71,8 @@ const config = {
     tls: 'empty',
     child_process: 'empty',
     rc: 'empty',
+    __dirname: false,
+    __filename: false,
   },
   plugins: [
     new webpack.DefinePlugin({
