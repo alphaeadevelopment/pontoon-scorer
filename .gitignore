@@ -1,9 +1,10 @@
 node_modules
 dist
-config/module-config
+config/module-config.js
 mochawesome-report-unit
 .tmp
 data
 .vscode
 dist-server
 .auth0.json
+pontoon-scorer.code-workspace

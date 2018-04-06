@@ -11,8 +11,8 @@ import { ConfirmButton } from '../components';
 
 const styles = theme => ({
   root: {
-    'width': '100%',
-    'height': '100%',
+    width: '100%',
+    padding: theme.spacing.unit * 2,
   },
   reset: {
     background: 'red',

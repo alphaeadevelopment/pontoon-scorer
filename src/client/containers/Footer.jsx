@@ -20,22 +20,17 @@ const styles = theme => ({
   },
 });
 class RawFooter extends React.Component {
-  onSetRef = (r) => {
-    if (r && this.props.onSetFooterHeight) {
-      this.props.onSetFooterHeight(r.clientHeight);
-    }
-  }
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root} ref={this.onSetRef}>
+      <div className={classes.root}>
         <div>
           <Typography variant={'body1'}>
-            <a target={'_new'} href={'http://github.com/alphaeadevelopment'}>Application Framework</a>
+            <a target={'_new'} href={'https://github.com/alphaeadevelopment/pontoon-scorer'}>Pontoon Scorer</a>
           </Typography>
           <Typography variant={'body1'}>
             <span>Powered by </span>
-            <a target={'_new'} href={'http://alphaea.uk'}>Alphaea Development</a>
+            <a target={'_new'} href={'http://animando-solutions.co.uk'}>Animando Solutions</a>
           </Typography>
         </div>
       </div>
