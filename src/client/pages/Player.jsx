@@ -28,7 +28,7 @@ const styles = theme => ({
 
 class RawPlayer extends React.Component {
   render() {
-    const { classes, player, isDealer, onChangeName, onSetStake, onSplit, onBust, onMakeDealer,
+    const { classes, player, isDealer, onChangeName, onSetStake, onBuyCard, onSplit, onBust, onMakeDealer,
       onWin, onLose, onWinDouble, onAllLose, onAllWin } = this.props;
     return (
       <Grid item xs={4} className={classes.root}>
@@ -43,6 +43,8 @@ class RawPlayer extends React.Component {
               isDealer={isDealer}
               key={handIdx}
               hand={h}
+              initialStake={player.initialStake}
+              onBuyCard={onBuyCard(handIdx)}
               onSetStake={onSetStake(handIdx)}
               onSplit={onSplit(handIdx)}
               onBust={onBust(handIdx)}

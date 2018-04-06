@@ -12,10 +12,8 @@ const newHand = stake => ({
 });
 
 const resetHands = player => ({
-  name: player.name,
-  pot: player.pot,
+  ...player,
   hands: [newHand(0)],
-  idx: player.idx,
 });
 
 const getPlayerHandsTotalStake = player => player.hands.reduce((tot, h) => (tot + h.stake), 0);
@@ -60,6 +58,7 @@ const newPlayer = idx => ({
   name: `Player ${idx + 1}`,
   pot: STARTING_POT,
   hands: [newHand(0)],
+  initialStake: null,
   idx,
 });
 export default (state = initial, { type, payload }) => {
@@ -78,7 +77,29 @@ export default (state = initial, { type, payload }) => {
     case Types.SET_PLAYER_NAME:
       return update(state, { players: { [payload.playerIdx]: { name: { $set: payload.name } } } });
     case Types.SET_STAKE:
-      return update(state, { players: { [payload.playerIdx]: { hands: { [payload.handIdx]: { stake: { $set: Number(payload.stake) } } } } } });
+      return update(state, {
+        players: {
+          [payload.playerIdx]: {
+            initialStake: { $set: Number(payload.stake) },
+            hands: { [payload.handIdx]: { stake: { $set: Number(payload.stake) } } },
+          },
+        },
+      });
+    case Types.BUY_CARD:
+      return update(state, {
+        players: {
+          [payload.playerIdx]: {
+            hands: {
+              [payload.handIdx]: {
+                lastBid: { $set: Number(payload.stake) },
+                stake: {
+                  $set: state.players[payload.playerIdx].hands[payload.handIdx].stake + Number(payload.stake),
+                },
+              },
+            },
+          },
+        },
+      });
     case Types.SPLIT_HAND:
       return update(state, {
         players: {

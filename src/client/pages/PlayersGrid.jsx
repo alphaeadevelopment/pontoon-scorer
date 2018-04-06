@@ -21,7 +21,7 @@ const sortPlayers = (players, dealerIdx) => clone(players)
 class RawPlayersGrid extends React.Component {
   render() {
     const {
-      classes, players, dealerIdx, onChangePlayerName, onSetStake, onSplit, onBust, onMakeDealer,
+      classes, players, dealerIdx, onChangePlayerName, onSetStake, onBuyCard, onSplit, onBust, onMakeDealer,
       onWin, onLose, onWinDouble, onAllLose, onAllWin } = this.props;
     return (
       <Grid container className={classes.root}>
@@ -31,6 +31,7 @@ class RawPlayersGrid extends React.Component {
             onChangeName={onChangePlayerName(p.idx)}
             key={p.idx}
             onSetStake={onSetStake(p.idx)}
+            onBuyCard={onBuyCard(p.idx)}
             onSplit={onSplit(p.idx)}
             onBust={onBust(p.idx)}
             onWin={onWin(p.idx)}

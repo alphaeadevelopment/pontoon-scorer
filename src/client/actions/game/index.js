@@ -6,6 +6,7 @@ export const newRound = createAction(Types.NEW_ROUND);
 export const resetGame = createAction(Types.RESET_GAME);
 export const setPlayerName = createAction(Types.SET_PLAYER_NAME);
 export const setStake = createAction(Types.SET_STAKE);
+export const buyCard = createAction(Types.BUY_CARD);
 export const splitHand = createAction(Types.SPLIT_HAND);
 export const bustHand = createAction(Types.BUST_HAND);
 export const handWins = createAction(Types.HAND_WINS);

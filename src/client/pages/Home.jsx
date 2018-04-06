@@ -16,7 +16,8 @@ const styles = theme => ({
   },
   reset: {
     background: 'red',
-    width: '50%',
+    width: '75%',
+    borderRadius: '2px',
     left: '50%',
     transform: 'translateX(-50%)',
     color: theme.palette.common.white,
@@ -72,6 +73,7 @@ const dispatchToActions = dispatch => ({
   resetGame: () => dispatch(Actions.resetGame()),
   onChangePlayerName: playerIdx => name => dispatch(Actions.setPlayerName({ playerIdx, name })),
   onSetStake: playerIdx => handIdx => stake => dispatch(Actions.setStake({ playerIdx, handIdx, stake })),
+  onBuyCard: playerIdx => handIdx => stake => dispatch(Actions.buyCard({ playerIdx, handIdx, stake })),
   onSplit: playerIdx => handIdx => () => dispatch(Actions.splitHand({ playerIdx, handIdx })),
   onBust: playerIdx => handIdx => () => dispatch(Actions.bustHand({ playerIdx, handIdx })),
   onWin: playerIdx => handIdx => () => dispatch(Actions.handWins({ playerIdx, handIdx })),
