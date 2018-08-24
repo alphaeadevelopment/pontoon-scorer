@@ -14,6 +14,7 @@ const newHand = stake => ({
 const resetHands = player => ({
   ...player,
   hands: [newHand(0)],
+  initialStake: null,
 });
 
 const getPlayerHandsTotalStake = (player, multiple) =>

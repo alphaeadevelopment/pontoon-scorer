@@ -8,3 +8,4 @@ data
 dist-server
 .auth0.json
 pontoon-scorer.code-workspace
+.history/
