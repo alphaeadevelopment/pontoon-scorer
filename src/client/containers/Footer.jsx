@@ -26,7 +26,7 @@ class RawFooter extends React.Component {
       <div className={classes.root}>
         <div>
           <Typography variant={'body1'}>
-            <a target={'_new'} href={'https://github.com/alphaeadevelopment/pontoon-scorer'}>Pontoon Scorer</a>
+            <a target={'_new'} href={'https://github.com/alphaeadevelopment/pontoon-scorer'}>Source</a>
           </Typography>
           <Typography variant={'body1'}>
             <span>Powered by </span>

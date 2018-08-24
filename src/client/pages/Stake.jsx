@@ -1,9 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
-import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
+import { InlineEditTextField } from '../components';
 
 const getMinimum = (initialStake) => {
   if (initialStake) {
@@ -46,19 +46,19 @@ class RawStake extends React.Component {
       maximum: getMaximum(nextProps.initialStake, nextProps.hand.lastBid),
     });
   }
-  onChange = (ev) => {
+  onChange = (value) => {
     const { minimum, maximum } = this.state;
     let error;
     let num;
     try {
-      num = Number(ev.target.value);
+      num = Number(value);
     }
     catch (e) {
       error = true;
     }
     if (isNaN(num) || num < minimum || num > maximum) error = true; // eslint-disable-line
     this.setState({
-      value: ev.target.value,
+      value,
       error,
     });
   }
@@ -88,7 +88,12 @@ class RawStake extends React.Component {
     return (
       <div className={classes.root}>
         <Typography>Stake: {hand.stake}</Typography>
-        <TextField tabIndex={0} className={classNames({ [classes.error]: error })} value={value} onChange={this.onChange} />
+        <InlineEditTextField
+          tabIndex={0}
+          className={classNames({ [classes.error]: error })}
+          value={value}
+          onChange={this.onChange}
+        />
         {hand.stake === 0 && <Button onClick={this.onSetStake}>Set Stake</Button>}
         {hand.stake > 0 &&
           <Button onClick={this.onBuyCard}>

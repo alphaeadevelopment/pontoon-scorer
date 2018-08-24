@@ -25,6 +25,9 @@ const styles = theme => ({
     fontSize: '150%',
     marginTop: theme.spacing.unit * 5,
   },
+  leaderboardCtr: {
+    'background': 'lightgrey',
+  },
 });
 export class RawHome extends React.Component {
   render() {
@@ -35,29 +38,29 @@ export class RawHome extends React.Component {
       <div className={classes.root}>
         <div>
           <Grid container>
-            <Grid item xs={9}>
+            <Grid item xs={12} sm={10} md={9}>
               <div>
                 <Button onClick={addPlayer}>Add Player</Button>
                 <Button disabled={handsInPlay > 0} onClick={newRound}>New Round</Button>
               </div>
               <PlayersGrid {...rest} players={players} />
+              <div>
+                <ConfirmButton
+                  className={classes.reset}
+                  onConfirm={resetGame}
+                  title={'Reset Game'}
+                  message={'You will lose all game scores, are you sure?'}
+                >
+                  Reset Game
+                </ConfirmButton>
+              </div>
             </Grid>
-            <Grid item xs={3}>
+            <Grid className={classes.leaderboardCtr} item xs={12} sm={2} md={3}>
               <Leaderboard players={players} />
             </Grid>
           </Grid>
-          <div>
-            <ConfirmButton
-              className={classes.reset}
-              onConfirm={resetGame}
-              title={'Reset Game'}
-              message={'You will lose all game scores, are you sure?'}
-            >
-              Reset Game
-            </ConfirmButton>
-          </div>
         </div>
-      </div >
+      </div>
     );
   }
 }

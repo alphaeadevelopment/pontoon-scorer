@@ -6,13 +6,13 @@ const styles = theme => ({
   root: {
     'display': 'flex',
     'background': theme.palette.primary.dark,
-    'fontSize': '80%',
     '&>div': {
       'display': 'flex',
       'justifyContent': 'space-between',
       'width': '100%',
       'margin': theme.spacing.unit,
-      '&>p': {
+      'padding': `${theme.spacing.unit * 2}px`,
+      '&>h1 a': {
         'color': theme.palette.primary.contrastText,
       },
     },
@@ -24,8 +24,8 @@ class RawHeader extends React.Component {
     return (
       <div className={classes.root}>
         <div>
-          <Typography variant={'body1'}>
-            <a target={'_new'} href={'https://github.com/alphaeadevelopment/pontoon-scorer'}>Pontoon Scorer</a>
+          <Typography variant={'display2'}>
+            <a href={'/'}>Pontoon Scorer</a>
           </Typography>
         </div>
       </div>
