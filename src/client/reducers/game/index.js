@@ -66,7 +66,7 @@ const updateAllHands = (state, dealerWins, multiple) => {
 const newPlayer = idx => ({
   name: `Player ${idx + 1}`,
   pot: STARTING_POT,
-  hands: [newHand(0)],
+  hands: [],
   initialStake: null,
   idx,
 });
@@ -88,11 +88,18 @@ export default (state = initial, { type, payload }) => {
     case Types.RESET_GAME:
       return initial;
     case Types.START_GAME:
-      return update(state, { phase: { $set: SET_STAKE }, currentPlayer: { $set: firstPlayer(state) }, currentPlayerHand: { $set: 0 } });
+      return update(state, {
+        currentPlayer: { $set: firstPlayer(state) },
+        currentPlayerHand: { $set: 0 },
+        phase: { $set: SET_STAKE },
+        players: { $apply: players => players.map(p => resetHands(p)) },
+      });
     case Types.STICK_HAND:
       return update(state, { ...updateNextHand(state) });
     case Types.SET_PLAYER_NAME:
-      return update(state, { players: { [payload.playerIdx]: { name: { $set: payload.name } } } });
+      return update(state, {
+        players: { [payload.playerIdx]: { name: { $set: payload.name } } },
+      });
     case Types.SET_STAKE:
       return update(state, {
         players: {

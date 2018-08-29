@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
@@ -74,6 +74,59 @@ class RawHand extends React.Component {
   invokeActionOnPlayerHand = (action, args = {}) => {
     action.apply(null, [{ ...this.getActionId(), ...args }]);
   }
+  isDealer = () => {
+    const { hand, player, dealerIdx } = this.props;
+
+    if (!hand.active) return null;
+    const { idx: playerIdx } = player;
+
+    return playerIdx === dealerIdx;
+  }
+  isCurrentPlayer = () => {
+    const { player, currentPlayer } = this.props;
+    const { idx: playerIdx } = player;
+
+    return currentPlayer === playerIdx;
+  }
+  isCurrentHand = () => {
+    const { idx: handIdx, currentPlayerHand } = this.props;
+
+    return this.isCurrentPlayer() && handIdx === currentPlayerHand;
+  }
+  renderGamePlayActions = () => (
+    <Fragment>
+      <Button onClick={this.onStick}>
+        Stick
+      </Button>
+      <Button onClick={this.onLose}>
+        Bust
+      </Button>
+    </Fragment>
+  )
+  renderResultsActions = () => (
+    <Fragment>
+      <Button onClick={this.onWin}>
+        Win
+      </Button>
+      <Button onClick={this.onLose}>
+        Lose
+      </Button>
+      <Button onClick={this.onWinDouble}>
+        Win x2
+      </Button>
+    </Fragment>
+  )
+  renderPlayerActions = () => {
+    const { hand, gamePhase } = this.props;
+
+    if (!hand.active) return null;
+    return (
+      <Fragment>
+        {this.isCurrentHand() && gamePhase === GAME_PLAY && this.renderGamePlayActions()}
+        {this.isCurrentHand() && gamePhase === RESULTS && this.renderResultsActions()}
+      </Fragment>
+    );
+  }
   render() {
     const { classes, hand, idx: handIdx, player, dealerIdx, currentPlayer, currentPlayerHand, gamePhase } = this.props;
 
@@ -85,30 +138,23 @@ class RawHand extends React.Component {
     return (
       <Paper className={classes.root}>
         {!isDealer &&
-          <Stake isCurrentHand={isCurrentHand} gamePhase={gamePhase} hand={hand} initialStake={initialStake} onSetStake={this.onSetStake} onBuyCard={this.onBuyCard} />
+          <Stake
+            isCurrentHand={isCurrentHand}
+            gamePhase={gamePhase}
+            hand={hand}
+            initialStake={initialStake}
+            onSetStake={this.onSetStake}
+            onBuyCard={this.onBuyCard}
+          />
         }
         <div>
           {
             isCurrentHand && gamePhase === GAME_PLAY &&
-            <Button onClick={this.onSplit}>Split</Button>
+            <Button onClick={this.onSplit}>
+              Split
+            </Button>
           }
-        </div>
-        <div>
-          {!isDealer && isCurrentHand && gamePhase === GAME_PLAY &&
-            <Button onClick={this.onStick}>Stick</Button>
-          }
-          {!isDealer && gamePhase === RESULTS &&
-            <Button onClick={this.onWin}>Win</Button>
-          }
-          {!isDealer && gamePhase === RESULTS &&
-            <Button onClick={this.onLose}>Lose</Button>
-          }
-          {!isDealer && isCurrentHand && gamePhase === GAME_PLAY &&
-            <Button onClick={this.onLose}>Bust</Button>
-          }
-          {!isDealer && gamePhase === RESULTS &&
-            <Button onClick={this.onWinDouble}>Win x2</Button>
-          }
+          {!isDealer && this.renderPlayerActions()}
         </div>
       </Paper>
     );

@@ -58,12 +58,18 @@ export class RawHome extends React.Component {
           <Grid container>
             <Grid item xs={12} sm={10} md={9}>
               <div>
-                {betweenRounds && <Button onClick={onAddPlayer}>Add Player</Button>}
+                <Button disabled={!betweenRounds} onClick={onAddPlayer}>
+                  Add Player
+                </Button>
                 {currentPlayer === null &&
-                  <Button disabled={players.length < 2} onClick={onStartGame}>Start Game</Button>
+                  <Button disabled={players.length < 2} onClick={onStartGame}>
+                    Start Game
+                  </Button>
                 }
                 {currentPlayer !== null &&
-                  <Button disabled={activeHandsInPlay > 0} onClick={onNewRound}>New Round</Button>
+                  <Button disabled={activeHandsInPlay > 0} onClick={onNewRound}>
+                    New Round
+                  </Button>
                 }
               </div>
               <PlayersGrid />

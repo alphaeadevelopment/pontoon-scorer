@@ -43,13 +43,23 @@ const styles = theme => ({
 });
 
 class RawPlayer extends React.Component {
+  onMakeDealer = () => {
+    const { onMakeDealer, player } = this.props;
+    onMakeDealer(player.idx);
+  }
   renderDealerHandActions = () => {
     const { onAllLose, onAllWin, onDealerStick } = this.props;
     return (
       <Fragment>
-        <Button onClick={onDealerStick}>Stick</Button>
-        <Button onClick={onAllLose}>All Lose</Button>
-        <Button onClick={onAllWin}>Bust</Button>
+        <Button onClick={onDealerStick}>
+          Stick
+        </Button>
+        <Button onClick={onAllLose}>
+          All Lose
+        </Button>
+        <Button onClick={onAllWin}>
+          Bust
+        </Button>
       </Fragment>
     );
   }
@@ -58,8 +68,12 @@ class RawPlayer extends React.Component {
       onAllLoseDouble, onStartGameProper } = this.props;
     return (
       <Fragment>
-        <Button onClick={onAllLoseDouble}>Pontoon</Button>
-        <Button onClick={onStartGameProper}>Continue</Button>
+        <Button onClick={onAllLoseDouble}>
+          Pontoon
+        </Button>
+        <Button onClick={onStartGameProper}>
+          Continue
+        </Button>
       </Fragment>
     );
   }
@@ -72,8 +86,20 @@ class RawPlayer extends React.Component {
       </Fragment>
     );
   }
+  renderPlayerActions = () => {
+    const { betweenRounds } = this.props;
+    return (
+      <Fragment>
+        {betweenRounds &&
+          <Button onClick={this.onMakeDealer}>
+            Make Dealer
+          </Button>
+        }
+      </Fragment>
+    );
+  }
   render() {
-    const { classes, player, onChangePlayerName, onMakeDealer, dealerIdx, betweenRounds } = this.props;
+    const { classes, player, onChangePlayerName, dealerIdx } = this.props;
     const { idx: playerIdx } = player;
     const isDealer = dealerIdx === playerIdx;
     return (
@@ -88,10 +114,16 @@ class RawPlayer extends React.Component {
         <Paper
           className={classNames({ [classes.negative]: player.pot < 0 })}
         >
-          {isDealer && <Typography variant={'display1'}>Dealer</Typography>}
+          {isDealer &&
+            <Typography variant={'display1'}>
+              Dealer
+            </Typography>
+          }
           <div className={classes.playerHeader}>
             <InlineEditTextField value={player.name} onChange={onChangePlayerName} />
-            <Typography >{player.pot}</Typography>
+            <Typography >
+              {player.pot}
+            </Typography>
           </div>
           {!isDealer && player.hands.map((h, handIdx) => (
             <Hand
@@ -101,7 +133,7 @@ class RawPlayer extends React.Component {
               player={player}
             />
           ))}
-          {!isDealer && betweenRounds && <Button onClick={onMakeDealer}>Make Dealer</Button>}
+          {!isDealer && this.renderPlayerActions()}
           {isDealer && this.renderDealerActions()}
         </Paper>
       </Grid>

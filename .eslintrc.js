@@ -19,9 +19,10 @@ module.exports = {
     "object-curly-newline": "off",
     "quote-props": ["error", "consistent"],
     "react/jsx-curly-brace-presence": "off",
-    "react/prop-types": "off",
+    "react/jsx-one-expression-per-line": "error",
     "react/no-array-index-key": "off",
     "react/prefer-stateless-function": "off",
+    "react/prop-types": "off",
   },
   "parser": "babel-eslint"
 }
