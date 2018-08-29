@@ -5,8 +5,8 @@ import clone from 'lodash/clone';
 import { withStyles } from 'material-ui/styles';
 import Player from './Player';
 import {
-  getPlayers,
   getDealerIdx,
+  getPlayers,
 } from '../selectors';
 
 const styles = theme => ({
@@ -40,8 +40,8 @@ class RawPlayersGrid extends React.Component {
   }
 }
 const mapStateToProps = state => ({
-  players: getPlayers(state),
   dealerIdx: getDealerIdx(state),
+  players: getPlayers(state),
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(RawPlayersGrid));

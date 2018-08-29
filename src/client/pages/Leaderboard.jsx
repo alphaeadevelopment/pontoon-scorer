@@ -33,8 +33,8 @@ export const RawLeaderboard = ({ classes, players, dealerIdx }) => (
 );
 
 const mapStateToProps = state => ({
-  players: getPlayers(state),
   dealerIdx: getDealerIdx(state),
+  players: getPlayers(state),
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(RawLeaderboard));

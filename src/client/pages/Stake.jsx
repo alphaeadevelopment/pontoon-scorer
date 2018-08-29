@@ -35,9 +35,9 @@ const styles = () => ({
 
 class RawStake extends React.Component {
   state = {
-    value: getMinimum(this.props.initialStake, this.props.hand.lastBid),
-    minimum: getMinimum(this.props.initialStake, this.props.hand.lastBid),
     maximum: getMaximum(this.props.initialStake, this.props.hand.lastBid),
+    minimum: getMinimum(this.props.initialStake, this.props.hand.lastBid),
+    value: getMinimum(this.props.initialStake, this.props.hand.lastBid),
   }
   componentWillReceiveProps = (nextProps) => {
     const minimum = getMinimum(nextProps.initialStake, nextProps.hand.lastBid);
@@ -95,7 +95,9 @@ class RawStake extends React.Component {
           value={value}
           onChange={this.onChange}
         />
-        {gamePhase === SET_STAKE && hand.stake === 0 && isCurrentHand && <Button onClick={this.onSetStake}>Set Stake</Button>}
+        {gamePhase === SET_STAKE && hand.stake === 0 && isCurrentHand &&
+          <Button onClick={this.onSetStake}>Set Stake</Button>
+        }
         {gamePhase === GAME_PLAY && hand.stake > 0 && isCurrentHand &&
           <Button onClick={this.onBuyCard}>
             Buy Card ({minimum}-{maximum})

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import Grid from 'material-ui/Grid';
@@ -8,19 +8,20 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Hand from './Hand';
 import { InlineEditTextField } from '../components';
-import { DEALER_PONTOON, DEALER_HAND, ROUND_OVER } from '../lib/constants/game-phases';
+import { DEALER_PONTOON } from '../lib/constants/game-phases';
 import {
   getDealerIdx,
-  activeHandsInPlay as getActiveHandsInPlay,
   getPhase,
+  isBetweenRounds,
+  isDealerHand,
 } from '../selectors';
 import {
-  setPlayerName,
-  stick,
   allLose,
   allWin,
   makeDealer,
+  setPlayerName,
   startGameProper,
+  stick,
 } from '../actions';
 
 const styles = theme => ({
@@ -42,10 +43,37 @@ const styles = theme => ({
 });
 
 class RawPlayer extends React.Component {
+  renderDealerHandActions = () => {
+    const { onAllLose, onAllWin, onDealerStick } = this.props;
+    return (
+      <Fragment>
+        <Button onClick={onDealerStick}>Stick</Button>
+        <Button onClick={onAllLose}>All Lose</Button>
+        <Button onClick={onAllWin}>Bust</Button>
+      </Fragment>
+    );
+  }
+  renderDealerPontoonActions = () => {
+    const {
+      onAllLoseDouble, onStartGameProper } = this.props;
+    return (
+      <Fragment>
+        <Button onClick={onAllLoseDouble}>Pontoon</Button>
+        <Button onClick={onStartGameProper}>Continue</Button>
+      </Fragment>
+    );
+  }
+  renderDealerActions = () => {
+    const { gamePhase, dealerHand } = this.props;
+    return (
+      <Fragment>
+        {gamePhase === DEALER_PONTOON && this.renderDealerPontoonActions()}
+        {dealerHand && this.renderDealerHandActions()}
+      </Fragment>
+    );
+  }
   render() {
-    const { classes, player, onChangePlayerName, onMakeDealer, dealerIdx,
-      onAllLoseDouble, onAllLose, onAllWin, gamePhase, onStartGameProper,
-      activeHandsInPlay, onDealerStick } = this.props;
+    const { classes, player, onChangePlayerName, onMakeDealer, dealerIdx, betweenRounds } = this.props;
     const { idx: playerIdx } = player;
     const isDealer = dealerIdx === playerIdx;
     return (
@@ -73,31 +101,28 @@ class RawPlayer extends React.Component {
               player={player}
             />
           ))}
-          {!isDealer && (gamePhase === ROUND_OVER || activeHandsInPlay === 0) && <Button onClick={onMakeDealer}>Make Dealer</Button>}
-          {isDealer && gamePhase === DEALER_PONTOON && <Button onClick={onAllLoseDouble}>Pontoon</Button>}
-          {isDealer && gamePhase === DEALER_PONTOON && <Button onClick={onStartGameProper}>Continue</Button>}
-          {isDealer && gamePhase === DEALER_HAND && activeHandsInPlay > 0 && <Button onClick={onDealerStick}>Stick</Button>}
-          {isDealer && gamePhase === DEALER_HAND && activeHandsInPlay > 0 && <Button onClick={onAllLose}>All Lose</Button>}
-          {isDealer && gamePhase === DEALER_HAND && activeHandsInPlay > 0 && <Button onClick={onAllWin}>Bust</Button>}
+          {!isDealer && betweenRounds && <Button onClick={onMakeDealer}>Make Dealer</Button>}
+          {isDealer && this.renderDealerActions()}
         </Paper>
       </Grid>
     );
   }
 }
 const mapStateToProps = state => ({
+  betweenRounds: isBetweenRounds(state),
+  dealerHand: isDealerHand(state),
   dealerIdx: getDealerIdx(state),
-  activeHandsInPlay: getActiveHandsInPlay(state),
   gamePhase: getPhase(state),
 });
 
 const dispatchToActions = {
-  onChangePlayerName: setPlayerName,
   onAllLose: allLose.bind(null, { multiple: 1 }),
   onAllLoseDouble: allLose.bind(null, { multiple: 2 }),
   onAllWin: allWin,
+  onChangePlayerName: setPlayerName,
+  onDealerStick: stick.bind(null, 0),
   onMakeDealer: makeDealer,
   onStartGameProper: startGameProper,
-  onDealerStick: stick.bind(null, 0),
 };
 
 export default connect(mapStateToProps, dispatchToActions)(withStyles(styles)(RawPlayer));

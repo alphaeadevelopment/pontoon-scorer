@@ -6,29 +6,29 @@ import Button from 'material-ui/Button';
 import Stake from './Stake';
 import { RESULTS, GAME_PLAY } from '../lib/constants/game-phases';
 import {
-  getDealerIdx,
   getCurrentPlayer,
   getCurrentPlayerHand,
+  getDealerIdx,
   getPhase,
 } from '../selectors';
 import {
   addPlayer,
-  newRound,
-  resetGame,
-  startGame,
-  setPlayerName,
-  setStake,
-  buyCard,
-  splitHand,
-  stick,
-  bustHand,
-  handWins,
-  handWinsDouble,
-  handLoses,
   allLose,
   allWin,
+  bustHand,
+  buyCard,
+  handLoses,
+  handWins,
+  handWinsDouble,
   makeDealer,
+  newRound,
+  resetGame,
+  setPlayerName,
+  setStake,
+  splitHand,
+  startGame,
   startGameProper,
+  stick,
 } from '../actions';
 
 const styles = theme => ({
@@ -47,30 +47,33 @@ const styles = theme => ({
 
 class RawHand extends React.Component {
   onSetStake = (stake) => {
-    this.props.onSetStake({ ...this.getActionId(), stake });
+    this.invokeActionOnPlayerHand(this.props.onSetStake, { stake });
   }
   onSplit = () => {
-    this.props.onSplit(this.getActionId());
+    this.invokeActionOnPlayerHand(this.props.onSplit);
   }
   onStick = () => {
-    this.props.onStick(this.getActionId());
+    this.invokeActionOnPlayerHand(this.props.onStick);
   }
   onWin = () => {
-    this.props.onWin(this.getActionId());
+    this.invokeActionOnPlayerHand(this.props.onWin);
   }
   onLose = () => {
-    this.props.onLose(this.getActionId());
+    this.invokeActionOnPlayerHand(this.props.onLose);
   }
   onBuyCard = (stake) => {
-    this.props.onBuyCard({ ...this.getActionId(), stake });
+    this.invokeActionOnPlayerHand(this.props.onBuyCard, { stake });
   }
   onWinDouble = () => {
-    this.props.onWinDouble(this.getActionId());
+    this.invokeActionOnPlayerHand(this.props.onWinDouble);
   }
   onBust = () => {
-    this.props.onBust(this.getActionId());
+    this.invokeActionOnPlayerHand(this.props.onBust);
   }
   getActionId = () => ({ playerIdx: this.props.player.idx, handIdx: this.props.idx })
+  invokeActionOnPlayerHand = (action, args = {}) => {
+    action.apply(null, [{ ...this.getActionId(), ...args }]);
+  }
   render() {
     const { classes, hand, idx: handIdx, player, dealerIdx, currentPlayer, currentPlayerHand, gamePhase } = this.props;
 
@@ -112,31 +115,31 @@ class RawHand extends React.Component {
   }
 }
 const mapStateToProps = state => ({
-  dealerIdx: getDealerIdx(state),
   currentPlayer: getCurrentPlayer(state),
   currentPlayerHand: getCurrentPlayerHand(state),
+  dealerIdx: getDealerIdx(state),
   gamePhase: getPhase(state),
 });
 
 const dispatchToActions = {
   onAddPlayer: addPlayer,
-  onNewRound: newRound,
-  onResetGame: resetGame,
-  onStartGame: startGame,
-  onChangePlayerName: setPlayerName,
-  onSetStake: setStake,
-  onBuyCard: buyCard,
-  onSplit: splitHand,
-  onStick: stick,
-  onBust: bustHand,
-  onWin: handWins,
-  onWinDouble: handWinsDouble,
-  onLose: handLoses,
   onAllLose: allLose.bind(null, { multiple: 1 }),
   onAllLoseDouble: allLose.bind(null, { multiple: 2 }),
   onAllWin: allWin,
+  onBust: bustHand,
+  onBuyCard: buyCard,
+  onChangePlayerName: setPlayerName,
+  onLose: handLoses,
   onMakeDealer: makeDealer,
+  onNewRound: newRound,
+  onResetGame: resetGame,
+  onSetStake: setStake,
+  onSplit: splitHand,
+  onStartGame: startGame,
   onStartGameProper: startGameProper,
+  onStick: stick,
+  onWin: handWins,
+  onWinDouble: handWinsDouble,
 };
 
 export default connect(mapStateToProps, dispatchToActions)(withStyles(styles)(RawHand));

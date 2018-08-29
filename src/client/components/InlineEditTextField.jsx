@@ -50,9 +50,9 @@ export class RawInlineEditTextField extends React.Component {
         {editing &&
           <TextField
             inputRef={this.onSetRef}
-            value={this.state.value}
-            onChange={this.onChange}
             onBlur={this.onBlur}
+            onChange={this.onChange}
+            value={this.state.value}
             {...props}
           />
         }

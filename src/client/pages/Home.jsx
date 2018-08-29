@@ -4,9 +4,10 @@ import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import { connect } from 'react-redux';
 import {
-  getPlayers,
-  activeHandsInPlay as getActiveHandsInPlay,
+  getActiveHandsInPlay,
   getCurrentPlayer,
+  getPlayers,
+  isBetweenRounds,
 } from '../selectors';
 import PlayersGrid from './PlayersGrid';
 import {
@@ -41,16 +42,29 @@ const styles = theme => ({
 export class RawHome extends React.Component {
   render() {
     const {
-      classes, players, currentPlayer, activeHandsInPlay, onAddPlayer, onStartGame, onNewRound, onResetGame } = this.props;
+      activeHandsInPlay,
+      betweenRounds,
+      classes,
+      currentPlayer,
+      onAddPlayer,
+      onNewRound,
+      onResetGame,
+      onStartGame,
+      players,
+    } = this.props;
     return (
       <div className={classes.root}>
         <div>
           <Grid container>
             <Grid item xs={12} sm={10} md={9}>
               <div>
-                <Button onClick={onAddPlayer}>Add Player</Button>
-                {currentPlayer === null && <Button disabled={players.length < 2} onClick={onStartGame}>Start Game</Button>}
-                {currentPlayer !== null && <Button disabled={activeHandsInPlay > 0} onClick={onNewRound}>New Round</Button>}
+                {betweenRounds && <Button onClick={onAddPlayer}>Add Player</Button>}
+                {currentPlayer === null &&
+                  <Button disabled={players.length < 2} onClick={onStartGame}>Start Game</Button>
+                }
+                {currentPlayer !== null &&
+                  <Button disabled={activeHandsInPlay > 0} onClick={onNewRound}>New Round</Button>
+                }
               </div>
               <PlayersGrid />
               <div>
@@ -74,9 +88,10 @@ export class RawHome extends React.Component {
   }
 }
 const mapStateToProps = state => ({
-  players: getPlayers(state),
   activeHandsInPlay: getActiveHandsInPlay(state),
+  betweenRounds: isBetweenRounds(state),
   currentPlayer: getCurrentPlayer(state),
+  players: getPlayers(state),
 });
 
 const dispatchToActions = {
