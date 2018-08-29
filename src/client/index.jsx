@@ -6,7 +6,6 @@ import { AppContainer } from 'react-hot-loader';
 import Root from './Root';
 
 const doRender = (Component) => {
-  console.log('rerender');
   const random = generateId();
   render(<AppContainer><Component __randomId={random} /></AppContainer>, document.getElementById('react-root'));
 };
