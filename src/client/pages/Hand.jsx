@@ -123,7 +123,7 @@ class RawHand extends React.Component {
     return (
       <Fragment>
         {this.isCurrentHand() && gamePhase === GAME_PLAY && this.renderGamePlayActions()}
-        {this.isCurrentHand() && gamePhase === RESULTS && this.renderResultsActions()}
+        {gamePhase === RESULTS && this.renderResultsActions()}
       </Fragment>
     );
   }
