@@ -61,8 +61,8 @@ class RawHand extends React.Component {
   onLose = () => {
     this.props.onLose(this.getActionId());
   }
-  onBuyCard = () => {
-    this.props.onBuyCard(this.getActionId());
+  onBuyCard = (stake) => {
+    this.props.onBuyCard({ ...this.getActionId(), stake });
   }
   onWinDouble = () => {
     this.props.onWinDouble(this.getActionId());
