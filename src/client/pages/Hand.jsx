@@ -1,9 +1,35 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import Stake from './Stake';
 import { RESULTS, GAME_PLAY } from '../lib/constants/game-phases';
+import {
+  getDealerIdx,
+  getCurrentPlayer,
+  getCurrentPlayerHand,
+  getPhase,
+} from '../selectors';
+import {
+  addPlayer,
+  newRound,
+  resetGame,
+  startGame,
+  setPlayerName,
+  setStake,
+  buyCard,
+  splitHand,
+  stick,
+  bustHand,
+  handWins,
+  handWinsDouble,
+  handLoses,
+  allLose,
+  allWin,
+  makeDealer,
+  startGameProper,
+} from '../actions';
 
 const styles = theme => ({
   root: {
@@ -20,42 +46,97 @@ const styles = theme => ({
 });
 
 class RawHand extends React.Component {
+  onSetStake = (stake) => {
+    this.props.onSetStake({ ...this.getActionId(), stake });
+  }
+  onSplit = () => {
+    this.props.onSplit(this.getActionId());
+  }
+  onStick = () => {
+    this.props.onStick(this.getActionId());
+  }
+  onWin = () => {
+    this.props.onWin(this.getActionId());
+  }
+  onLose = () => {
+    this.props.onLose(this.getActionId());
+  }
+  onBuyCard = () => {
+    this.props.onBuyCard(this.getActionId());
+  }
+  onWinDouble = () => {
+    this.props.onWinDouble(this.getActionId());
+  }
+  onBust = () => {
+    this.props.onBust(this.getActionId());
+  }
+  getActionId = () => ({ playerIdx: this.props.player.idx, handIdx: this.props.idx })
   render() {
-    const { isDealer, classes, initialStake, hand, onSetStake, onBuyCard, onSplit, onWin, onLose, onWinDouble, onStick,
-      isCurrentHand, gamePhase } = this.props;
+    const { classes, hand, idx: handIdx, player, dealerIdx, currentPlayer, currentPlayerHand, gamePhase } = this.props;
 
     if (!hand.active) return null;
+    const { initialStake, idx: playerIdx } = player;
+    const isDealer = playerIdx === dealerIdx;
+    const isCurrentPlayer = currentPlayer === playerIdx;
+    const isCurrentHand = isCurrentPlayer && handIdx === currentPlayerHand;
     return (
       <Paper className={classes.root}>
         {!isDealer &&
-          <Stake isCurrentHand={isCurrentHand} gamePhase={gamePhase} hand={hand} initialStake={initialStake} onSetStake={onSetStake} onBuyCard={onBuyCard} />
+          <Stake isCurrentHand={isCurrentHand} gamePhase={gamePhase} hand={hand} initialStake={initialStake} onSetStake={this.onSetStake} onBuyCard={this.onBuyCard} />
         }
         <div>
           {
             isCurrentHand && gamePhase === GAME_PLAY &&
-            <Button onClick={onSplit}>Split</Button>
+            <Button onClick={this.onSplit}>Split</Button>
           }
         </div>
         <div>
           {!isDealer && isCurrentHand && gamePhase === GAME_PLAY &&
-            <Button onClick={onStick}>Stick</Button>
+            <Button onClick={this.onStick}>Stick</Button>
           }
           {!isDealer && gamePhase === RESULTS &&
-            <Button onClick={onWin}>Win</Button>
+            <Button onClick={this.onWin}>Win</Button>
           }
           {!isDealer && gamePhase === RESULTS &&
-            <Button onClick={onLose}>Lose</Button>
+            <Button onClick={this.onLose}>Lose</Button>
           }
           {!isDealer && isCurrentHand && gamePhase === GAME_PLAY &&
-            <Button onClick={onLose}>Bust</Button>
+            <Button onClick={this.onLose}>Bust</Button>
           }
           {!isDealer && gamePhase === RESULTS &&
-            <Button onClick={onWinDouble}>Win x2</Button>
+            <Button onClick={this.onWinDouble}>Win x2</Button>
           }
         </div>
       </Paper>
     );
   }
 }
+const mapStateToProps = state => ({
+  dealerIdx: getDealerIdx(state),
+  currentPlayer: getCurrentPlayer(state),
+  currentPlayerHand: getCurrentPlayerHand(state),
+  gamePhase: getPhase(state),
+});
 
-export default withStyles(styles)(RawHand);
+const dispatchToActions = {
+  onAddPlayer: addPlayer,
+  onNewRound: newRound,
+  onResetGame: resetGame,
+  onStartGame: startGame,
+  onChangePlayerName: setPlayerName,
+  onSetStake: setStake,
+  onBuyCard: buyCard,
+  onSplit: splitHand,
+  onStick: stick,
+  onBust: bustHand,
+  onWin: handWins,
+  onWinDouble: handWinsDouble,
+  onLose: handLoses,
+  onAllLose: allLose.bind(null, { multiple: 1 }),
+  onAllLoseDouble: allLose.bind(null, { multiple: 2 }),
+  onAllWin: allWin,
+  onMakeDealer: makeDealer,
+  onStartGameProper: startGameProper,
+};
+
+export default connect(mapStateToProps, dispatchToActions)(withStyles(styles)(RawHand));

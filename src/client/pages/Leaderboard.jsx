@@ -2,6 +2,13 @@ import React from 'react';
 import sortBy from 'lodash/sortBy';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
+import { connect } from 'react-redux';
+import {
+  getPlayers,
+  getDealerIdx,
+} from '../selectors';
+import {
+} from '../actions';
 
 const styles = theme => ({
   root: {
@@ -14,14 +21,20 @@ const styles = theme => ({
 
 const sortPlayersByPot = players => sortBy(players, p => 0 - p.pot);
 
-export const RawLeaderboard = ({ classes, players, dealer }) => (
+export const RawLeaderboard = ({ classes, players, dealerIdx }) => (
   <div className={classes.root}>
     <Typography variant={'display1'}>Leaderboard</Typography>
     <ul>
       {sortPlayersByPot(players).map(p => (
-        <li key={p.idx}>{p.name}: {p.pot} {p.idx === dealer && <span>(Dealer)</span>}</li>
+        <li key={p.idx}>{p.name}: {p.pot} {p.idx === dealerIdx && <span>(Dealer)</span>}</li>
       ))}
     </ul>
   </div>
 );
-export default withStyles(styles)(RawLeaderboard);
+
+const mapStateToProps = state => ({
+  players: getPlayers(state),
+  dealerIdx: getDealerIdx(state),
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(RawLeaderboard));

@@ -1,8 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Grid from 'material-ui/Grid';
 import clone from 'lodash/clone';
 import { withStyles } from 'material-ui/styles';
 import Player from './Player';
+import {
+  getPlayers,
+  getDealerIdx,
+} from '../selectors';
 
 const styles = theme => ({
   root: {
@@ -21,33 +26,12 @@ const sortPlayers = (players, dealerIdx) => clone(players)
 class RawPlayersGrid extends React.Component {
   render() {
     const {
-      classes, players, dealerIdx, onChangePlayerName, onSetStake, onBuyCard, onSplit, onBust, onMakeDealer,
-      onWin, onLose, onWinDouble, onAllLose, onAllLoseDouble, onAllWin, onStick, gamePhase, onStartGameProper,
-      currentPlayer, currentPlayerHand, activeHandsInPlay } = this.props;
+      classes, players, dealerIdx } = this.props;
     return (
       <Grid container className={classes.root}>
         {sortPlayers(players, dealerIdx).map(p => (
           <Player
-            isDealer={dealerIdx === p.idx}
-            onChangeName={onChangePlayerName(p.idx)}
             key={p.idx}
-            onSetStake={onSetStake(p.idx)}
-            onBuyCard={onBuyCard(p.idx)}
-            onSplit={onSplit(p.idx)}
-            onStick={onStick(p.idx)}
-            onBust={onBust(p.idx)}
-            onWin={onWin(p.idx)}
-            onWinDouble={onWinDouble(p.idx)}
-            onLose={onLose(p.idx)}
-            onMakeDealer={onMakeDealer(p.idx)}
-            onAllLose={onAllLose}
-            onAllLoseDouble={onAllLoseDouble}
-            onAllWin={onAllWin}
-            onStartGameProper={onStartGameProper}
-            gamePhase={gamePhase}
-            currentPlayer={currentPlayer}
-            currentPlayerHand={currentPlayerHand}
-            activeHandsInPlay={activeHandsInPlay}
             player={p}
           />
         ))}
@@ -55,5 +39,9 @@ class RawPlayersGrid extends React.Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  players: getPlayers(state),
+  dealerIdx: getDealerIdx(state),
+});
 
-export default withStyles(styles)(RawPlayersGrid);
+export default connect(mapStateToProps)(withStyles(styles)(RawPlayersGrid));

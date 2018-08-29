@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
@@ -8,6 +9,19 @@ import Button from 'material-ui/Button';
 import Hand from './Hand';
 import { InlineEditTextField } from '../components';
 import { DEALER_PONTOON, DEALER_HAND, ROUND_OVER } from '../lib/constants/game-phases';
+import {
+  getDealerIdx,
+  activeHandsInPlay as getActiveHandsInPlay,
+  getPhase,
+} from '../selectors';
+import {
+  setPlayerName,
+  stick,
+  allLose,
+  allWin,
+  makeDealer,
+  startGameProper,
+} from '../actions';
 
 const styles = theme => ({
   root: {
@@ -29,11 +43,11 @@ const styles = theme => ({
 
 class RawPlayer extends React.Component {
   render() {
-    const { classes, player, isDealer, onChangeName, onSetStake, onBuyCard, onSplit, onBust, onMakeDealer,
-      onWin, onLose, onAllLoseDouble, onWinDouble, onAllLose, onAllWin, onStick, gamePhase, onStartGameProper,
-      currentPlayer, currentPlayerHand, activeHandsInPlay } = this.props;
+    const { classes, player, onChangePlayerName, onMakeDealer, dealerIdx,
+      onAllLoseDouble, onAllLose, onAllWin, gamePhase, onStartGameProper,
+      activeHandsInPlay, onDealerStick } = this.props;
     const { idx: playerIdx } = player;
-    const isCurrentPlayer = playerIdx === currentPlayer;
+    const isDealer = dealerIdx === playerIdx;
     return (
       <Grid
         item
@@ -48,31 +62,21 @@ class RawPlayer extends React.Component {
         >
           {isDealer && <Typography variant={'display1'}>Dealer</Typography>}
           <div className={classes.playerHeader}>
-            <InlineEditTextField value={player.name} onChange={onChangeName} />
+            <InlineEditTextField value={player.name} onChange={onChangePlayerName} />
             <Typography >{player.pot}</Typography>
           </div>
           {!isDealer && player.hands.map((h, handIdx) => (
             <Hand
-              isDealer={isDealer}
-              isCurrentHand={isCurrentPlayer && currentPlayerHand === handIdx}
               key={handIdx}
               hand={h}
-              initialStake={player.initialStake}
-              onBuyCard={onBuyCard(handIdx)}
-              onSetStake={onSetStake(handIdx)}
-              onSplit={onSplit(handIdx)}
-              onStick={onStick(handIdx)}
-              onBust={onBust(handIdx)}
-              onWin={onWin(handIdx)}
-              onWinDouble={onWinDouble(handIdx)}
-              gamePhase={gamePhase}
-              onLose={onLose(handIdx)}
+              idx={handIdx}
+              player={player}
             />
           ))}
           {!isDealer && (gamePhase === ROUND_OVER || activeHandsInPlay === 0) && <Button onClick={onMakeDealer}>Make Dealer</Button>}
           {isDealer && gamePhase === DEALER_PONTOON && <Button onClick={onAllLoseDouble}>Pontoon</Button>}
           {isDealer && gamePhase === DEALER_PONTOON && <Button onClick={onStartGameProper}>Continue</Button>}
-          {isDealer && gamePhase === DEALER_HAND && activeHandsInPlay > 0 && <Button onClick={onStick(0)}>Stick</Button>}
+          {isDealer && gamePhase === DEALER_HAND && activeHandsInPlay > 0 && <Button onClick={onDealerStick}>Stick</Button>}
           {isDealer && gamePhase === DEALER_HAND && activeHandsInPlay > 0 && <Button onClick={onAllLose}>All Lose</Button>}
           {isDealer && gamePhase === DEALER_HAND && activeHandsInPlay > 0 && <Button onClick={onAllWin}>Bust</Button>}
         </Paper>
@@ -80,5 +84,20 @@ class RawPlayer extends React.Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  dealerIdx: getDealerIdx(state),
+  activeHandsInPlay: getActiveHandsInPlay(state),
+  gamePhase: getPhase(state),
+});
 
-export default withStyles(styles)(RawPlayer);
+const dispatchToActions = {
+  onChangePlayerName: setPlayerName,
+  onAllLose: allLose.bind(null, { multiple: 1 }),
+  onAllLoseDouble: allLose.bind(null, { multiple: 2 }),
+  onAllWin: allWin,
+  onMakeDealer: makeDealer,
+  onStartGameProper: startGameProper,
+  onDealerStick: stick.bind(null, 0),
+};
+
+export default connect(mapStateToProps, dispatchToActions)(withStyles(styles)(RawPlayer));
