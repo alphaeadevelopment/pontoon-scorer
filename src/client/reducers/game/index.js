@@ -1,14 +1,21 @@
 import update from 'immutability-helper';
-import * as Types from '../actions/types';
+import * as Types from '../../actions/types';
+import { firstPlayer, getGamePhaseAfterSetStake, getPlayerAfterSetStake } from './helpers';
+import { nextHand as updateNextHand } from './updaters';
+import { ADD_PLAYERS, SET_STAKE, GAME_PLAY, ROUND_OVER } from '../../lib/constants/game-phases';
 
 const initial = {
   players: [],
   dealer: null,
+  currentPlayer: null,
+  currentPlayerHand: null,
+  phase: ADD_PLAYERS,
 };
 const STARTING_POT = 15;
 
 const newHand = stake => ({
   stake,
+  active: true,
 });
 
 const resetHands = player => ({
@@ -63,6 +70,7 @@ const newPlayer = idx => ({
   initialStake: null,
   idx,
 });
+
 export default (state = initial, { type, payload }) => {
   switch (type) {
     case Types.ADD_PLAYER:
@@ -73,9 +81,16 @@ export default (state = initial, { type, payload }) => {
     case Types.NEW_ROUND:
       return update(state, {
         players: { $apply: players => players.map(p => resetHands(p)) },
+        phase: { $set: SET_STAKE },
+        currentPlayer: { $set: firstPlayer(state) },
+        currentPlayerHand: { $set: 0 },
       });
     case Types.RESET_GAME:
       return initial;
+    case Types.START_GAME:
+      return update(state, { phase: { $set: SET_STAKE }, currentPlayer: { $set: firstPlayer(state) }, currentPlayerHand: { $set: 0 } });
+    case Types.STICK_HAND:
+      return update(state, { ...updateNextHand(state) });
     case Types.SET_PLAYER_NAME:
       return update(state, { players: { [payload.playerIdx]: { name: { $set: payload.name } } } });
     case Types.SET_STAKE:
@@ -86,6 +101,8 @@ export default (state = initial, { type, payload }) => {
             hands: { [payload.handIdx]: { stake: { $set: Number(payload.stake) } } },
           },
         },
+        currentPlayer: { $set: getPlayerAfterSetStake(state) },
+        phase: { $apply: currentPhase => getGamePhaseAfterSetStake(currentPhase, state) },
       });
     case Types.BUY_CARD:
       return update(state, {
@@ -116,6 +133,7 @@ export default (state = initial, { type, payload }) => {
       });
     case Types.BUST_HAND:
       return update(state, {
+        ...updateNextHand(state),
         players: {
           [payload.playerIdx]: {
             pot: { $apply: pot => pot - Number(state.players[payload.playerIdx].hands[payload.handIdx].stake) },
@@ -128,10 +146,11 @@ export default (state = initial, { type, payload }) => {
       });
     case Types.HAND_WINS:
       return update(state, {
+        ...updateNextHand(state),
         players: {
           [payload.playerIdx]: {
             pot: { $apply: pot => pot + Number(state.players[payload.playerIdx].hands[payload.handIdx].stake) },
-            hands: { $splice: [[payload.handIdx, 1]] },
+            hands: { [payload.handIdx]: { active: { $set: false } } },
           },
           [state.dealer]: {
             pot: { $apply: pot => pot - Number(state.players[payload.playerIdx].hands[payload.handIdx].stake) },
@@ -140,10 +159,11 @@ export default (state = initial, { type, payload }) => {
       });
     case Types.HAND_WINS_DOUBLE:
       return update(state, {
+        ...updateNextHand(state),
         players: {
           [payload.playerIdx]: {
             pot: { $apply: pot => pot + (Number(state.players[payload.playerIdx].hands[payload.handIdx].stake) * 2) },
-            hands: { $splice: [[payload.handIdx, 1]] },
+            hands: { [payload.handIdx]: { active: { $set: false } } },
           },
           [state.dealer]: {
             pot: { $apply: pot => pot - (Number(state.players[payload.playerIdx].hands[payload.handIdx].stake) * 2) },
@@ -152,10 +172,11 @@ export default (state = initial, { type, payload }) => {
       });
     case Types.HAND_LOSES:
       return update(state, {
+        ...updateNextHand(state),
         players: {
           [payload.playerIdx]: {
             pot: { $apply: pot => pot - Number(state.players[payload.playerIdx].hands[payload.handIdx].stake) },
-            hands: { $splice: [[payload.handIdx, 1]] },
+            hands: { [payload.handIdx]: { active: { $set: false } } },
           },
           [state.dealer]: {
             pot: { $apply: pot => pot + Number(state.players[payload.playerIdx].hands[payload.handIdx].stake) },
@@ -179,10 +200,18 @@ export default (state = initial, { type, payload }) => {
     case Types.ALL_LOSE:
       return update(state, {
         players: { $set: updateAllHands(state, true, payload.multiple) },
+        phase: { $set: ROUND_OVER },
       });
     case Types.ALL_WIN:
       return update(state, {
         players: { $set: updateAllHands(state, false, 1) },
+        phase: { $set: ROUND_OVER },
+      });
+    case Types.START_GAME_PROPER:
+      return update(state, {
+        phase: { $set: GAME_PLAY },
+        currentPlayer: { $set: firstPlayer(state) },
+        currentPlayerHand: { $set: 0 },
       });
     default:
       return state;

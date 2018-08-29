@@ -3,6 +3,7 @@ import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import Stake from './Stake';
+import { RESULTS, GAME_PLAY } from '../lib/constants/game-phases';
 
 const styles = theme => ({
   root: {
@@ -20,23 +21,35 @@ const styles = theme => ({
 
 class RawHand extends React.Component {
   render() {
-    const { isDealer, classes, initialStake, hand, onSetStake, onBuyCard, onSplit, onWin, onLose, onWinDouble } = this.props;
+    const { isDealer, classes, initialStake, hand, onSetStake, onBuyCard, onSplit, onWin, onLose, onWinDouble, onStick,
+      isCurrentHand, gamePhase } = this.props;
+
+    if (!hand.active) return null;
     return (
       <Paper className={classes.root}>
         {!isDealer &&
-          <Stake hand={hand} initialStake={initialStake} onSetStake={onSetStake} onBuyCard={onBuyCard} />
+          <Stake isCurrentHand={isCurrentHand} gamePhase={gamePhase} hand={hand} initialStake={initialStake} onSetStake={onSetStake} onBuyCard={onBuyCard} />
         }
         <div>
-          <Button onClick={onSplit}>Split</Button>
+          {
+            isCurrentHand && gamePhase === GAME_PLAY &&
+            <Button onClick={onSplit}>Split</Button>
+          }
         </div>
         <div>
-          {!isDealer &&
+          {!isDealer && isCurrentHand && gamePhase === GAME_PLAY &&
+            <Button onClick={onStick}>Stick</Button>
+          }
+          {!isDealer && gamePhase === RESULTS &&
             <Button onClick={onWin}>Win</Button>
           }
-          {!isDealer &&
+          {!isDealer && gamePhase === RESULTS &&
             <Button onClick={onLose}>Lose</Button>
           }
-          {!isDealer &&
+          {!isDealer && isCurrentHand && gamePhase === GAME_PLAY &&
+            <Button onClick={onLose}>Bust</Button>
+          }
+          {!isDealer && gamePhase === RESULTS &&
             <Button onClick={onWinDouble}>Win x2</Button>
           }
         </div>

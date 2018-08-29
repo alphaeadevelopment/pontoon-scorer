@@ -39,7 +39,7 @@ export class RawInlineEditTextField extends React.Component {
     if (this.ref) {
       this.ref.focus();
       if (this.ref.select) this.ref.select();
-      if (this.ref.setSelectionRange) this.ref.setSelectionRange(0, this.state.value.length);
+      if (this.ref.setSelectionRange) this.ref.setSelectionRange(0, this.state.value.length + 1);
     }
   }
   render() {

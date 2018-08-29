@@ -22,7 +22,8 @@ class RawPlayersGrid extends React.Component {
   render() {
     const {
       classes, players, dealerIdx, onChangePlayerName, onSetStake, onBuyCard, onSplit, onBust, onMakeDealer,
-      onWin, onLose, onWinDouble, onAllLose, onAllLoseDouble, onAllWin } = this.props;
+      onWin, onLose, onWinDouble, onAllLose, onAllLoseDouble, onAllWin, onStick, gamePhase, onStartGameProper,
+      currentPlayer, currentPlayerHand, activeHandsInPlay } = this.props;
     return (
       <Grid container className={classes.root}>
         {sortPlayers(players, dealerIdx).map(p => (
@@ -33,6 +34,7 @@ class RawPlayersGrid extends React.Component {
             onSetStake={onSetStake(p.idx)}
             onBuyCard={onBuyCard(p.idx)}
             onSplit={onSplit(p.idx)}
+            onStick={onStick(p.idx)}
             onBust={onBust(p.idx)}
             onWin={onWin(p.idx)}
             onWinDouble={onWinDouble(p.idx)}
@@ -41,6 +43,11 @@ class RawPlayersGrid extends React.Component {
             onAllLose={onAllLose}
             onAllLoseDouble={onAllLoseDouble}
             onAllWin={onAllWin}
+            onStartGameProper={onStartGameProper}
+            gamePhase={gamePhase}
+            currentPlayer={currentPlayer}
+            currentPlayerHand={currentPlayerHand}
+            activeHandsInPlay={activeHandsInPlay}
             player={p}
           />
         ))}

@@ -4,6 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import { InlineEditTextField } from '../components';
+import { GAME_PLAY, SET_STAKE } from '../lib/constants/game-phases';
 
 const getMinimum = (initialStake) => {
   if (initialStake) {
@@ -83,7 +84,7 @@ class RawStake extends React.Component {
     }
   }
   render() {
-    const { classes, hand } = this.props;
+    const { classes, hand, gamePhase, isCurrentHand } = this.props;
     const { value, minimum, maximum, error } = this.state;
     return (
       <div className={classes.root}>
@@ -94,8 +95,8 @@ class RawStake extends React.Component {
           value={value}
           onChange={this.onChange}
         />
-        {hand.stake === 0 && <Button onClick={this.onSetStake}>Set Stake</Button>}
-        {hand.stake > 0 &&
+        {gamePhase === SET_STAKE && hand.stake === 0 && isCurrentHand && <Button onClick={this.onSetStake}>Set Stake</Button>}
+        {gamePhase === GAME_PLAY && hand.stake > 0 && isCurrentHand &&
           <Button onClick={this.onBuyCard}>
             Buy Card ({minimum}-{maximum})
           </Button>

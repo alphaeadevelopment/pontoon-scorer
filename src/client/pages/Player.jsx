@@ -7,6 +7,7 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Hand from './Hand';
 import { InlineEditTextField } from '../components';
+import { DEALER_PONTOON, DEALER_HAND, ROUND_OVER } from '../lib/constants/game-phases';
 
 const styles = theme => ({
   root: {
@@ -29,7 +30,10 @@ const styles = theme => ({
 class RawPlayer extends React.Component {
   render() {
     const { classes, player, isDealer, onChangeName, onSetStake, onBuyCard, onSplit, onBust, onMakeDealer,
-      onWin, onLose, onAllLoseDouble, onWinDouble, onAllLose, onAllWin } = this.props;
+      onWin, onLose, onAllLoseDouble, onWinDouble, onAllLose, onAllWin, onStick, gamePhase, onStartGameProper,
+      currentPlayer, currentPlayerHand, activeHandsInPlay } = this.props;
+    const { idx: playerIdx } = player;
+    const isCurrentPlayer = playerIdx === currentPlayer;
     return (
       <Grid
         item
@@ -50,22 +54,27 @@ class RawPlayer extends React.Component {
           {!isDealer && player.hands.map((h, handIdx) => (
             <Hand
               isDealer={isDealer}
+              isCurrentHand={isCurrentPlayer && currentPlayerHand === handIdx}
               key={handIdx}
               hand={h}
               initialStake={player.initialStake}
               onBuyCard={onBuyCard(handIdx)}
               onSetStake={onSetStake(handIdx)}
               onSplit={onSplit(handIdx)}
+              onStick={onStick(handIdx)}
               onBust={onBust(handIdx)}
               onWin={onWin(handIdx)}
               onWinDouble={onWinDouble(handIdx)}
+              gamePhase={gamePhase}
               onLose={onLose(handIdx)}
             />
           ))}
-          {!isDealer && <Button onClick={onMakeDealer}>Make Dealer</Button>}
-          {isDealer && <Button onClick={onAllLoseDouble}>Pontoon / All Lose Double</Button>}
-          {isDealer && <Button onClick={onAllLose}>All Lose</Button>}
-          {isDealer && <Button onClick={onAllWin}>Bust / All Win</Button>}
+          {!isDealer && (gamePhase === ROUND_OVER || activeHandsInPlay === 0) && <Button onClick={onMakeDealer}>Make Dealer</Button>}
+          {isDealer && gamePhase === DEALER_PONTOON && <Button onClick={onAllLoseDouble}>Pontoon</Button>}
+          {isDealer && gamePhase === DEALER_PONTOON && <Button onClick={onStartGameProper}>Continue</Button>}
+          {isDealer && gamePhase === DEALER_HAND && activeHandsInPlay > 0 && <Button onClick={onStick(0)}>Stick</Button>}
+          {isDealer && gamePhase === DEALER_HAND && activeHandsInPlay > 0 && <Button onClick={onAllLose}>All Lose</Button>}
+          {isDealer && gamePhase === DEALER_HAND && activeHandsInPlay > 0 && <Button onClick={onAllWin}>Bust</Button>}
         </Paper>
       </Grid>
     );

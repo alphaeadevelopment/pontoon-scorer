@@ -2,8 +2,10 @@ import { createAction } from 'redux-actions';
 import * as Types from './types';
 
 export const addPlayer = createAction(Types.ADD_PLAYER);
+export const stick = createAction(Types.STICK_HAND);
 export const newRound = createAction(Types.NEW_ROUND);
 export const resetGame = createAction(Types.RESET_GAME);
+export const startGame = createAction(Types.START_GAME);
 export const setPlayerName = createAction(Types.SET_PLAYER_NAME);
 export const setStake = createAction(Types.SET_STAKE);
 export const buyCard = createAction(Types.BUY_CARD);
@@ -15,3 +17,4 @@ export const handLoses = createAction(Types.HAND_LOSES);
 export const makeDealer = createAction(Types.MAKE_DEALER);
 export const allLose = createAction(Types.ALL_LOSE);
 export const allWin = createAction(Types.ALL_WIN);
+export const startGameProper = createAction(Types.START_GAME_PROPER);
