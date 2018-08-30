@@ -15,10 +15,8 @@ const VENDOR_LIBS = [
   'babel-register',
   'classnames',
   'immutability-helper',
-  'lodash',
   'material-ui-icons',
   'material-ui',
-  'moment',
   'react-dom',
   'react-hot-loader',
   'react-redux',
@@ -175,10 +173,10 @@ else {
     //     },
     //   },
     // }),
-    // new BundleAnalyzerPlugin({
-    //   analyzerMode: 'server',
-    //   openAnalyzer: false,
-    // }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'server',
+      openAnalyzer: false,
+    }),
   );
   config.entry.main.splice(0, 0, 'webpack-hot-middleware/client');
   // config.module.rules.push(
