@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import Stake from './Stake';
@@ -30,6 +29,7 @@ import {
   startGameProper,
   stick,
 } from '../actions';
+import { Card } from '../components';
 
 const styles = theme => ({
   root: {
@@ -136,7 +136,7 @@ class RawHand extends React.Component {
     const isCurrentPlayer = currentPlayer === playerIdx;
     const isCurrentHand = isCurrentPlayer && handIdx === currentPlayerHand;
     return (
-      <Paper className={classes.root}>
+      <Card className={classes.root}>
         {!isDealer &&
           <Stake
             isCurrentHand={isCurrentHand}
@@ -156,7 +156,7 @@ class RawHand extends React.Component {
           }
           {!isDealer && this.renderPlayerActions()}
         </div>
-      </Paper>
+      </Card>
     );
   }
 }

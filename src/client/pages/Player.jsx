@@ -2,12 +2,11 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import Grid from 'material-ui/Grid';
-import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Hand from './Hand';
-import { InlineEditTextField } from '../components';
+import { InlineEditTextField, Card } from '../components';
 import { DEALER_PONTOON } from '../lib/constants/game-phases';
 import {
   getDealerIdx,
@@ -111,7 +110,7 @@ class RawPlayer extends React.Component {
         lg={isDealer ? 12 : 3}
         className={classes.root}
       >
-        <Paper
+        <Card
           className={classNames({ [classes.negative]: player.pot < 0 })}
         >
           {isDealer &&
@@ -135,7 +134,7 @@ class RawPlayer extends React.Component {
           ))}
           {!isDealer && this.renderPlayerActions()}
           {isDealer && this.renderDealerActions()}
-        </Paper>
+        </Card>
       </Grid>
     );
   }
