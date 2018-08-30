@@ -30,7 +30,9 @@ export class RawConfirmButton extends React.Component {
     const { children, message = 'Confirm?', title = 'Confirmation', onConfirm, onCancel, ...rest } = this.props;
     return (
       <div>
-        <Button onClick={this.onClickButton} {...rest}>{children}</Button>
+        <Button onClick={this.onClickButton} {...rest}>
+          {children}
+        </Button>
         <Dialog
           disableBackdropClick
           disableEscapeKeyDown
@@ -39,9 +41,13 @@ export class RawConfirmButton extends React.Component {
           aria-labelledby='confirmation-dialog-title'
           open={showConfirm}
         >
-          <DialogTitle id='confirmation-dialog-title'>{title}</DialogTitle>
+          <DialogTitle id='confirmation-dialog-title'>
+            {title}
+          </DialogTitle>
           <DialogContent>
-            <Typography>{message}</Typography>
+            <Typography>
+              {message}
+            </Typography>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.onCancel} color='primary'>
