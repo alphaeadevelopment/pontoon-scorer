@@ -1,3 +1,4 @@
+/* globals window */
 import React from 'react';
 import injectSheet from 'react-jss';
 import Button from 'material-ui/Button';
@@ -7,6 +8,7 @@ import {
   getCurrentPlayer,
   getPlayers,
   isBetweenRounds,
+  getPhase,
 } from '../selectors';
 import PlayersGrid from './PlayersGrid';
 import {
@@ -16,6 +18,7 @@ import {
   startGame,
 } from '../actions';
 import { ConfirmButton } from '../components';
+import { ROUND_OVER } from '../lib/constants/game-phases';
 
 const styles = theme => ({
   root: {
@@ -37,7 +40,30 @@ const styles = theme => ({
     'background': 'lightgrey',
   },
 });
-export class RawHome extends React.Component {
+@connect(
+  state => ({
+    activeHandsInPlay: getActiveHandsInPlay(state),
+    betweenRounds: isBetweenRounds(state),
+    currentPlayer: getCurrentPlayer(state),
+    players: getPlayers(state),
+    phase: getPhase(state),
+  }),
+  {
+    onAddPlayer: addPlayer,
+    onNewRound: newRound,
+    onResetGame: resetGame,
+    onStartGame: startGame,
+  },
+)
+@injectSheet(styles)
+export class Home extends React.Component {
+  componentWillReceiveProps(nextProps) {
+    const { phase: currentPhase } = this.props;
+    const { phase: nextPhase } = nextProps;
+    if (nextPhase === ROUND_OVER && nextPhase !== currentPhase) {
+      window.scrollTo(0, 0);
+    }
+  }
   render() {
     const {
       activeHandsInPlay,
@@ -82,18 +108,5 @@ export class RawHome extends React.Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  activeHandsInPlay: getActiveHandsInPlay(state),
-  betweenRounds: isBetweenRounds(state),
-  currentPlayer: getCurrentPlayer(state),
-  players: getPlayers(state),
-});
 
-const dispatchToActions = {
-  onAddPlayer: addPlayer,
-  onNewRound: newRound,
-  onResetGame: resetGame,
-  onStartGame: startGame,
-};
-
-export default connect(mapStateToProps, dispatchToActions)(injectSheet(styles)(RawHome));
+export default Home;

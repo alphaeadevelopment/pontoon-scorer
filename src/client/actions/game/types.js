@@ -14,5 +14,6 @@ export const HAND_LOSES = 'HAND_LOSES';
 export const MAKE_DEALER = 'MAKE_DEALER';
 export const ALL_LOSE = 'ALL_LOSE';
 export const ALL_WIN = 'ALL_WIN';
+export const END_ROUND = 'END_ROUND';
 export const START_GAME_PROPER = 'START_GAME_PROPER';
 

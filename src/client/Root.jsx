@@ -16,6 +16,7 @@ import theme from './styles/theme';
 import reducer from './reducers';
 import { App, WindowEventProvider } from './containers';
 import './styles/main.scss';
+import subscribeListeners from './listeners';
 
 const jss = createJss(preset(), jssNested());
 
@@ -37,6 +38,7 @@ const store = createStore(
   preloadedState,
   composeEnhancers(applyMiddleware(...middleware)),
 );
+subscribeListeners(store);
 
 // const generateClassName = createGenerateClassName();
 

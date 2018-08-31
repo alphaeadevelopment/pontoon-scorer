@@ -85,6 +85,12 @@ export default (state = initial, { type, payload }) => {
         currentPlayer: { $set: firstPlayer(state) },
         currentPlayerHand: { $set: 0 },
       });
+    case Types.END_ROUND:
+      return update(state, {
+        phase: { $set: ROUND_OVER },
+        currentPlayer: { $set: 0 },
+        currentPlayerHand: { $set: 0 },
+      });
     case Types.RESET_GAME:
       return initial;
     case Types.START_GAME:

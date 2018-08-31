@@ -5,7 +5,6 @@ import Button from 'material-ui/Button';
 import Stake from './Stake';
 import { RESULTS, GAME_PLAY } from '../lib/constants/game-phases';
 import {
-  getCurrentPlayer,
   getCurrentPlayerHand,
   getDealerIdx,
   getPhase,
@@ -82,16 +81,10 @@ class RawHand extends React.Component {
 
     return playerIdx === dealerIdx;
   }
-  isCurrentPlayer = () => {
-    const { player, currentPlayer } = this.props;
-    const { idx: playerIdx } = player;
-
-    return currentPlayer === playerIdx;
-  }
   isCurrentHand = () => {
-    const { idx: handIdx, currentPlayerHand } = this.props;
+    const { idx: handIdx, currentPlayerHand, isCurrentPlayer } = this.props;
 
-    return this.isCurrentPlayer() && handIdx === currentPlayerHand;
+    return isCurrentPlayer && handIdx === currentPlayerHand;
   }
   renderGamePlayActions = () => (
     <Fragment>
@@ -128,12 +121,11 @@ class RawHand extends React.Component {
     );
   }
   render() {
-    const { classes, hand, idx: handIdx, player, dealerIdx, currentPlayer, currentPlayerHand, gamePhase } = this.props;
+    const { classes, hand, idx: handIdx, player, dealerIdx, isCurrentPlayer, currentPlayerHand, gamePhase } = this.props;
 
     if (!hand.active) return null;
     const { initialStake, idx: playerIdx } = player;
     const isDealer = playerIdx === dealerIdx;
-    const isCurrentPlayer = currentPlayer === playerIdx;
     const isCurrentHand = isCurrentPlayer && handIdx === currentPlayerHand;
     return (
       <Card className={classes.root}>
@@ -161,7 +153,6 @@ class RawHand extends React.Component {
   }
 }
 const mapStateToProps = state => ({
-  currentPlayer: getCurrentPlayer(state),
   currentPlayerHand: getCurrentPlayerHand(state),
   dealerIdx: getDealerIdx(state),
   gamePhase: getPhase(state),

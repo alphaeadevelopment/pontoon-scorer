@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { ROUND_OVER, DEALER_HAND } from '../lib/constants/game-phases';
+import { ROUND_OVER, DEALER_HAND, ADD_PLAYERS } from '../lib/constants/game-phases';
 
 export const getGame = state => state.game;
 
@@ -25,8 +25,8 @@ export const getAllPlayerHands = createSelector(
 export const getHandsInPlay = createSelector(getAllHands, h => h.length);
 export const getActiveHandsInPlay = createSelector(getAllPlayerHands, h => h.filter(hh => hh.active).length);
 export const isBetweenRounds = createSelector(
-  [getActiveHandsInPlay, getPhase],
-  (activeHandsInPlay, phase) => phase === ROUND_OVER || activeHandsInPlay === 0);
+  [getPhase],
+  phase => phase === ROUND_OVER || phase === ADD_PLAYERS);
 export const isDealerHand = createSelector(
   [getActiveHandsInPlay, getPhase],
   (activeHandsInPlay, phase) => phase === DEALER_HAND && activeHandsInPlay > 0);

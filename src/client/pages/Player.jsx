@@ -1,3 +1,4 @@
+/* globals window */
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
@@ -8,6 +9,7 @@ import Hand from './Hand';
 import { InlineEditTextField, Card, Grid } from '../components';
 import { DEALER_PONTOON } from '../lib/constants/game-phases';
 import {
+  getCurrentPlayer,
   getDealerIdx,
   getPhase,
   isBetweenRounds,
@@ -39,11 +41,50 @@ const styles = theme => ({
     background: '#f98f8f',
   },
 });
-
-class RawPlayer extends React.Component {
+@connect(
+  state => ({
+    betweenRounds: isBetweenRounds(state),
+    dealerHand: isDealerHand(state),
+    dealerIdx: getDealerIdx(state),
+    gamePhase: getPhase(state),
+    currentPlayer: getCurrentPlayer(state),
+  }),
+  {
+    onAllLose: allLose.bind(null, { multiple: 1 }),
+    onAllLoseDouble: allLose.bind(null, { multiple: 2 }),
+    onAllWin: allWin,
+    onChangePlayerName: setPlayerName,
+    onDealerStick: stick.bind(null, 0),
+    onMakeDealer: makeDealer,
+    onStartGameProper: startGameProper,
+  })
+@injectSheet(styles)
+class Player extends React.Component {
+  constructor(props) {
+    super(props);
+    this.ref = React.createRef();
+  }
+  componentWillReceiveProps(nextProps) {
+    const wasCurrentPlayer = this.isCurrentPlayer(this.props);
+    const willBeCurrentPlayer = this.isCurrentPlayer(nextProps);
+    if (!wasCurrentPlayer && willBeCurrentPlayer) {
+      window.scrollTo(this.ref.current.offsetLeft, this.ref.current.offsetTop);
+    }
+  }
   onMakeDealer = () => {
     const { onMakeDealer, player } = this.props;
     onMakeDealer(player.idx);
+  }
+  isDealer = () => {
+    const { player, dealerIdx } = this.props;
+    const { idx: playerIdx } = player;
+    return dealerIdx === playerIdx;
+  }
+  isCurrentPlayer = (propData = this.props) => {
+    const { player, currentPlayer } = propData;
+    const { idx: playerIdx } = player;
+
+    return currentPlayer === playerIdx;
   }
   renderDealerHandActions = () => {
     const { onAllLose, onAllWin, onDealerStick } = this.props;
@@ -97,9 +138,8 @@ class RawPlayer extends React.Component {
     );
   }
   render() {
-    const { classes, player, onChangePlayerName, dealerIdx } = this.props;
-    const { idx: playerIdx } = player;
-    const isDealer = dealerIdx === playerIdx;
+    const { classes, player, onChangePlayerName } = this.props;
+    const isDealer = this.isDealer();
     return (
       <Grid
         item
@@ -109,6 +149,7 @@ class RawPlayer extends React.Component {
         lg={isDealer ? 12 : 3}
         xl={isDealer ? 12 : 2}
         className={classes.root}
+        ref={this.ref}
       >
         <Card
           className={classNames({ [classes.negative]: player.pot < 0 })}
@@ -126,6 +167,7 @@ class RawPlayer extends React.Component {
           </div>
           {!isDealer && player.hands.map((h, handIdx) => (
             <Hand
+              isCurrentPlayer={this.isCurrentPlayer()}
               key={handIdx}
               hand={h}
               idx={handIdx}
@@ -139,21 +181,5 @@ class RawPlayer extends React.Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  betweenRounds: isBetweenRounds(state),
-  dealerHand: isDealerHand(state),
-  dealerIdx: getDealerIdx(state),
-  gamePhase: getPhase(state),
-});
 
-const dispatchToActions = {
-  onAllLose: allLose.bind(null, { multiple: 1 }),
-  onAllLoseDouble: allLose.bind(null, { multiple: 2 }),
-  onAllWin: allWin,
-  onChangePlayerName: setPlayerName,
-  onDealerStick: stick.bind(null, 0),
-  onMakeDealer: makeDealer,
-  onStartGameProper: startGameProper,
-};
-
-export default connect(mapStateToProps, dispatchToActions)(injectSheet(styles)(RawPlayer));
+export default Player;

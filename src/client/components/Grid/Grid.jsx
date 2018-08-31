@@ -3,9 +3,9 @@ import GridContainer from './GridContainer';
 import GridItem from './GridItem';
 
 
-const RawGrid = ({ container, item, ...props }) => {
+const Grid = ({ container, item, ...props }) => {
   if (container) return <GridContainer {...props} />;
   if (item) return <GridItem {...props} />;
   return null;
 };
-export default RawGrid;
+export default React.forwardRef((props, ref) => <Grid forwardedRef={ref} {...props} />);

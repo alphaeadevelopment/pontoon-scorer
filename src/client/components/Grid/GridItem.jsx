@@ -41,7 +41,7 @@ const getGridClasses = ({ classes, className, minSm, minMd, minLg, minXl }) =>
 const RawGridItem = (props) => {
   const gridClasses = getGridClasses(props);
   return (
-    <div className={gridClasses}>
+    <div className={gridClasses} ref={props.forwardedRef}>
       {props.children}
     </div>
   );
