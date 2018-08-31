@@ -18,7 +18,7 @@ class WindowEventProvider extends Component {
   }
   updateSize = () => {
     const { onResize } = this.props;
-    onResize({ width: window.screen.availWidth, height: window.screen.availHeight });
+    onResize({ width: window.innerWidth, height: window.innerHeight });
   }
   render() {
     return (

@@ -11,8 +11,7 @@ const styles = theme => ({
     'background': theme.palette.primary.dark,
     '&>div': {
       'display': 'flex',
-      'flex-direction': 'row-reverse',
-      'justifyContent': 'space-between',
+      'justifyContent': 'flex-start',
       'width': '100%',
       'margin': theme.spacing.unit,
       'padding': `${theme.spacing.unit * 2}px`,
@@ -21,11 +20,15 @@ const styles = theme => ({
       },
     },
   },
+  title: {
+    'line-height': '40px',
+  },
   menuIcon: {
-    fill: 'white',
-    width: '40px',
-    height: '40px',
-    cursor: 'pointer',
+    'fill': 'white',
+    'width': '40px',
+    'height': '40px',
+    'cursor': 'pointer',
+    'margin-right': '40px',
   },
 });
 @connect(() => ({}), {
@@ -42,12 +45,12 @@ class RawHeader extends React.Component {
     return (
       <div className={classes.root}>
         <div>
-          <Typography variant={'display2'}>
+          <Ionicon className={classes.menuIcon} icon={'md-menu'} onClick={this.showMenuDrawer} />
+          <Typography className={classes.title} variant={'display2'}>
             <a href={'/'}>
-              Pontoon Scoxrer
+              Pontoon Scorer
             </a>
           </Typography>
-          <Ionicon className={classes.menuIcon} icon={'md-menu'} onClick={this.showMenuDrawer} />
         </div>
       </div>
     );

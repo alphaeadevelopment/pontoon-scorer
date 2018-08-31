@@ -104,9 +104,10 @@ class RawPlayer extends React.Component {
       <Grid
         item
         xs={isDealer ? 12 : 12}
-        sm={isDealer ? 12 : 6}
+        sm={isDealer ? 12 : 12}
         md={isDealer ? 12 : 4}
         lg={isDealer ? 12 : 3}
+        xl={isDealer ? 12 : 2}
         className={classes.root}
       >
         <Card
