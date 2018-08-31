@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import game from './game';
-import viewport from './viewport';
 import errors from './errors';
+import game from './game';
+import modal from './modal';
+import viewport from './viewport';
 
 export default combineReducers({
-  game,
   errors,
+  game,
+  modal,
   viewport,
 });
