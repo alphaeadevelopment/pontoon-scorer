@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
+import injectSheet from 'react-jss';
 import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
@@ -62,4 +62,4 @@ export class RawConfirmButton extends React.Component {
     );
   }
 }
-export default withStyles(styles)(RawConfirmButton);
+export default injectSheet(styles)(RawConfirmButton);

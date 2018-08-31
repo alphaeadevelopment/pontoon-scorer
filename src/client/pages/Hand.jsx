@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { withStyles } from 'material-ui/styles';
+import injectSheet from 'react-jss';
 import Button from 'material-ui/Button';
 import Stake from './Stake';
 import { RESULTS, GAME_PLAY } from '../lib/constants/game-phases';
@@ -188,4 +188,4 @@ const dispatchToActions = {
   onWinDouble: handWinsDouble,
 };
 
-export default connect(mapStateToProps, dispatchToActions)(withStyles(styles)(RawHand));
+export default connect(mapStateToProps, dispatchToActions)(injectSheet(styles)(RawHand));

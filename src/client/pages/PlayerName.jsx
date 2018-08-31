@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
-import { withStyles } from 'material-ui/styles';
+import injectSheet from 'react-jss';
 
 const styles = {
   root: {
@@ -46,9 +46,13 @@ export class RawPlayerName extends React.Component {
     return (
       <div>
         {editing && <TextField inputRef={this.onSetRef} value={value} onChange={this.onChange} onBlur={this.onBlur} />}
-        {!editing && <Typography onClick={this.onStartEdit} variant={'body1'}>{value}</Typography>}
+        {!editing &&
+          <Typography onClick={this.onStartEdit} variant={'body1'}>
+            {value}
+          </Typography>
+        }
       </div>
     );
   }
 }
-export default withStyles(styles)(RawPlayerName);
+export default injectSheet(styles)(RawPlayerName);

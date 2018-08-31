@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
+import injectSheet from 'react-jss';
 import Button from 'material-ui/Button';
 import { connect } from 'react-redux';
 import {
@@ -106,4 +106,4 @@ const dispatchToActions = {
   onStartGame: startGame,
 };
 
-export default connect(mapStateToProps, dispatchToActions)(withStyles(styles)(RawHome));
+export default connect(mapStateToProps, dispatchToActions)(injectSheet(styles)(RawHome));

@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
+import injectSheet from 'react-jss';
 import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
@@ -34,4 +34,4 @@ class RawHeader extends React.Component {
     );
   }
 }
-export default withStyles(styles)(RawHeader);
+export default injectSheet(styles)(RawHeader);

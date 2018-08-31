@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
+import injectSheet from 'react-jss';
 import { Home } from '../pages';
 
 const styles = {
@@ -16,4 +16,4 @@ class RawBody extends React.Component {
   }
 }
 
-export default withStyles(styles)(RawBody);
+export default injectSheet(styles)(RawBody);

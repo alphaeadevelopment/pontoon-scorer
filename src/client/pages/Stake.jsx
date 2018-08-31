@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { withStyles } from 'material-ui/styles';
+import injectSheet from 'react-jss';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import { InlineEditTextField } from '../components';
@@ -88,7 +88,11 @@ class RawStake extends React.Component {
     const { value, minimum, maximum, error } = this.state;
     return (
       <div className={classes.root}>
-        <Typography>Stake: {hand.stake}</Typography>
+        <Typography>
+          Stake:
+          {' '}
+          {hand.stake}
+        </Typography>
         <InlineEditTextField
           tabIndex={0}
           className={classNames({ [classes.error]: error })}
@@ -96,11 +100,17 @@ class RawStake extends React.Component {
           onChange={this.onChange}
         />
         {gamePhase === SET_STAKE && hand.stake === 0 && isCurrentHand &&
-          <Button onClick={this.onSetStake}>Set Stake</Button>
+          <Button onClick={this.onSetStake}>
+            Set Stake
+          </Button>
         }
         {gamePhase === GAME_PLAY && hand.stake > 0 && isCurrentHand &&
           <Button onClick={this.onBuyCard}>
-            Buy Card ({minimum}-{maximum})
+            Buy Card (
+            {minimum}
+            -
+            {maximum}
+            )
           </Button>
         }
       </div>
@@ -108,4 +118,4 @@ class RawStake extends React.Component {
   }
 }
 
-export default withStyles(styles)(RawStake);
+export default injectSheet(styles)(RawStake);

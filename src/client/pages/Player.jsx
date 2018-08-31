@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import { withStyles } from 'material-ui/styles';
+import injectSheet from 'react-jss';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Hand from './Hand';
@@ -155,4 +155,4 @@ const dispatchToActions = {
   onStartGameProper: startGameProper,
 };
 
-export default connect(mapStateToProps, dispatchToActions)(withStyles(styles)(RawPlayer));
+export default connect(mapStateToProps, dispatchToActions)(injectSheet(styles)(RawPlayer));

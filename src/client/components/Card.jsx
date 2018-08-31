@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { withStyles } from 'material-ui/styles';
+import injectSheet from 'react-jss';
 
 const styles = {
   root: {
@@ -14,4 +14,4 @@ const RawCard = ({ classes, children, className }) => (
     {children}
   </div>
 );
-export default withStyles(styles)(RawCard);
+export default injectSheet(styles)(RawCard);

@@ -1,6 +1,6 @@
 import React from 'react';
 import Snackbar from 'material-ui/Snackbar';
-import { withStyles } from 'material-ui/styles';
+import injectSheet from 'react-jss';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 import Slide from 'material-ui/transitions/Slide';
@@ -57,7 +57,11 @@ export class RawErrors extends React.Component {
               'aria-describedby': `message-id-${e}`,
             }}
             transition={TransitionUp}
-            message={<span id={`message-id-${e}`}>{formatErrorMessage(errors[e])}</span>}
+            message={
+              <span id={`message-id-${e}`}>
+                {formatErrorMessage(errors[e])}
+              </span>
+            }
             action={[
               <IconButton
                 key='close'
@@ -84,4 +88,4 @@ const dispatchToActions = dispatch => ({
   onDismissError: e => dispatch(Actions.onDismissError(e)),
 });
 
-export default connect(mapStateToProps, dispatchToActions)(withStyles(styles)(RawErrors));
+export default connect(mapStateToProps, dispatchToActions)(injectSheet(styles)(RawErrors));

@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
+import injectSheet from 'react-jss';
 import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
@@ -26,15 +26,22 @@ class RawFooter extends React.Component {
       <div className={classes.root}>
         <div>
           <Typography variant={'body1'}>
-            <a target={'_new'} href={'https://github.com/alphaeadevelopment/pontoon-scorer'}>Source</a>
+            <a target={'_new'} href={'https://github.com/alphaeadevelopment/pontoon-scorer'}>
+              Source
+            </a>
           </Typography>
           <Typography variant={'body1'}>
-            <span>Powered by </span>
-            <a target={'_new'} href={'http://animando-solutions.co.uk'}>Animando Solutions</a>
+            <span>
+              Powered by
+              {' '}
+            </span>
+            <a target={'_new'} href={'http://animando-solutions.co.uk'}>
+              Animando Solutions
+            </a>
           </Typography>
         </div>
       </div>
     );
   }
 }
-export default withStyles(styles)(RawFooter);
+export default injectSheet(styles)(RawFooter);

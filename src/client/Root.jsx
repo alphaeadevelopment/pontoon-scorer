@@ -2,8 +2,8 @@
 import React, { Fragment } from 'react';
 import CssBaseline from 'material-ui/CssBaseline';
 // import SocketProvider from '@alphaeadev/react-socketio';
-import { JssProvider } from 'react-jss';
-import { MuiThemeProvider } from 'material-ui/styles';
+import { JssProvider, ThemeProvider } from 'react-jss';
+// import { MuiThemeProvider } from 'material-ui/styles';
 import { create as createJss } from 'jss';
 import preset from 'jss-preset-default';
 
@@ -53,10 +53,12 @@ export default class Root extends React.Component {
         <ReduxProvider store={store}>
           <WindowEventProvider>
             <JssProvider jss={jss}>
-              <Fragment>
-                <CssBaseline />
-                <App {...this.props} />
-              </Fragment>
+              <ThemeProvider theme={theme}>
+                <Fragment>
+                  <CssBaseline />
+                  <App {...this.props} />
+                </Fragment>
+              </ThemeProvider>
             </JssProvider>
           </WindowEventProvider>
         </ReduxProvider>

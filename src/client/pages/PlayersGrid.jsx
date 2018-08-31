@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import clone from 'lodash/clone';
-import { withStyles } from 'material-ui/styles';
+import injectSheet from 'react-jss';
 import Player from './Player';
 import {
   getDealerIdx,
@@ -46,4 +46,4 @@ const mapStateToProps = state => ({
   players: getPlayers(state),
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(RawPlayersGrid));
+export default connect(mapStateToProps)(injectSheet(styles)(RawPlayersGrid));
