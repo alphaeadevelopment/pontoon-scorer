@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Grid from 'material-ui/Grid';
 import clone from 'lodash/clone';
 import { withStyles } from 'material-ui/styles';
 import Player from './Player';
@@ -8,6 +7,9 @@ import {
   getDealerIdx,
   getPlayers,
 } from '../selectors';
+import {
+  Grid,
+} from '../components';
 
 const styles = theme => ({
   root: {

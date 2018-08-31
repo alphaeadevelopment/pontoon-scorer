@@ -25,7 +25,9 @@ class RawHeader extends React.Component {
       <div className={classes.root}>
         <div>
           <Typography variant={'display2'}>
-            <a href={'/'}>Pontoon Scorer</a>
+            <a href={'/'}>
+              Pontoon Scorer
+            </a>
           </Typography>
         </div>
       </div>

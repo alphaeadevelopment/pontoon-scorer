@@ -1,18 +1,22 @@
 /* globals window, document */
-import React from 'react';
+import React, { Fragment } from 'react';
 import CssBaseline from 'material-ui/CssBaseline';
 // import SocketProvider from '@alphaeadev/react-socketio';
-import JssProvider from 'react-jss/lib/JssProvider';
+import { JssProvider } from 'react-jss';
 import { MuiThemeProvider } from 'material-ui/styles';
+import { create as createJss } from 'jss';
+import preset from 'jss-preset-default';
 
 import { createStore, applyMiddleware, compose } from 'redux';
 import { HashRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
 import thunk from 'redux-thunk';
 import theme from './styles/theme';
 import reducer from './reducers';
-import App from './containers/App';
+import { App, WindowEventProvider } from './containers';
 import './styles/main.scss';
+
+const jss = createJss(preset());
 
 const middleware = [thunk];
 
@@ -27,14 +31,12 @@ const preloadedState = window.__PRELOADED_STATE__; // eslint-disable-line no-und
 // Allow the passed state to be garbage-collected
 delete window.__PRELOADED_STATE__; // eslint-disable-line no-underscore-dangle
 
-
 const store = createStore(
   reducer,
   preloadedState,
   composeEnhancers(applyMiddleware(...middleware)),
 );
 
-const SocketProvider = ({ children }) => children;
 // const generateClassName = createGenerateClassName();
 
 export default class Root extends React.Component {
@@ -48,16 +50,16 @@ export default class Root extends React.Component {
   render() {
     return (
       <Router>
-        <Provider store={store}>
-          <SocketProvider serverUrl={process.env.SOCKETIO_URL}>
-            <JssProvider>
-              <MuiThemeProvider theme={theme}>
+        <ReduxProvider store={store}>
+          <WindowEventProvider>
+            <JssProvider jss={jss}>
+              <Fragment>
                 <CssBaseline />
                 <App {...this.props} />
-              </MuiThemeProvider>
+              </Fragment>
             </JssProvider>
-          </SocketProvider>
-        </Provider>
+          </WindowEventProvider>
+        </ReduxProvider>
       </Router>
     );
   }

@@ -1,7 +1,6 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
-import Grid from 'material-ui/Grid';
 import { connect } from 'react-redux';
 import {
   getActiveHandsInPlay,
@@ -17,7 +16,7 @@ import {
   startGame,
 } from '../actions';
 import Leaderboard from './Leaderboard';
-import { ConfirmButton } from '../components';
+import { ConfirmButton, Grid } from '../components';
 
 const styles = theme => ({
   root: {

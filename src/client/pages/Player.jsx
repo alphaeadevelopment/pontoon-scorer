@@ -1,12 +1,11 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import Grid from 'material-ui/Grid';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Hand from './Hand';
-import { InlineEditTextField, Card } from '../components';
+import { InlineEditTextField, Card, Grid } from '../components';
 import { DEALER_PONTOON } from '../lib/constants/game-phases';
 import {
   getDealerIdx,
