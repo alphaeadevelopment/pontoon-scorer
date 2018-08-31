@@ -2,7 +2,10 @@ import React from 'react';
 import injectSheet from 'react-jss';
 import { connect } from 'react-redux';
 import { getHeight } from '../selectors/viewportSelectors';
+
 import { isShowModal } from '../selectors/modalSelectors';
+import { isDrawerOpen } from '../selectors/drawerSelectors';
+import { closeDrawer } from '../actions/drawer';
 
 const styles = {
   root: props => ({
@@ -17,17 +20,30 @@ const styles = {
     'z-index': 5,
   }),
 };
-class RawContentOverlay extends React.Component {
+@connect(state => ({
+  height: getHeight(state),
+  visible: isShowModal(state) || isDrawerOpen(state),
+}), {
+  closeDrawer,
+})
+@injectSheet(styles)
+class ContentOverlay extends React.Component {
+  onClick = (e) => {
+    e.preventDefault();
+    this.props.closeDrawer();
+  }
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root} />
+      <div
+        className={classes.root}
+        onKeyPress={this.onClick}
+        onClick={this.onClick}
+        role={'button'}
+        tabIndex={0}
+      />
     );
   }
 }
 
-const mapStateToProps = state => ({
-  height: getHeight(state),
-  visible: isShowModal(state),
-});
-export default connect(mapStateToProps)(injectSheet(styles)(RawContentOverlay));
+export default ContentOverlay;

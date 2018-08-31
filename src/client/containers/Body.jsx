@@ -1,6 +1,7 @@
 import React from 'react';
 import injectSheet from 'react-jss';
 import { Home } from '../pages';
+import DrawerContainer from './DrawerContainer';
 import ContentOverlay from './ContentOverlay';
 
 const styles = {
@@ -12,6 +13,7 @@ class RawBody extends React.Component {
     return (
       <div className={classes.root}>
         <ContentOverlay />
+        <DrawerContainer />
         <Home {...rest} />
       </div>
     );

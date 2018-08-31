@@ -6,6 +6,7 @@ import { JssProvider, ThemeProvider } from 'react-jss';
 // import { MuiThemeProvider } from 'material-ui/styles';
 import { create as createJss } from 'jss';
 import preset from 'jss-preset-default';
+import jssNested from 'jss-nested';
 
 import { createStore, applyMiddleware, compose } from 'redux';
 import { HashRouter as Router } from 'react-router-dom';
@@ -16,7 +17,7 @@ import reducer from './reducers';
 import { App, WindowEventProvider } from './containers';
 import './styles/main.scss';
 
-const jss = createJss(preset());
+const jss = createJss(preset(), jssNested());
 
 const middleware = [thunk];
 

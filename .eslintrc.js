@@ -16,6 +16,7 @@ module.exports = {
     "jsx-quotes": ["error", "prefer-single"],
     "max-len": ["warn", { "code": 120 }],
     "no-plusplus": "off",
+    "no-shadow": "off",
     "object-curly-newline": "off",
     "quote-props": ["error", "consistent"],
     "react/jsx-curly-brace-presence": "off",

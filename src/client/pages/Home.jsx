@@ -15,8 +15,7 @@ import {
   resetGame,
   startGame,
 } from '../actions';
-import Leaderboard from './Leaderboard';
-import { ConfirmButton, Grid } from '../components';
+import { ConfirmButton } from '../components';
 
 const styles = theme => ({
   root: {
@@ -54,39 +53,30 @@ export class RawHome extends React.Component {
     return (
       <div className={classes.root}>
         <div>
-          <Grid container>
-            <Grid item xs={12} sm={10} md={9}>
-              <div>
-                <Button disabled={!betweenRounds} onClick={onAddPlayer}>
-                  Add Player
-                </Button>
-                {currentPlayer === null &&
-                  <Button disabled={players.length < 2} onClick={onStartGame}>
-                    Start Game
-                  </Button>
-                }
-                {currentPlayer !== null &&
-                  <Button disabled={activeHandsInPlay > 0} onClick={onNewRound}>
-                    New Round
-                  </Button>
-                }
-              </div>
-              <PlayersGrid />
-              <div>
-                <ConfirmButton
-                  className={classes.reset}
-                  onConfirm={onResetGame}
-                  title={'Reset Game'}
-                  message={'You will lose all game scores, are you sure?'}
-                >
-                  Reset Game
-                </ConfirmButton>
-              </div>
-            </Grid>
-            <Grid className={classes.leaderboardCtr} item xs={12} sm={2} md={3}>
-              <Leaderboard />
-            </Grid>
-          </Grid>
+          <Button disabled={!betweenRounds} onClick={onAddPlayer}>
+            Add Player
+          </Button>
+          {currentPlayer === null &&
+            <Button disabled={players.length < 2} onClick={onStartGame}>
+              Start Game
+            </Button>
+          }
+          {currentPlayer !== null &&
+            <Button disabled={activeHandsInPlay > 0} onClick={onNewRound}>
+              New Round
+            </Button>
+          }
+        </div>
+        <PlayersGrid />
+        <div>
+          <ConfirmButton
+            className={classes.reset}
+            onConfirm={onResetGame}
+            title={'Reset Game'}
+            message={'You will lose all game scores, are you sure?'}
+          >
+            Reset Game
+          </ConfirmButton>
         </div>
       </div>
     );
