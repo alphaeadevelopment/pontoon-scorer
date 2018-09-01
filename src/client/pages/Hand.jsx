@@ -32,10 +32,10 @@ import { Card } from '../components';
 
 const styles = theme => ({
   root: {
-    'padding': theme.spacing.unit * 2,
+    'padding': theme.spacing.unit,
     'display': 'flex',
     'flexDirection': 'column',
-    'margin': `${theme.spacing.unit * 2}px 0`,
+    'margin': `${theme.spacing.unit}px 0`,
   },
   stakeCtr: {
     '& input': {
@@ -44,7 +44,7 @@ const styles = theme => ({
   },
 });
 
-class RawHand extends React.Component {
+class Hand extends React.Component {
   onSetStake = (stake) => {
     this.invokeActionOnPlayerHand(this.props.onSetStake, { stake });
   }
@@ -179,4 +179,4 @@ const dispatchToActions = {
   onWinDouble: handWinsDouble,
 };
 
-export default connect(mapStateToProps, dispatchToActions)(injectSheet(styles)(RawHand));
+export default connect(mapStateToProps, dispatchToActions)(injectSheet(styles)(Hand));

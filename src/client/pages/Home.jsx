@@ -23,7 +23,7 @@ import { ROUND_OVER } from '../lib/constants/game-phases';
 const styles = theme => ({
   root: {
     width: '100%',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing.unit,
   },
   reset: {
     background: 'red',

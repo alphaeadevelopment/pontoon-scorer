@@ -19,14 +19,26 @@ const widthProps = (widthFunc, props) => {
   });
 };
 const styles = {
-  item: {
+  xs: props => ({
+    ...widthProps(getXs, props),
+    padding: '8px',
+  }),
+  sm: props => ({
+    ...widthProps(getSm, props),
+    padding: '8px',
+  }),
+  md: props => ({
+    ...widthProps(getMd, props),
     padding: '16px',
-  },
-  xs: props => widthProps(getXs, props),
-  sm: props => widthProps(getSm, props),
-  md: props => widthProps(getMd, props),
-  lg: props => widthProps(getLg, props),
-  xl: props => widthProps(getXl, props),
+  }),
+  lg: props => ({
+    ...widthProps(getLg, props),
+    padding: '16px',
+  }),
+  xl: props => ({
+    ...widthProps(getXl, props),
+    padding: '16px',
+  }),
 };
 
 const getGridClasses = ({ classes, className, minSm, minMd, minLg, minXl }) =>

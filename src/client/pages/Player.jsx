@@ -26,9 +26,8 @@ import {
 
 const styles = theme => ({
   root: {
-    'padding': theme.spacing.unit * 2,
     '&>div': {
-      'padding': theme.spacing.unit * 4,
+      'padding': theme.spacing.unit,
     },
   },
   playerHeader: {
@@ -74,6 +73,9 @@ class Player extends React.Component {
   onMakeDealer = () => {
     const { onMakeDealer, player } = this.props;
     onMakeDealer(player.idx);
+  }
+  onChangePlayerName = (name) => {
+    this.props.onChangePlayerName({ playerIdx: this.props.player.idx, name });
   }
   isDealer = () => {
     const { player, dealerIdx } = this.props;
@@ -138,7 +140,7 @@ class Player extends React.Component {
     );
   }
   render() {
-    const { classes, player, onChangePlayerName } = this.props;
+    const { classes, player } = this.props;
     const isDealer = this.isDealer();
     return (
       <Grid
@@ -160,7 +162,7 @@ class Player extends React.Component {
             </Typography>
           }
           <div className={classes.playerHeader}>
-            <InlineEditTextField value={player.name} onChange={onChangePlayerName} />
+            <InlineEditTextField value={player.name} onChange={this.onChangePlayerName} />
             <Typography >
               {player.pot}
             </Typography>
