@@ -19,13 +19,15 @@ const styles = () => ({
   },
   valueSelection: {
     display: 'flex',
+    justifyContent: 'space-between',
   },
   valueRocker: {
     margin: '10px 0',
   },
 });
 
-class RawStake extends React.Component {
+@injectSheet(styles)
+class Stake extends React.Component {
   state = {
     maximum: getMaximumStake(this.props.initialStake, this.props.hand.lastBid),
     minimum: getMinimumStake(this.props.initialStake, this.props.hand.lastBid),
@@ -114,4 +116,4 @@ class RawStake extends React.Component {
   }
 }
 
-export default injectSheet(styles)(RawStake);
+export default Stake;

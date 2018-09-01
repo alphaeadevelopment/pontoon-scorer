@@ -29,21 +29,54 @@ import {
   stick,
 } from '../actions';
 import { Card } from '../components';
+import withSizeClasses from '../containers/withSizeClasses';
 
 const styles = theme => ({
   root: {
-    'padding': theme.spacing.unit,
+    'padding': theme.spacing.unit * 2,
     'display': 'flex',
     'flexDirection': 'column',
     'margin': `${theme.spacing.unit}px 0`,
+    '&$md': {
+      padding: theme.spacing.unit,
+    },
   },
   stakeCtr: {
     '& input': {
       width: '3em',
     },
   },
+  md: {},
 });
 
+@connect(
+  state => ({
+    currentPlayerHand: getCurrentPlayerHand(state),
+    dealerIdx: getDealerIdx(state),
+    gamePhase: getPhase(state),
+  }),
+  {
+    onAddPlayer: addPlayer,
+    onAllLose: allLose.bind(null, { multiple: 1 }),
+    onAllLoseDouble: allLose.bind(null, { multiple: 2 }),
+    onAllWin: allWin,
+    onBust: bustHand,
+    onBuyCard: buyCard,
+    onChangePlayerName: setPlayerName,
+    onLose: handLoses,
+    onMakeDealer: makeDealer,
+    onNewRound: newRound,
+    onResetGame: resetGame,
+    onSetStake: setStake,
+    onSplit: splitHand,
+    onStartGame: startGame,
+    onStartGameProper: startGameProper,
+    onStick: stick,
+    onWin: handWins,
+    onWinDouble: handWinsDouble,
+  })
+@injectSheet(styles)
+@withSizeClasses
 class Hand extends React.Component {
   onSetStake = (stake) => {
     this.invokeActionOnPlayerHand(this.props.onSetStake, { stake });
@@ -152,31 +185,5 @@ class Hand extends React.Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  currentPlayerHand: getCurrentPlayerHand(state),
-  dealerIdx: getDealerIdx(state),
-  gamePhase: getPhase(state),
-});
 
-const dispatchToActions = {
-  onAddPlayer: addPlayer,
-  onAllLose: allLose.bind(null, { multiple: 1 }),
-  onAllLoseDouble: allLose.bind(null, { multiple: 2 }),
-  onAllWin: allWin,
-  onBust: bustHand,
-  onBuyCard: buyCard,
-  onChangePlayerName: setPlayerName,
-  onLose: handLoses,
-  onMakeDealer: makeDealer,
-  onNewRound: newRound,
-  onResetGame: resetGame,
-  onSetStake: setStake,
-  onSplit: splitHand,
-  onStartGame: startGame,
-  onStartGameProper: startGameProper,
-  onStick: stick,
-  onWin: handWins,
-  onWinDouble: handWinsDouble,
-};
-
-export default connect(mapStateToProps, dispatchToActions)(injectSheet(styles)(Hand));
+export default Hand;

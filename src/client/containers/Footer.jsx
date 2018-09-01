@@ -21,10 +21,17 @@ const styles = theme => ({
   },
 });
 class RawFooter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.footerRef = React.createRef();
+  }
+  componentDidMount() {
+    this.props.onSetHeight(this.footerRef.current.clientHeight);
+  }
   render() {
     const { classes, xs, sm, md, lg, xl } = this.props;
     return (
-      <div className={classes.root}>
+      <div className={classes.root} ref={this.footerRef}>
         <div>
           <Typography variant={'body1'}>
             <a target={'_new'} href={'https://github.com/alphaeadevelopment/pontoon-scorer'}>

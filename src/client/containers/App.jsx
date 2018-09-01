@@ -17,7 +17,7 @@ const styles = {
     position: 'fixed',
     width: '100%',
     top: '100%',
-    transform: 'translateY(-100%)',
+    transform: 'translateY(-100%) translateZ(0)',
   },
   bodyContainer: {
 
@@ -25,6 +25,12 @@ const styles = {
 };
 @injectSheet(styles)
 class App extends React.Component {
+  state = {
+    footerHeight: 0,
+  }
+  setFooterHeight = (h) => {
+    this.setState({ footerHeight: h });
+  }
   render() {
     const { classes } = this.props;
     return (
@@ -33,11 +39,11 @@ class App extends React.Component {
         <div className={classes.headerContainer}>
           <Header />
         </div>
-        <div className={classes.bodyContainer}>
+        <div className={classes.bodyContainer} style={{ marginBottom: this.state.footerHeight }}>
           <Body />
         </div>
         <div className={classes.footerContainer}>
-          <Footer />
+          <Footer onSetHeight={this.setFooterHeight} />
         </div>
       </div>
     );

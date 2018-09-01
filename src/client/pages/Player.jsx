@@ -162,9 +162,9 @@ class Player extends React.Component {
         item
         xs={isDealer ? 12 : 12}
         sm={isDealer ? 12 : 12}
-        md={isDealer ? 12 : 4}
-        lg={isDealer ? 12 : 3}
-        xl={isDealer ? 12 : 2}
+        md={isDealer ? 12 : 6}
+        lg={isDealer ? 12 : 4}
+        xl={isDealer ? 12 : 3}
         className={classNames(classes.root, className)}
         ref={this.ref}
       >
