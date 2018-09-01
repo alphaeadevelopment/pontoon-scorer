@@ -1,19 +1,45 @@
 import React from 'react';
 
-// import { MuiThemeProvider } from 'material-ui/styles';
-import { PageContainer } from 'page-container';
+import injectSheet from 'react-jss';
 import Footer from './Footer';
 import Header from './Header';
 import Body from './Body';
 
-class RawApp extends React.Component {
+const styles = {
+  root: {
+
+  },
+  headerContainer: {
+
+  },
+  footerContainer: {
+    position: 'fixed',
+    width: '100%',
+    top: '100%',
+    transform: 'translateY(-100%)',
+  },
+  bodyContainer: {
+
+  },
+};
+@injectSheet(styles)
+class App extends React.Component {
   render() {
+    const { classes } = this.props;
     return (
-      <PageContainer footer={<Footer />} header={<Header />}>
-        <Body />
-      </PageContainer>
+      <div className={classes.root}>
+        <div className={classes.headerContainer}>
+          <Header />
+        </div>
+        <div className={classes.bodyContainer}>
+          <Body />
+        </div>
+        <div className={classes.footerContainer}>
+          <Footer />
+        </div>
+      </div>
     );
   }
 }
 
-export default RawApp;
+export default App;
