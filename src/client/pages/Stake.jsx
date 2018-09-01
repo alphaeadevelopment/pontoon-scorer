@@ -1,26 +1,12 @@
 import React from 'react';
-import classNames from 'classnames';
+import { includes } from 'lodash';
 import injectSheet from 'react-jss';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
-import { InlineEditTextField } from '../components';
+import { ValueRocker } from '../components';
 import { GAME_PLAY, SET_STAKE } from '../lib/constants/game-phases';
+import { getMaximumStake, getMinimumStake } from '../lib/game-logic/stake-limits';
 
-const getMinimum = (initialStake) => {
-  if (initialStake) {
-    return initialStake;
-  }
-  return 1;
-};
-const getMaximum = (initialStake, lastBid) => {
-  if (initialStake) {
-    if (lastBid) {
-      return lastBid;
-    }
-    return initialStake * 2;
-  }
-  return 5;
-};
 
 const styles = () => ({
   root: {
@@ -31,20 +17,26 @@ const styles = () => ({
   error: {
     background: 'red',
   },
+  valueSelection: {
+    display: 'flex',
+  },
+  valueRocker: {
+    margin: '10px 0',
+  },
 });
 
 class RawStake extends React.Component {
   state = {
-    maximum: getMaximum(this.props.initialStake, this.props.hand.lastBid),
-    minimum: getMinimum(this.props.initialStake, this.props.hand.lastBid),
-    value: getMinimum(this.props.initialStake, this.props.hand.lastBid),
+    maximum: getMaximumStake(this.props.initialStake, this.props.hand.lastBid),
+    minimum: getMinimumStake(this.props.initialStake, this.props.hand.lastBid),
+    value: getMinimumStake(this.props.initialStake, this.props.hand.lastBid),
   }
   componentWillReceiveProps = (nextProps) => {
-    const minimum = getMinimum(nextProps.initialStake, nextProps.hand.lastBid);
+    const minimum = getMinimumStake(nextProps.initialStake, nextProps.hand.lastBid);
     this.setState({
       minimum,
       value: minimum,
-      maximum: getMaximum(nextProps.initialStake, nextProps.hand.lastBid),
+      maximum: getMaximumStake(nextProps.initialStake, nextProps.hand.lastBid),
     });
   }
   onChange = (value) => {
@@ -83,9 +75,12 @@ class RawStake extends React.Component {
       }
     }
   }
+  onUpdateValue = (value) => {
+    this.setState({ value });
+  }
   render() {
     const { classes, hand, gamePhase, isCurrentHand } = this.props;
-    const { value, minimum, maximum, error } = this.state;
+    const { value, minimum, maximum } = this.state;
     return (
       <div className={classes.root}>
         <Typography>
@@ -93,26 +88,27 @@ class RawStake extends React.Component {
           {' '}
           {hand.stake}
         </Typography>
-        <InlineEditTextField
-          tabIndex={0}
-          className={classNames({ [classes.error]: error })}
-          value={value}
-          onChange={this.onChange}
-        />
-        {gamePhase === SET_STAKE && hand.stake === 0 && isCurrentHand &&
-          <Button onClick={this.onSetStake}>
-            Set Stake
-          </Button>
-        }
-        {gamePhase === GAME_PLAY && hand.stake > 0 && isCurrentHand &&
-          <Button onClick={this.onBuyCard}>
-            Buy Card (
-            {minimum}
-            -
-            {maximum}
-            )
-          </Button>
-        }
+        <div className={classes.valueSelection}>
+          {includes([SET_STAKE, GAME_PLAY], gamePhase) && isCurrentHand &&
+            <ValueRocker
+              className={classes.valueRocker}
+              value={value}
+              onChange={this.onUpdateValue}
+              maximum={maximum}
+              minimum={minimum}
+            />
+          }
+          {gamePhase === SET_STAKE && hand.stake === 0 && isCurrentHand &&
+            <Button onClick={this.onSetStake}>
+              Set Stake
+            </Button>
+          }
+          {gamePhase === GAME_PLAY && hand.stake > 0 && isCurrentHand &&
+            <Button onClick={this.onBuyCard}>
+              Buy Card
+            </Button>
+          }
+        </div>
       </div>
     );
   }
