@@ -4,10 +4,11 @@ import injectSheet from 'react-jss';
 import Footer from './Footer';
 import Header from './Header';
 import Body from './Body';
+import ContentOverlay from './ContentOverlay';
 
 const styles = {
   root: {
-
+    position: 'relative',
   },
   headerContainer: {
 
@@ -28,6 +29,7 @@ class App extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
+        <ContentOverlay />
         <div className={classes.headerContainer}>
           <Header />
         </div>

@@ -1,7 +1,8 @@
+/* globals window */
 import update from 'immutability-helper';
 import * as Types from '../actions/viewport/types';
 
-const initial = { width: 0, height: 0 };
+const initial = { width: window.innerWidth, height: window.innerHeight };
 export default (state = initial, { type, payload }) => {
   switch (type) {
     case Types.RESIZE:

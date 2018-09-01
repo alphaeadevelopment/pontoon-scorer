@@ -1,6 +1,7 @@
 import React from 'react';
 import injectSheet from 'react-jss';
 import Typography from 'material-ui/Typography';
+import withSizeProps from './withSizeProps';
 
 const styles = theme => ({
   root: {
@@ -21,7 +22,7 @@ const styles = theme => ({
 });
 class RawFooter extends React.Component {
   render() {
-    const { classes } = this.props;
+    const { classes, xs, sm, md, lg, xl } = this.props;
     return (
       <div className={classes.root}>
         <div>
@@ -29,6 +30,13 @@ class RawFooter extends React.Component {
             <a target={'_new'} href={'https://github.com/alphaeadevelopment/pontoon-scorer'}>
               Source
             </a>
+          </Typography>
+          <Typography>
+            {xs && 'xs'}
+            {sm && 'sm'}
+            {md && 'md'}
+            {lg && 'lg'}
+            {xl && 'xl'}
           </Typography>
           <Typography variant={'body1'}>
             <span>
@@ -44,4 +52,4 @@ class RawFooter extends React.Component {
     );
   }
 }
-export default injectSheet(styles)(RawFooter);
+export default injectSheet(styles)(withSizeProps(RawFooter));

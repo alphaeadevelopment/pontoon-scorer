@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import clone from 'lodash/clone';
 import injectSheet from 'react-jss';
 import Player from './Player';
@@ -10,12 +11,17 @@ import {
 import {
   Grid,
 } from '../components';
+import withSizeClasses from '../containers/withSizeClasses';
 
 const styles = theme => ({
   root: {
-    width: '100%',
-    padding: theme.spacing.unit,
+    'width': '100%',
+    'padding': 0,
+    '&$md': {
+      padding: theme.spacing.unit,
+    },
   },
+  md: {},
 });
 
 const sortPlayers = (players, dealerIdx) => clone(players)
@@ -25,12 +31,17 @@ const sortPlayers = (players, dealerIdx) => clone(players)
     return a.idx - b.idx;
   });
 
-class RawPlayersGrid extends React.Component {
+@connect(state => ({
+  dealerIdx: getDealerIdx(state),
+  players: getPlayers(state),
+}))
+@injectSheet(styles)
+@withSizeClasses
+class PlayersGrid extends React.Component {
   render() {
-    const {
-      classes, players, dealerIdx } = this.props;
+    const { classes, className, players, dealerIdx } = this.props;
     return (
-      <Grid container className={classes.root}>
+      <Grid container className={classNames(classes.root, className)}>
         {sortPlayers(players, dealerIdx).map(p => (
           <Player
             key={p.idx}
@@ -41,9 +52,4 @@ class RawPlayersGrid extends React.Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  dealerIdx: getDealerIdx(state),
-  players: getPlayers(state),
-});
-
-export default connect(mapStateToProps)(injectSheet(styles)(RawPlayersGrid));
+export default PlayersGrid;

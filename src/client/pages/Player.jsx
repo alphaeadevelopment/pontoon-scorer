@@ -23,13 +23,24 @@ import {
   startGameProper,
   stick,
 } from '../actions';
+import withSizeClasses from '../containers/withSizeClasses';
 
 const styles = theme => ({
   root: {
-    '&>div': {
+    '$playerCard': {
       'padding': theme.spacing.unit,
     },
+    '&$md $playerCard': {
+      'padding': theme.spacing.unit * 2,
+    },
+    '&$xs $playerCard': {
+      'padding': theme.spacing.unit,
+    },
+    '&$lg $playerCard': {
+      'padding': theme.spacing.unit * 4,
+    },
   },
+  playerCard: {},
   playerHeader: {
     display: 'flex',
     alignItems: 'center',
@@ -39,6 +50,9 @@ const styles = theme => ({
   negative: {
     background: '#f98f8f',
   },
+  md: {},
+  xs: {},
+  lg: {},
 });
 @connect(
   state => ({
@@ -58,6 +72,7 @@ const styles = theme => ({
     onStartGameProper: startGameProper,
   })
 @injectSheet(styles)
+@withSizeClasses
 class Player extends React.Component {
   constructor(props) {
     super(props);
@@ -140,7 +155,7 @@ class Player extends React.Component {
     );
   }
   render() {
-    const { classes, player } = this.props;
+    const { classes, className, player } = this.props;
     const isDealer = this.isDealer();
     return (
       <Grid
@@ -150,11 +165,11 @@ class Player extends React.Component {
         md={isDealer ? 12 : 4}
         lg={isDealer ? 12 : 3}
         xl={isDealer ? 12 : 2}
-        className={classes.root}
+        className={classNames(classes.root, className)}
         ref={this.ref}
       >
         <Card
-          className={classNames({ [classes.negative]: player.pot < 0 })}
+          className={classNames(classes.playerCard, { [classes.negative]: player.pot < 0 })}
         >
           {isDealer &&
             <Typography variant={'display1'}>

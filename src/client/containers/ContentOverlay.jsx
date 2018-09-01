@@ -45,5 +45,4 @@ class ContentOverlay extends React.Component {
     );
   }
 }
-
 export default ContentOverlay;

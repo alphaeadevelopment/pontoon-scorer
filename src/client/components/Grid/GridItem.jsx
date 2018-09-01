@@ -1,8 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import classNames from 'classnames';
 import injectSheet from 'react-jss';
-import { isMinSm, isMinMd, isMinLg, isMinXl } from '../../selectors/viewportSelectors';
+import withSizeClasses from '../../containers/withSizeClasses';
 
 const getXs = props => props.xs || 12;
 const getSm = props => props.sm || getXs(props);
@@ -41,28 +40,17 @@ const styles = {
   }),
 };
 
-const getGridClasses = ({ classes, className, minSm, minMd, minLg, minXl }) =>
-  classNames(classes.item, className, {
-    [classes.xs]: (!minSm),
-    [classes.sm]: (minSm && !minMd),
-    [classes.md]: (minMd && !minLg),
-    [classes.lg]: (minLg && !minXl),
-    [classes.xl]: !!minXl,
-  });
+@injectSheet(styles)
+@withSizeClasses
+class GridItem extends React.Component {
+  render() {
+    const { classes, className, forwardedRef, children } = this.props;
+    return (
+      <div className={classNames(classes.root, className)} ref={forwardedRef}>
+        {children}
+      </div>
+    );
+  }
+}
 
-const RawGridItem = (props) => {
-  const gridClasses = getGridClasses(props);
-  return (
-    <div className={gridClasses} ref={props.forwardedRef}>
-      {props.children}
-    </div>
-  );
-};
-
-const mapStateToProps = state => ({
-  minSm: isMinSm(state),
-  minMd: isMinMd(state),
-  minLg: isMinLg(state),
-  minXl: isMinXl(state),
-});
-export default connect(mapStateToProps)(injectSheet(styles)(RawGridItem));
+export default GridItem;
