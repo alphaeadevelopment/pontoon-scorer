@@ -2,8 +2,9 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import injectSheet from 'react-jss';
 import Button from 'material-ui/Button';
+import { includes } from 'lodash';
 import Stake from './Stake';
-import { RESULTS, GAME_PLAY } from '../lib/constants/game-phases';
+import { RESULTS, GAME_PLAY, DEALER_HAND } from '../lib/constants/game-phases';
 import {
   getCurrentPlayerHand,
   getDealerIdx,
@@ -138,7 +139,10 @@ class Hand extends React.Component {
         Lose
       </Button>
       <Button onClick={this.onWinDouble}>
-        Win x2
+        Pontoon
+      </Button>
+      <Button onClick={this.onWinDouble}>
+        5-Card Trick
       </Button>
     </Fragment>
   )
@@ -174,7 +178,7 @@ class Hand extends React.Component {
         }
         <div>
           {
-            isCurrentHand && gamePhase === GAME_PLAY &&
+            isCurrentHand && includes([GAME_PLAY, DEALER_HAND], gamePhase) &&
             <Button onClick={this.onSplit}>
               Split
             </Button>
