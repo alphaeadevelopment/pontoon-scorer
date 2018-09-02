@@ -7,7 +7,7 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Hand from './Hand';
 import { InlineEditTextField, Card, Grid } from '../components';
-import { DEALER_PONTOON } from '../lib/constants/game-phases';
+import { DEALER_PONTOON, RESULTS } from '../lib/constants/game-phases';
 import {
   getCurrentPlayer,
   getDealerIdx,
@@ -104,7 +104,7 @@ class Player extends React.Component {
     return currentPlayer === playerIdx;
   }
   renderDealerHandActions = () => {
-    const { onAllLose, onAllWin, onDealerStick } = this.props;
+    const { onAllLose, onAllWin, onDealerStick, gamePhase } = this.props;
     return (
       <Fragment>
         <Button onClick={onDealerStick}>
@@ -139,6 +139,11 @@ class Player extends React.Component {
       <Fragment>
         {gamePhase === DEALER_PONTOON && this.renderDealerPontoonActions()}
         {dealerHand && this.renderDealerHandActions()}
+        {gamePhase === RESULTS &&
+          <Button onClick={() => null}>
+            5-Card Trick
+          </Button>
+        }
       </Fragment>
     );
   }
