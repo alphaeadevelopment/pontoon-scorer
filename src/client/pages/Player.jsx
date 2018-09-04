@@ -104,14 +104,11 @@ class Player extends React.Component {
     return currentPlayer === playerIdx;
   }
   renderDealerHandActions = () => {
-    const { onAllLose, onAllWin, onDealerStick } = this.props;
+    const { onAllWin, onDealerStick } = this.props;
     return (
       <Fragment>
         <Button onClick={onDealerStick}>
           Stick
-        </Button>
-        <Button onClick={onAllLose}>
-          All Lose
         </Button>
         <Button onClick={onAllWin}>
           Bust
@@ -143,14 +140,9 @@ class Player extends React.Component {
         {gamePhase === DEALER_PONTOON && this.renderDealerPontoonActions()}
         {dealerHand && this.renderDealerHandActions()}
         {gamePhase === RESULTS &&
-          <Fragment>
-            <Typography>
-              Mark player pontoons first
-            </Typography>
-            <Button onClick={onAllLoseDouble}>
-              5-Card Trick
-            </Button>
-          </Fragment>
+          <Button onClick={onAllLoseDouble}>
+            5-Card Trick
+          </Button>
         }
       </Fragment>
     );

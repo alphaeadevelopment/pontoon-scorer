@@ -42,6 +42,11 @@ const styles = theme => ({
       padding: theme.spacing.unit,
     },
   },
+  handActions: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    flexFlow: 'row wrap',
+  },
   stakeCtr: {
     '& input': {
       width: '3em',
@@ -131,6 +136,9 @@ class Hand extends React.Component {
       <Button onClick={this.onLose}>
         Bust
       </Button>
+      <Button onClick={this.onWinDouble}>
+        Pontoon
+      </Button>
     </Fragment>
   )
   renderResultsActions = () => (
@@ -140,9 +148,6 @@ class Hand extends React.Component {
       </Button>
       <Button onClick={this.onLose}>
         Lose
-      </Button>
-      <Button onClick={this.onWinDouble}>
-        Pontoon
       </Button>
       <Button onClick={this.onWinDouble}>
         5-Card Trick
@@ -179,7 +184,7 @@ class Hand extends React.Component {
             onBuyCard={this.onBuyCard}
           />
         }
-        <div>
+        <div className={classes.handActions}>
           {
             isCurrentHand && includes([GAME_PLAY, DEALER_HAND], gamePhase) &&
             <Button onClick={this.onSplit}>
