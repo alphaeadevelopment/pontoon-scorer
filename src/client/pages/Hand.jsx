@@ -92,7 +92,10 @@ class Hand extends React.Component {
     this.invokeActionOnPlayerHand(this.props.onWin);
   }
   onLose = () => {
-    this.invokeActionOnPlayerHand(this.props.onLose);
+    this.invokeActionOnPlayerHand(this.props.onLose, { multiple: 1 });
+  }
+  onLoseDouble = () => {
+    this.invokeActionOnPlayerHand(this.props.onLose, { multiple: 2 });
   }
   onBuyCard = (stake) => {
     this.invokeActionOnPlayerHand(this.props.onBuyCard, { stake });

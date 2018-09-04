@@ -8,7 +8,7 @@ import { GAME_PLAY, SET_STAKE } from '../lib/constants/game-phases';
 import { getMaximumStake, getMinimumStake } from '../lib/game-logic/stake-limits';
 
 
-const styles = () => ({
+const styles = theme => ({
   root: {
     '& input': {
       width: '3em',
@@ -22,7 +22,7 @@ const styles = () => ({
     justifyContent: 'space-between',
   },
   valueRocker: {
-    margin: '10px 0',
+    margin: `${theme.spacing.unit}px 0`,
   },
 });
 

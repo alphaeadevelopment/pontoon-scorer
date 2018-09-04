@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`gameReducer RESET_GAME resets current phase 1`] = `
+Object {
+  "currentPlayer": null,
+  "currentPlayerHand": null,
+  "dealer": null,
+  "phase": 0,
+  "players": Array [],
+}
+`;
+
+exports[`gameReducer initial returns initialState 1`] = `
+Object {
+  "currentPlayer": null,
+  "currentPlayerHand": null,
+  "dealer": null,
+  "phase": 0,
+  "players": Array [],
+}
+`;

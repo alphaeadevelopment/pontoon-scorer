@@ -104,7 +104,7 @@ class Player extends React.Component {
     return currentPlayer === playerIdx;
   }
   renderDealerHandActions = () => {
-    const { onAllLose, onAllWin, onDealerStick, gamePhase } = this.props;
+    const { onAllLose, onAllWin, onDealerStick } = this.props;
     return (
       <Fragment>
         <Button onClick={onDealerStick}>
@@ -124,25 +124,33 @@ class Player extends React.Component {
       onAllLoseDouble, onStartGameProper } = this.props;
     return (
       <Fragment>
+        <Typography>
+          Pontoon?
+        </Typography>
         <Button onClick={onAllLoseDouble}>
-          Pontoon
+          Yes
         </Button>
         <Button onClick={onStartGameProper}>
-          Continue
+          No
         </Button>
       </Fragment>
     );
   }
   renderDealerActions = () => {
-    const { gamePhase, dealerHand } = this.props;
+    const { gamePhase, dealerHand, onAllLoseDouble } = this.props;
     return (
       <Fragment>
         {gamePhase === DEALER_PONTOON && this.renderDealerPontoonActions()}
         {dealerHand && this.renderDealerHandActions()}
         {gamePhase === RESULTS &&
-          <Button onClick={() => null}>
-            5-Card Trick
-          </Button>
+          <Fragment>
+            <Typography>
+              Mark player pontoons first
+            </Typography>
+            <Button onClick={onAllLoseDouble}>
+              5-Card Trick
+            </Button>
+          </Fragment>
         }
       </Fragment>
     );
@@ -166,7 +174,6 @@ class Player extends React.Component {
       <Grid
         item
         xs={isDealer ? 12 : 12}
-        sm={isDealer ? 12 : 12}
         md={isDealer ? 12 : 6}
         lg={isDealer ? 12 : 4}
         xl={isDealer ? 12 : 3}

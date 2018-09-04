@@ -5,7 +5,7 @@ import Typography from 'material-ui/Typography';
 import injectSheet from 'react-jss';
 import withSizeClasses from '../containers/withSizeClasses';
 
-const styles = {
+const styles = theme => ({
   root: {
     'display': 'flex',
     '& button': {
@@ -24,10 +24,10 @@ const styles = {
     },
   },
   value: {
-    margin: '10px',
+    margin: theme.spacing.unit,
   },
   md: {},
-};
+});
 const IconButton = ({ onClick, icon, disabled }) => (
   <button onClick={onClick} disabled={disabled}>
     <Icon icon={icon} color={disabled ? 'lightgrey' : 'black'} />
