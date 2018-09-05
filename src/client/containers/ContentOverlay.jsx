@@ -4,10 +4,6 @@ import injectSheet from 'react-jss';
 import { connect } from 'react-redux';
 import { getHeight } from '../selectors/viewportSelectors';
 
-import { isShowModal } from '../selectors/modalSelectors';
-import { isDrawerOpen } from '../selectors/drawerSelectors';
-import { closeDrawer } from '../actions/drawer';
-
 const styles = {
   root: {
     'display': 'none',
@@ -53,18 +49,19 @@ const styles = {
 };
 @connect(state => ({
   height: getHeight(state),
-  visible: isShowModal(state) || isDrawerOpen(state),
-}), {
-  closeDrawer,
-})
+}))
 @injectSheet(styles)
 class ContentOverlay extends React.Component {
+  componentWillReceiveProps(nextProps) {
+    console.log('ContentOverlay.nextProps', nextProps);
+  }
   onClick = (e) => {
     e.preventDefault();
-    this.props.closeDrawer();
+    this.props.onBackgroundClicked();
   }
   render() {
     const { classes, visible } = this.props;
+    console.log('overlay visibile', visible);
     return (
       <CSSTransition
         in={visible}

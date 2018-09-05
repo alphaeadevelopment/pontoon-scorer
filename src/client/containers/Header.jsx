@@ -6,6 +6,8 @@ import Typography from 'material-ui/Typography';
 import Ionicon from 'react-ionicons';
 import { openDrawer } from '../actions/drawer';
 import withSizeClasses from './withSizeClasses';
+import Drawer from './Drawer';
+import Leaderboard from '../pages/Leaderboard';
 
 const styles = theme => ({
   'root': {
@@ -47,11 +49,17 @@ const styles = theme => ({
 @injectSheet(styles)
 @withSizeClasses
 class Header extends React.Component {
+  state = {
+    drawerOpen: false,
+  }
   showMenuDrawer = () => {
-    const { openDrawer } = this.props;
-    openDrawer();
+    this.setState({ drawerOpen: true });
+  }
+  hideMenuDrawer = () => {
+    this.setState({ drawerOpen: false });
   }
   render() {
+    const { drawerOpen } = this.state;
     const { classes, className } = this.props;
     return (
       <div className={classNames(classes.root, className)}>
@@ -63,6 +71,9 @@ class Header extends React.Component {
             </a>
           </Typography>
         </div>
+        <Drawer open={drawerOpen}>
+          <Leaderboard />
+        </Drawer>
       </div>
     );
   }

@@ -11,7 +11,7 @@ class RawBody extends React.Component {
     const { footerHeight, classes, ...rest } = this.props;
     return (
       <div className={classes.root}>
-        <DrawerContainer />
+        {false && <DrawerContainer />}
         <Home {...rest} />
       </div>
     );
