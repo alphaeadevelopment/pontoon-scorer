@@ -4,6 +4,8 @@ import injectSheet from 'react-jss';
 import { connect } from 'react-redux';
 import { getHeight } from '../selectors/viewportSelectors';
 
+const transitionDuration = 500;
+
 const styles = {
   root: {
     'display': 'none',
@@ -17,7 +19,7 @@ const styles = {
     '&$enter': {
       'opacity': 0,
       'display': 'initial',
-      'transition': 'opacity 0.5s',
+      'transition': `opacity ${transitionDuration / 1000}s`,
     },
     '&$enterActive': {
       'opacity': 0.5,
@@ -29,7 +31,7 @@ const styles = {
     '&$exit': {
       'display': 'initial',
       'opacity': 0.5,
-      'transition': 'opacity 0.5s',
+      'transition': `opacity ${transitionDuration / 1000}s`,
     },
     '&$exitActive': {
       'opacity': 0,
@@ -52,20 +54,16 @@ const styles = {
 }))
 @injectSheet(styles)
 class ContentOverlay extends React.Component {
-  componentWillReceiveProps(nextProps) {
-    console.log('ContentOverlay.nextProps', nextProps);
-  }
   onClick = (e) => {
     e.preventDefault();
     this.props.onBackgroundClicked();
   }
   render() {
     const { classes, visible } = this.props;
-    console.log('overlay visibile', visible);
     return (
       <CSSTransition
         in={visible}
-        timeout={500}
+        timeout={transitionDuration}
         classNames={{
           appear: classes.appear,
           appearActive: classes.appearActive,

@@ -1,10 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import injectSheet from 'react-jss';
-import { connect } from 'react-redux';
 import Typography from 'material-ui/Typography';
 import Ionicon from 'react-ionicons';
-import { openDrawer } from '../actions/drawer';
 import withSizeClasses from './withSizeClasses';
 import Drawer from './Drawer';
 import Leaderboard from '../pages/Leaderboard';
@@ -43,9 +41,6 @@ const styles = theme => ({
   'menuIcon': {},
   'md': {},
 });
-@connect(null, {
-  openDrawer,
-})
 @injectSheet(styles)
 @withSizeClasses
 class Header extends React.Component {
@@ -71,7 +66,7 @@ class Header extends React.Component {
             </a>
           </Typography>
         </div>
-        <Drawer open={drawerOpen}>
+        <Drawer open={drawerOpen} onClose={this.hideMenuDrawer}>
           <Leaderboard />
         </Drawer>
       </div>
