@@ -166,7 +166,9 @@ class Hand extends React.Component {
     );
   }
   render() {
-    const { classes, hand, idx: handIdx, player, dealerIdx, isCurrentPlayer, currentPlayerHand, gamePhase } = this.props;
+    const {
+      classes, hand, idx: handIdx, player, dealerIdx, isCurrentPlayer, currentPlayerHand, gamePhase,
+    } = this.props;
 
     if (!hand.active) return null;
     const { initialStake, idx: playerIdx } = player;

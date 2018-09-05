@@ -8,6 +8,7 @@ import Body from './Body';
 import { isDrawerOpen } from '../selectors/drawerSelectors';
 import { closeDrawer } from '../actions';
 import { drawerRef } from '../lib/drawer';
+import { modalRef } from '../lib/modal';
 
 const styles = {
   root: {
@@ -46,6 +47,7 @@ class App extends React.Component {
     return (
       <div className={classes.root}>
         <div id='drawer-root' ref={drawerRef} />
+        <div id='modal-root' ref={modalRef} />
         <div className={classes.headerContainer}>
           <Header />
         </div>

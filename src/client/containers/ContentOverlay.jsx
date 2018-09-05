@@ -1,15 +1,19 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
+import classNames from 'classnames';
 import injectSheet from 'react-jss';
-import { connect } from 'react-redux';
-import { getHeight } from '../selectors/viewportSelectors';
 
 const transitionDuration = 500;
 
 const styles = {
   root: {
-    'display': 'none',
-    'height': props => props.height,
+    '&$hidden': {
+      'display': 'none',
+    },
+    '&:not($hidden)': {
+      'opacity': 0.5,
+    },
+    'height': props => props.pageHeight,
     'position': 'fixed',
     'width': '100%',
     'background': 'black',
@@ -40,6 +44,7 @@ const styles = {
       display: 'none',
     },
   },
+  hidden: {},
   appear: {},
   appearActive: {},
   enter: {},
@@ -49,14 +54,12 @@ const styles = {
   exitActive: {},
   exitDone: {},
 };
-@connect(state => ({
-  height: getHeight(state),
-}))
 @injectSheet(styles)
 class ContentOverlay extends React.Component {
   onClick = (e) => {
+    const { onBackgroundClicked } = this.props;
     e.preventDefault();
-    this.props.onBackgroundClicked();
+    if (onBackgroundClicked) onBackgroundClicked();
   }
   render() {
     const { classes, visible } = this.props;
@@ -76,7 +79,7 @@ class ContentOverlay extends React.Component {
         }}
       >
         <div
-          className={classes.root}
+          className={classNames(classes.root, { [classes.hidden]: !visible })}
           onKeyPress={this.onClick}
           onClick={this.onClick}
           role={'button'}
