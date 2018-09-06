@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import injectSheet from 'react-jss';
 import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
 import Hand from './Hand';
-import { InlineEditTextField, Card, Grid } from '../components';
+import { InlineEditTextField, Card, Grid, Button } from '../components';
 import { DEALER_PONTOON, RESULTS } from '../lib/constants/game-phases';
 import {
   getCurrentPlayer,

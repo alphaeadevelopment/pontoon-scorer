@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import injectSheet from 'react-jss';
-import Button from 'material-ui/Button';
 import { includes } from 'lodash';
 import Stake from './Stake';
 import { RESULTS, GAME_PLAY, DEALER_HAND } from '../lib/constants/game-phases';
@@ -29,7 +28,7 @@ import {
   startGameProper,
   stick,
 } from '../actions';
-import { Card } from '../components';
+import { Card, Button } from '../components';
 import withSizeClasses from '../containers/withSizeClasses';
 
 const styles = theme => ({

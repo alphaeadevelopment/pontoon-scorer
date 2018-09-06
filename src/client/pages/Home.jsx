@@ -1,7 +1,6 @@
 /* globals window */
 import React from 'react';
 import injectSheet from 'react-jss';
-import Button from 'material-ui/Button';
 import { connect } from 'react-redux';
 import {
   getActiveHandsInPlay,
@@ -17,7 +16,7 @@ import {
   resetGame,
   startGame,
 } from '../actions';
-import { ConfirmButton } from '../components';
+import { ConfirmButton, Button } from '../components';
 import { ROUND_OVER } from '../lib/constants/game-phases';
 
 const styles = theme => ({
