@@ -1,7 +1,8 @@
 import React from 'react';
 import injectSheet from 'react-jss';
-import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
+// import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
 import Typography from 'material-ui/Typography';
+import { Modal } from '../containers';
 import Button from './Button';
 
 const styles = {
@@ -33,31 +34,30 @@ export class RawConfirmButton extends React.Component {
         <Button onClick={this.onClickButton} {...rest}>
           {children}
         </Button>
-        <Dialog
+        <Modal
           disableBackdropClick
           disableEscapeKeyDown
           maxWidth='xs'
-          onEntering={this.handleEntering}
           aria-labelledby='confirmation-dialog-title'
           open={showConfirm}
         >
-          <DialogTitle id='confirmation-dialog-title'>
+          <Modal.ModalTitle id='confirmation-dialog-title'>
             {title}
-          </DialogTitle>
-          <DialogContent>
+          </Modal.ModalTitle>
+          <Modal.ModalContent>
             <Typography>
               {message}
             </Typography>
-          </DialogContent>
-          <DialogActions>
+          </Modal.ModalContent>
+          <Modal.ModalActions>
             <Button onClick={this.onCancel} color='primary'>
               Cancel
             </Button>
             <Button onClick={this.onConfirm} color='primary'>
               Ok
             </Button>
-          </DialogActions>
-        </Dialog>
+          </Modal.ModalActions>
+        </Modal>
       </div>
     );
   }
