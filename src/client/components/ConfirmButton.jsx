@@ -1,6 +1,5 @@
 import React from 'react';
 import injectSheet from 'react-jss';
-// import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
 import Typography from 'material-ui/Typography';
 import { Modal } from '../containers';
 import Button from './Button';

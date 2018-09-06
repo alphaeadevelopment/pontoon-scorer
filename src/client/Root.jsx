@@ -1,9 +1,7 @@
 /* globals window, document */
 import React, { Fragment } from 'react';
 import CssBaseline from 'material-ui/CssBaseline';
-// import SocketProvider from '@alphaeadev/react-socketio';
 import { JssProvider, ThemeProvider } from 'react-jss';
-// import { MuiThemeProvider } from 'material-ui/styles';
 import { create as createJss } from 'jss';
 import preset from 'jss-preset-default';
 import jssNested from 'jss-nested';
