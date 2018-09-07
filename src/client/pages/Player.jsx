@@ -3,9 +3,8 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import injectSheet from 'react-jss';
-import Typography from 'material-ui/Typography';
 import Hand from './Hand';
-import { InlineEditTextField, Card, Grid, Button } from '../components';
+import { InlineEditTextField, Card, Grid, Button, Typography } from '../components';
 import { DEALER_PONTOON, RESULTS } from '../lib/constants/game-phases';
 import {
   getCurrentPlayer,

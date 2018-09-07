@@ -1,8 +1,8 @@
 import React from 'react';
 import sortBy from 'lodash/sortBy';
-import Typography from 'material-ui/Typography';
 import injectSheet from 'react-jss';
 import { connect } from 'react-redux';
+import { Typography } from '../components';
 import {
   getPlayers,
   getDealerIdx,

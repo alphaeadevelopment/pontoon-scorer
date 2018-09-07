@@ -1,8 +1,7 @@
 import React from 'react';
 import { includes } from 'lodash';
 import injectSheet from 'react-jss';
-import Typography from 'material-ui/Typography';
-import { ValueRocker, Button } from '../components';
+import { ValueRocker, Button, Typography } from '../components';
 import { GAME_PLAY, SET_STAKE } from '../lib/constants/game-phases';
 import { getMaximumStake, getMinimumStake } from '../lib/game-logic/stake-limits';
 

@@ -5,6 +5,7 @@ import blueGrey from 'material-ui/colors/blueGrey';
 
 const theme = {
   palette: {
+    black: 'rgba(0, 0, 0, 0.87)',
     primary: {
       main: blueGrey[600],
     },

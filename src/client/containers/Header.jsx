@@ -1,11 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
 import injectSheet from 'react-jss';
-import Typography from 'material-ui/Typography';
 import Ionicon from 'react-ionicons';
 import withSizeClasses from './withSizeClasses';
 import Drawer from './Drawer';
 import Leaderboard from '../pages/Leaderboard';
+import { Typography } from '../components';
 
 const styles = theme => ({
   'root': {

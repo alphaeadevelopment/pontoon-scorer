@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import Icon from 'react-ionicons';
-import Typography from 'material-ui/Typography';
 import injectSheet from 'react-jss';
+import Typography from './Typography';
 import withSizeClasses from '../containers/withSizeClasses';
 
 const styles = theme => ({

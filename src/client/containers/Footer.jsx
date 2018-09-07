@@ -1,6 +1,6 @@
 import React from 'react';
 import injectSheet from 'react-jss';
-import Typography from 'material-ui/Typography';
+import { Typography } from '../components';
 import withSizeProps from './withSizeProps';
 
 const styles = theme => ({

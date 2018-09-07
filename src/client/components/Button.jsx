@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import injectSheet from 'react-jss';
+import { omit } from 'lodash';
 
 const transitionDuration = 300;
 
@@ -35,7 +36,7 @@ class Button extends React.Component {
       [classes.disabled]: disabled,
     };
     return (
-      <button className={classNames(classes.root, className, buttonClasses)} disabled={disabled} {...rest}>
+      <button className={classNames(classes.root, className, buttonClasses)} disabled={disabled} {...omit(rest, 'theme')}>
         <span className={classes.content}>
           {children}
         </span>

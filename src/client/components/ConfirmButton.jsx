@@ -1,14 +1,16 @@
 import React from 'react';
 import injectSheet from 'react-jss';
-import Typography from 'material-ui/Typography';
+import { omit } from 'lodash';
 import { Modal } from '../containers';
 import Button from './Button';
+import Typography from './Typography';
 
 const styles = {
 
 };
 
-export class RawConfirmButton extends React.Component {
+@injectSheet(styles)
+class ConfirmButton extends React.Component {
   state = {
     showConfirm: false,
   }
@@ -30,7 +32,7 @@ export class RawConfirmButton extends React.Component {
     const { children, message = 'Confirm?', title = 'Confirmation', onConfirm, onCancel, ...rest } = this.props;
     return (
       <div>
-        <Button onClick={this.onClickButton} {...rest}>
+        <Button onClick={this.onClickButton} {...omit(rest, ['theme'])}>
           {children}
         </Button>
         <Modal
@@ -61,4 +63,4 @@ export class RawConfirmButton extends React.Component {
     );
   }
 }
-export default injectSheet(styles)(RawConfirmButton);
+export default ConfirmButton;
