@@ -15,10 +15,11 @@ import reducer from './reducers';
 import { App, WindowEventProvider } from './containers';
 import './styles/main.scss';
 import subscribeListeners from './listeners';
+import appMiddleware from './middleware';
 
 const jss = createJss(preset(), jssNested());
 
-const middleware = [thunk];
+const middleware = [thunk, ...appMiddleware];
 
 // eslint-disable-next-line no-underscore-dangle
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

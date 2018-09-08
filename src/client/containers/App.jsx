@@ -6,9 +6,10 @@ import Footer from './Footer';
 import Header from './Header';
 import Body from './Body';
 import { isDrawerOpen } from '../selectors/drawerSelectors';
-import { closeDrawer } from '../actions';
+import { closeDrawer, gameLoaded } from '../actions';
 import { drawerRef } from '../lib/drawer';
 import { modalRef } from '../lib/modal';
+import { loadGameFromBrowser } from '../lib/browser';
 
 const styles = {
   root: {
@@ -33,11 +34,22 @@ const styles = {
   }
 ), {
   closeDrawer,
+  gameLoaded,
 })
 @injectSheet(styles)
 class App extends React.Component {
   state = {
     footerHeight: 0,
+  }
+  componentDidMount() {
+    const { gameLoaded } = this.props;
+    loadGameFromBrowser()
+      .then((g) => {
+        if (g) gameLoaded(g);
+      })
+      .catch((e) => {
+        console.log('Error loading game from browser: %s', e);
+      });
   }
   setFooterHeight = (h) => {
     this.setState({ footerHeight: h });

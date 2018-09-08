@@ -78,6 +78,8 @@ export default (state = initial, { type, payload }) => {
         players: { $push: [newPlayer(state.players.length)] },
         dealer: { $apply: v => (v === null ? state.players.length : v) },
       });
+    case Types.GAME_LOADED:
+      return payload;
     case Types.NEW_ROUND:
       return update(state, {
         players: { $apply: players => players.map(p => resetHands(p)) },
