@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import injectSheet from 'react-jss';
-import { omit } from 'lodash';
+import omit from 'lodash.omit';
 
 const transitionDuration = 300;
 

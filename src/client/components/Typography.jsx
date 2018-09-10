@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import injectSheet from 'react-jss';
-import { memoize } from 'lodash';
+import memoize from 'lodash.memoize';
 
 const variantClass = (classes, variant) => {
   if (!classes[variant]) return {};

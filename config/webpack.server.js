@@ -9,8 +9,6 @@ const VENDOR_LIBS = [
   'body-parser',
   'classnames',
   'immutability-helper',
-  'material-ui-icons',
-  'material-ui',
   'react-dom',
   'react-hot-loader',
   'react-redux',

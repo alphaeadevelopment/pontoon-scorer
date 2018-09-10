@@ -15,8 +15,6 @@ const VENDOR_LIBS = [
   'babel-register',
   'classnames',
   'immutability-helper',
-  'material-ui-icons',
-  'material-ui',
   'react-dom',
   'react-hot-loader',
   'react-redux',

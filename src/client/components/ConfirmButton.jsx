@@ -1,6 +1,6 @@
 import React from 'react';
 import injectSheet from 'react-jss';
-import { omit } from 'lodash';
+import omit from 'lodash.omit';
 import { Modal } from '../containers';
 import Button from './Button';
 import Typography from './Typography';

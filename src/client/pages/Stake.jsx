@@ -1,5 +1,5 @@
 import React from 'react';
-import { includes } from 'lodash';
+import includes from 'lodash.includes';
 import injectSheet from 'react-jss';
 import { ValueRocker, Button, Typography } from '../components';
 import { GAME_PLAY, SET_STAKE } from '../lib/constants/game-phases';

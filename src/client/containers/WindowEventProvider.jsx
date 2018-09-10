@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { debounce } from 'lodash';
+import debounce from 'lodash.debounce';
 import { resize } from '../actions/viewport';
 
 class WindowEventProvider extends Component {

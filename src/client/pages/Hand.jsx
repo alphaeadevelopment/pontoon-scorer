@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import injectSheet from 'react-jss';
-import { includes } from 'lodash';
+import includes from 'lodash.includes';
 import Stake from './Stake';
 import { RESULTS, GAME_PLAY, DEALER_HAND } from '../lib/constants/game-phases';
 import {
