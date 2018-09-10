@@ -1,6 +1,6 @@
 /* globals window, document */
 import React, { Fragment } from 'react';
-import CssBaseline from 'material-ui/CssBaseline';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { JssProvider, ThemeProvider } from 'react-jss';
 import { create as createJss } from 'jss';
 import preset from 'jss-preset-default';

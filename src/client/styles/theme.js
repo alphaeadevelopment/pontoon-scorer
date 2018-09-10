@@ -1,7 +1,7 @@
-import createMuiTheme from 'material-ui/styles/createMuiTheme';
-import teal from 'material-ui/colors/teal';
-import red from 'material-ui/colors/red';
-import blueGrey from 'material-ui/colors/blueGrey';
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import teal from '@material-ui/core/colors/teal';
+import red from '@material-ui/core/colors/red';
+import blueGrey from '@material-ui/core/colors/blueGrey';
 
 const theme = {
   palette: {
