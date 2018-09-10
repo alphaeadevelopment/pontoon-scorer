@@ -2,17 +2,14 @@
 import React, { Fragment } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { JssProvider, ThemeProvider } from 'react-jss';
-import { create as createJss } from 'jss';
-import preset from 'jss-preset-default';
-import jssNested from 'jss-nested';
 
 import { Provider as ReduxProvider } from 'react-redux';
-import theme from './styles/theme';
 import { App, WindowEventProvider } from './containers';
 import './styles/main.scss';
 import { createStore } from './lib/redux';
+import { createJss, theme } from './styles';
 
-const jss = createJss(preset(), jssNested());
+const jss = createJss();
 
 const getWindowState = () => {
   // Grab the state from a global variable injected into the server-generated HTML
@@ -41,7 +38,7 @@ export default class Root extends React.Component {
             <ThemeProvider theme={theme}>
               <Fragment>
                 <CssBaseline />
-                <App {...this.props} />
+                <App />
               </Fragment>
             </ThemeProvider>
           </JssProvider>
