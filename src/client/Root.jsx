@@ -6,40 +6,24 @@ import { create as createJss } from 'jss';
 import preset from 'jss-preset-default';
 import jssNested from 'jss-nested';
 
-import { createStore, applyMiddleware, compose } from 'redux';
-import { HashRouter as Router } from 'react-router-dom';
 import { Provider as ReduxProvider } from 'react-redux';
-import thunk from 'redux-thunk';
 import theme from './styles/theme';
-import reducer from './reducers';
 import { App, WindowEventProvider } from './containers';
 import './styles/main.scss';
-import subscribeListeners from './listeners';
-import appMiddleware from './middleware';
+import { createStore } from './lib/redux';
 
 const jss = createJss(preset(), jssNested());
 
-const middleware = [thunk, ...appMiddleware];
+const getWindowState = () => {
+  // Grab the state from a global variable injected into the server-generated HTML
+  const preloadedState = window.__PRELOADED_STATE__; // eslint-disable-line no-underscore-dangle
+  // Allow the passed state to be garbage-collected
+  delete window.__PRELOADED_STATE__; // eslint-disable-line no-underscore-dangle
+  return preloadedState;
+};
 
 // eslint-disable-next-line no-underscore-dangle
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-if (process.env.NODE_ENV !== 'production') {
-  // middleware.push(createLogger());
-}
-// Grab the state from a global variable injected into the server-generated HTML
-const preloadedState = window.__PRELOADED_STATE__; // eslint-disable-line no-underscore-dangle
-
-// Allow the passed state to be garbage-collected
-delete window.__PRELOADED_STATE__; // eslint-disable-line no-underscore-dangle
-
-const store = createStore(
-  reducer,
-  preloadedState,
-  composeEnhancers(applyMiddleware(...middleware)),
-);
-subscribeListeners(store);
-
-// const generateClassName = createGenerateClassName();
+const store = createStore(getWindowState(), window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__);
 
 export default class Root extends React.Component {
   // Remove the server-side injected CSS.
@@ -51,20 +35,18 @@ export default class Root extends React.Component {
   }
   render() {
     return (
-      <Router>
-        <ReduxProvider store={store}>
-          <WindowEventProvider>
-            <JssProvider jss={jss}>
-              <ThemeProvider theme={theme}>
-                <Fragment>
-                  <CssBaseline />
-                  <App {...this.props} />
-                </Fragment>
-              </ThemeProvider>
-            </JssProvider>
-          </WindowEventProvider>
-        </ReduxProvider>
-      </Router>
+      <ReduxProvider store={store}>
+        <WindowEventProvider>
+          <JssProvider jss={jss}>
+            <ThemeProvider theme={theme}>
+              <Fragment>
+                <CssBaseline />
+                <App {...this.props} />
+              </Fragment>
+            </ThemeProvider>
+          </JssProvider>
+        </WindowEventProvider>
+      </ReduxProvider>
     );
   }
 }

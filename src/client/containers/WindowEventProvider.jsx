@@ -2,8 +2,9 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import debounce from 'lodash.debounce';
-import { resize } from '../actions/viewport';
+import { setSize } from '../actions/viewport';
 
+@connect(() => ({}), { setSize })
 class WindowEventProvider extends Component {
   constructor(props) {
     super(props);
@@ -17,16 +18,17 @@ class WindowEventProvider extends Component {
     window.removeEventListener('resize', this.debouncedUpdateSize);
   }
   updateSize = () => {
-    const { onResize } = this.props;
-    onResize({ width: window.innerWidth, height: window.innerHeight });
+    const { setSize } = this.props;
+    setSize(window.innerWidth, window.innerHeight);
   }
   render() {
+    const { children } = this.props;
     return (
       <Fragment>
-        {this.props.children}
+        {children}
       </Fragment>
     );
   }
 }
 
-export default connect(() => ({}), { onResize: resize })(WindowEventProvider);
+export default WindowEventProvider;

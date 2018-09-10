@@ -1,6 +1,6 @@
-/* globals window */
 import update from 'immutability-helper';
 import * as Types from '../actions/viewport/types';
+import { window } from '../services';
 
 const initial = { width: window.innerWidth, height: window.innerHeight };
 export default (state = initial, { type, payload }) => {

@@ -1,11 +1,11 @@
 /* globals document */
 import React from 'react';
-import { render } from 'react-dom';
+import { hydrate } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import Root from './Root';
 
 const doRender = (Component) => {
-  render(
+  hydrate(
     <AppContainer>
       <Component />
     </AppContainer>,
