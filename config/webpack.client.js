@@ -41,7 +41,7 @@ const outputPath = path.join(__dirname, '../dist');
 
 const config = {
   entry: {
-    main: ['babel-polyfill', 'react-hot-loader/patch', path.join(__dirname, '../src/client/images/favicon.ico'), path.join(__dirname, '../src/client', 'index.jsx')],
+    main: ['babel-polyfill', 'react-hot-loader/patch', path.join(__dirname, '../src/shared/images/favicon.ico'), path.join(__dirname, '../src/client', 'index.jsx')],
     vendor: VENDOR_LIBS,
   },
   output: {
@@ -138,7 +138,7 @@ const config = {
     extractScss,
     extractCss,
     new HtmlWebpackPlugin({
-      template: 'src/client/html/index.html',
+      template: 'src/shared/html/index.html',
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: ['vendor', 'manifest'],

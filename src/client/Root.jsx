@@ -4,12 +4,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { JssProvider, ThemeProvider } from 'react-jss';
 
 import { Provider as ReduxProvider } from 'react-redux';
-import { App, WindowEventProvider } from './containers';
-import './styles/main.scss';
-import { createStore } from './lib/redux';
-import { createJss, theme } from './styles';
-
-const jss = createJss();
+import { App, WindowEventProvider } from '../shared/containers';
+import '../shared/styles/main.scss';
+import { createStore } from '../shared/lib/redux';
+import { jss, theme } from '../shared/styles';
 
 const getWindowState = () => {
   // Grab the state from a global variable injected into the server-generated HTML
