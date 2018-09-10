@@ -2,8 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import http from 'http';
 import publicPath from './public-path';
-import onServerStarted from './on-server-started';
-import rootRouter from './routers';
+import rootRouter from './routes';
 import configureWebpack from './configure-webpack';
 
 const port = process.env.PORT || 3000;
@@ -18,4 +17,6 @@ configureWebpack(app);
 
 const server = http.createServer(app);
 
-server.listen(port, onServerStarted(port));
+server.listen(port, () => {
+  console.log('Listening on %s', port); // eslint-disable-line no-console
+});

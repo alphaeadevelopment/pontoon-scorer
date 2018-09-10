@@ -1,21 +1,11 @@
-/* globals window, document */
-import React, { Fragment } from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { JssProvider, ThemeProvider } from 'react-jss';
+import React from 'react';
 
 import { Provider as ReduxProvider } from 'react-redux';
-import { App, WindowEventProvider } from '../shared/containers';
+import { AppContainer } from '../shared/containers';
 import '../shared/styles/main.scss';
 import { createStore } from '../shared/lib/redux';
-import { jss, theme } from '../shared/styles';
-
-const getWindowState = () => {
-  // Grab the state from a global variable injected into the server-generated HTML
-  const preloadedState = window.__PRELOADED_STATE__; // eslint-disable-line no-underscore-dangle
-  // Allow the passed state to be garbage-collected
-  delete window.__PRELOADED_STATE__; // eslint-disable-line no-underscore-dangle
-  return preloadedState;
-};
+import { window, document } from '../shared/services';
+import getWindowState from './get-and-clear-window-state';
 
 // eslint-disable-next-line no-underscore-dangle
 const store = createStore(getWindowState(), window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__);
@@ -31,16 +21,7 @@ export default class Root extends React.Component {
   render() {
     return (
       <ReduxProvider store={store}>
-        <WindowEventProvider>
-          <JssProvider jss={jss}>
-            <ThemeProvider theme={theme}>
-              <Fragment>
-                <CssBaseline />
-                <App />
-              </Fragment>
-            </ThemeProvider>
-          </JssProvider>
-        </WindowEventProvider>
+        <AppContainer />
       </ReduxProvider>
     );
   }

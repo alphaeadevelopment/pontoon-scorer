@@ -1,3 +1,5 @@
+import sanitise from './sanitise-javascript';
+
 export default (html, preloadedState, sheets) => Promise.resolve(
   `
   <!DOCTYPE html>
@@ -18,7 +20,7 @@ export default (html, preloadedState, sheets) => Promise.resolve(
   <script>
     // WARNING: See the following for security issues around embedding JSON in HTML:
     // http://redux.js.org/recipes/ServerRendering.html#security-considerations
-    window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
+    window.__PRELOADED_STATE__ = ${sanitise(preloadedState)}
   </script>
 <script type="text/javascript" src="/manifest.js"></script><script type="text/javascript" src="/vendor.js"></script><script type="text/javascript" src="/main.js"></script></body>
 
