@@ -55,7 +55,7 @@ const styles = theme => ({
   },
 )
 @injectSheet(styles)
-export class Home extends React.Component {
+export class Game extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { phase: currentPhase } = this.props;
     const { phase: nextPhase } = nextProps;
@@ -108,4 +108,4 @@ export class Home extends React.Component {
   }
 }
 
-export default Home;
+export default Game;

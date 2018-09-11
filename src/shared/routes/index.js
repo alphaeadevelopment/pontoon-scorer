@@ -1,4 +1,4 @@
-import { Welcome, Home } from '../pages';
+import { Welcome, Game } from '../pages';
 
 export default [
   {
@@ -8,7 +8,7 @@ export default [
   },
   {
     path: '/game',
-    component: Home,
+    component: Game,
     exact: true,
   },
 ];
