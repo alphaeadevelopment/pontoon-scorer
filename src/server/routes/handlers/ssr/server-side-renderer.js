@@ -12,7 +12,7 @@ export default (req, res) => {
       const sheets = new SheetsRegistry();
 
       // Render the component to a string
-      const reactAppHtml = renderToString(renderReactApp(store, sheets));
+      const reactAppHtml = renderToString(renderReactApp(req.url, store, sheets));
 
       // Send the rendered page back to the client
       renderFullPage(reactAppHtml, store.getState(), sheets)

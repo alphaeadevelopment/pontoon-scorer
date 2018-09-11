@@ -55,7 +55,7 @@ class App extends React.Component {
     this.setState({ footerHeight: h });
   }
   render() {
-    const { classes } = this.props;
+    const { classes, location } = this.props;
     return (
       <div className={classes.root}>
         <div id='drawer-root' ref={drawerRef} />
@@ -64,7 +64,7 @@ class App extends React.Component {
           <Header />
         </div>
         <div className={classes.bodyContainer} style={{ marginBottom: this.state.footerHeight }}>
-          <Body />
+          <Body location={location} />
         </div>
         <div className={classes.footerContainer}>
           <Footer onSetHeight={this.setFooterHeight} />

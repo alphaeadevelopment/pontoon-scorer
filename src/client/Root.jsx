@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { BrowserRouter } from 'react-router-dom';
 import { Provider as ReduxProvider } from 'react-redux';
 import { AppContainer } from '../shared/containers';
 import '../shared/styles/main.scss';
@@ -20,9 +20,11 @@ export default class Root extends React.Component {
   }
   render() {
     return (
-      <ReduxProvider store={store}>
-        <AppContainer />
-      </ReduxProvider>
+      <BrowserRouter>
+        <ReduxProvider store={store}>
+          <AppContainer />
+        </ReduxProvider>
+      </BrowserRouter>
     );
   }
 }

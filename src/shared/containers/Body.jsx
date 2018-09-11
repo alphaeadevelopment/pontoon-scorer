@@ -1,19 +1,30 @@
 import React from 'react';
+import { Switch, Route } from 'react-router';
 import injectSheet from 'react-jss';
-import { Home } from '../pages';
+import routes from '../routes';
 
 const styles = {
   root: { position: 'relative' },
 };
-class RawBody extends React.Component {
+@injectSheet(styles)
+class Body extends React.Component {
   render() {
-    const { footerHeight, classes, ...rest } = this.props;
+    const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Home {...rest} />
+        <Switch>
+          {routes.map(({ path, exact, component: C }) => (
+            <Route
+              key={path}
+              exact={exact}
+              path={path}
+              render={props => <C {...props} />}
+            />
+          ))}
+        </Switch>
       </div>
     );
   }
 }
 
-export default injectSheet(styles)(RawBody);
+export default Body;
