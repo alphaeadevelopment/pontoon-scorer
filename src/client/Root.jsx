@@ -20,11 +20,9 @@ export default class Root extends React.Component {
   }
   render() {
     return (
-      <ReduxProvider store={store}>
-        <BrowserRouter>
-          <AppContainer />
-        </BrowserRouter>
-      </ReduxProvider>
+      <BrowserRouter>
+        <AppContainer store={store} />
+      </BrowserRouter>
     );
   }
 }
