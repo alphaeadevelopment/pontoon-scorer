@@ -13,7 +13,7 @@ route.get('*', (req, res, next) => {
     next();
   }
   else {
-    ssr(req, res);
+    ssr(activeRoute.path, req, res);
   }
 });
 

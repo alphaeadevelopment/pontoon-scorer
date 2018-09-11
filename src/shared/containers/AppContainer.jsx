@@ -11,14 +11,14 @@ import App from './App';
 @withRouter
 class AppContainer extends Component {
   render() {
-    const { jssRegistry, ...rest } = this.props;
+    const { jssRegistry, location } = this.props;
     return (
       <JssProvider jss={jss} registry={jssRegistry}>
         <ThemeProvider theme={theme}>
           <WindowEventProvider>
             <Fragment>
               <CssBaseline />
-              <App {...rest} />
+              <App location={location} />
             </Fragment>
           </WindowEventProvider>
         </ThemeProvider>

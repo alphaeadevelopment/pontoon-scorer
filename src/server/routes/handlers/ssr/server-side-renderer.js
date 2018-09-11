@@ -5,14 +5,14 @@ import renderFullPage from './render-full-page';
 import renderReactApp from './render-react-app';
 import initStore from './init-store';
 
-export default (req, res) => {
+export default (routerPath, req, res) => {
   const store = createStore();
   initStore(store)
     .then(() => {
       const sheets = new SheetsRegistry();
 
       // Render the component to a string
-      const reactAppHtml = renderToString(renderReactApp(req.url, store, sheets));
+      const reactAppHtml = renderToString(renderReactApp(routerPath, store, sheets));
 
       // Send the rendered page back to the client
       renderFullPage(reactAppHtml, store.getState(), sheets)
