@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider as ReduxProvider } from 'react-redux';
 import { AppContainer } from '../shared/containers';
 import '../shared/styles/main.scss';
 import { createStore } from '../shared/lib/redux';
