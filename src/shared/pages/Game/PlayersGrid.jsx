@@ -1,17 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import clone from 'lodash/clone';
+import clone from 'lodash.clone';
 import injectSheet from 'react-jss';
 import Player from './Player';
 import {
   getDealerIdx,
   getPlayers,
-} from '../selectors';
+} from '../../selectors';
 import {
   Grid,
-} from '../components';
-import withSizeClasses from '../containers/withSizeClasses';
+} from '../../components';
+import withSizeClasses from '../../containers/withSizeClasses';
 
 const styles = theme => ({
   root: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import injectSheet from 'react-jss';
-import { Typography } from '../components';
+import { Typography } from '../../components';
 
 const styles = {
   root: {

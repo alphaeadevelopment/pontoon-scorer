@@ -1,9 +1,9 @@
 import React from 'react';
 import includes from 'lodash.includes';
 import injectSheet from 'react-jss';
-import { ValueRocker, Button, Typography } from '../components';
-import { GAME_PLAY, SET_STAKE } from '../lib/constants/game-phases';
-import { getMaximumStake, getMinimumStake } from '../lib/game-logic/stake-limits';
+import { ValueRocker, Button, Typography } from '../../components';
+import { GAME_PLAY, SET_STAKE } from '../../lib/constants/game-phases';
+import { getMaximumStake, getMinimumStake } from '../../lib/game-logic/stake-limits';
 
 
 const styles = theme => ({

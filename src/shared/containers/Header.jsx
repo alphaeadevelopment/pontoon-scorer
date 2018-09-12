@@ -4,7 +4,7 @@ import injectSheet from 'react-jss';
 import Ionicon from 'react-ionicons';
 import withSizeClasses from './withSizeClasses';
 import Drawer from './Drawer';
-import Leaderboard from '../pages/Leaderboard';
+import Leaderboard from './Leaderboard';
 import { Typography } from '../components';
 
 const styles = theme => ({
