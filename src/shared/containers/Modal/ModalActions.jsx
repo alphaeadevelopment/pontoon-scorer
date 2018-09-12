@@ -9,7 +9,7 @@ const styles = {
   },
 };
 const ModalActions = ({ children, classes, className }) => (
-  <div className={classNames(classes.root, className)} >
+  <div className={classNames(className, classes.root)} >
     {children}
   </div>
 );

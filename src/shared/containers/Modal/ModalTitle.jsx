@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import injectSheet from 'react-jss';
+import { Typography } from '../../components';
 
 const styles = theme => ({
   root: {
@@ -8,8 +9,8 @@ const styles = theme => ({
   },
 });
 const ModalTitle = ({ children, classes, className }) => (
-  <div className={classNames(classes.root, className)} >
+  <Typography className={classNames(classes.root, className)} variant={'display4'} >
     {children}
-  </div>
+  </Typography>
 );
 export default injectSheet(styles)(ModalTitle);

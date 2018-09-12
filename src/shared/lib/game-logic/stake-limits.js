@@ -1,16 +1,16 @@
 
-export const getMinimumStake = (initialStake) => {
+export const getMinimumStake = (minimum, initialStake) => {
   if (initialStake) {
     return initialStake;
   }
-  return 1;
+  return minimum;
 };
-export const getMaximumStake = (initialStake, lastBid) => {
+export const getMaximumStake = (maximum, initialStake, lastBid) => {
   if (initialStake) {
     if (lastBid) {
       return lastBid;
     }
     return initialStake * 2;
   }
-  return 5;
+  return maximum;
 };

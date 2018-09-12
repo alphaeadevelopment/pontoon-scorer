@@ -18,6 +18,7 @@ import {
 } from '../../actions';
 import { ConfirmButton, Button } from '../../components';
 import { ROUND_OVER } from '../../lib/constants/game-phases';
+import { getGameSettings } from '../Settings/selectors';
 
 const styles = theme => ({
   root: {
@@ -46,6 +47,7 @@ const styles = theme => ({
     currentPlayer: getCurrentPlayer(state),
     players: getPlayers(state),
     phase: getPhase(state),
+    gameSettings: getGameSettings(state),
   }),
   {
     onAddPlayer: addPlayer,
@@ -63,6 +65,10 @@ export class Game extends React.Component {
       window.scrollTo(0, 0);
     }
   }
+  onStartGame = () => {
+    const { onStartGame, gameSettings } = this.props;
+    onStartGame({ settings: gameSettings });
+  }
   render() {
     const {
       activeHandsInPlay,
@@ -72,7 +78,6 @@ export class Game extends React.Component {
       onAddPlayer,
       onNewRound,
       onResetGame,
-      onStartGame,
       players,
     } = this.props;
     return (
@@ -82,7 +87,7 @@ export class Game extends React.Component {
             Add Player
           </Button>
           {currentPlayer === null &&
-            <Button disabled={players.length < 2} onClick={onStartGame}>
+            <Button disabled={players.length < 2} onClick={this.onStartGame}>
               Start Game
             </Button>
           }

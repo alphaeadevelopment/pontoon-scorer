@@ -1,10 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import includes from 'lodash.includes';
 import injectSheet from 'react-jss';
 import { ValueRocker, Button, Typography } from '../../components';
 import { GAME_PLAY, SET_STAKE } from '../../lib/constants/game-phases';
 import { getMaximumStake, getMinimumStake } from '../../lib/game-logic/stake-limits';
-
+import { getGameSettings } from '../../selectors/game';
 
 const styles = theme => ({
   root: {
@@ -24,19 +25,25 @@ const styles = theme => ({
   },
 });
 
+@connect(
+  state => ({
+    minimumStake: getGameSettings(state).stake.minimum,
+    maximumStake: getGameSettings(state).stake.maximum,
+  }),
+)
 @injectSheet(styles)
 class Stake extends React.Component {
   state = {
-    maximum: getMaximumStake(this.props.initialStake, this.props.hand.lastBid),
-    minimum: getMinimumStake(this.props.initialStake, this.props.hand.lastBid),
-    value: getMinimumStake(this.props.initialStake, this.props.hand.lastBid),
+    maximum: getMaximumStake(this.props.maximumStake, this.props.initialStake, this.props.hand.lastBid),
+    minimum: getMinimumStake(this.props.minimumStake, this.props.initialStake, this.props.hand.lastBid),
+    value: getMinimumStake(this.props.minimumStake, this.props.initialStake, this.props.hand.lastBid),
   }
   componentWillReceiveProps = (nextProps) => {
-    const minimum = getMinimumStake(nextProps.initialStake, nextProps.hand.lastBid);
+    const minimum = getMinimumStake(this.props.minimumStake, nextProps.initialStake, nextProps.hand.lastBid);
     this.setState({
       minimum,
       value: minimum,
-      maximum: getMaximumStake(nextProps.initialStake, nextProps.hand.lastBid),
+      maximum: getMaximumStake(this.props.maximumStake, nextProps.initialStake, nextProps.hand.lastBid),
     });
   }
   onChange = (value) => {

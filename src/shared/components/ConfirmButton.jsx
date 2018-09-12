@@ -42,22 +42,22 @@ class ConfirmButton extends React.Component {
           aria-labelledby='confirmation-dialog-title'
           open={showConfirm}
         >
-          <Modal.ModalTitle id='confirmation-dialog-title'>
+          <Modal.Title id='confirmation-dialog-title'>
             {title}
-          </Modal.ModalTitle>
-          <Modal.ModalContent>
+          </Modal.Title>
+          <Modal.Content>
             <Typography>
               {message}
             </Typography>
-          </Modal.ModalContent>
-          <Modal.ModalActions>
+          </Modal.Content>
+          <Modal.Actions>
             <Button onClick={this.onCancel} color='primary'>
               Cancel
             </Button>
             <Button onClick={this.onConfirm} color='primary'>
               Ok
             </Button>
-          </Modal.ModalActions>
+          </Modal.Actions>
         </Modal>
       </div>
     );

@@ -18,7 +18,7 @@ const styles = theme => ({
     },
     'background': 'white',
     'position': 'fixed',
-    'transform': 'translateX(-50%) translateY(-50%)',
+    'transform': 'translateX(-50%) translateY(-100%)',
     'left': props => props.pageWidth / 2,
     'top': props => props.pageHeight / 2,
     'min-width': props => props.pageWidth / 4,
@@ -30,17 +30,17 @@ const styles = theme => ({
 @injectSheet(styles)
 class Modal extends React.Component {
   static propTypes = {
-    closeOnBackgroundClick: PropTypes.bool,
+    disableBackdropClick: PropTypes.bool,
     onClose: PropTypes.func,
     pageHeight: PropTypes.number.isRequired, // eslint-disable-line react/no-unused-prop-types
     pageWidth: PropTypes.number.isRequired, // eslint-disable-line react/no-unused-prop-types
   }
   static defaultProps = {
-    closeOnBackgroundClick: true,
+    disableBackdropClick: false,
     onClose: null,
   }
   render() {
-    const { contentClassName, classes, open, onClose, children, closeOnBackgroundClick, pageHeight } = this.props;
+    const { contentClassName, classes, open, onClose, children, disableBackdropClick, pageHeight } = this.props;
     return (
       <ModalPortal modalRef={modalRef}>
         <div
@@ -49,7 +49,7 @@ class Modal extends React.Component {
           <ContentOverlay
             pageHeight={pageHeight}
             visible={open}
-            onBackgroundClicked={closeOnBackgroundClick ? onClose : null}
+            onBackgroundClicked={disableBackdropClick ? null : onClose}
           />
           <div
             className={classNames(classes.content, contentClassName, { [classes.open]: open })}

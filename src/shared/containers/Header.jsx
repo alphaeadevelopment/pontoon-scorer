@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import classNames from 'classnames';
 import injectSheet from 'react-jss';
 import Ionicon from 'react-ionicons';
@@ -11,7 +11,9 @@ const styles = theme => ({
   'root': {
     'display': 'flex',
     'background': theme.palette.primary.dark,
-    '&>div': {
+    'justifyContent': 'space-between',
+    'alignItems': 'center',
+    '& $left': {
       'display': 'flex',
       'justifyContent': 'flex-start',
       'width': '100%',
@@ -20,25 +22,32 @@ const styles = theme => ({
       },
       'padding': `${theme.spacing.unit}px`,
     },
-    '&$md>div': {
-      'margin': theme.spacing.unit,
+    '&$md': {
       'padding': `${theme.spacing.unit * 2}px`,
     },
     '&$md $menuIcon': {
       'margin-right': `${theme.spacing.unit * 4}px`,
     },
-    '& $menuIcon': {
-      'fill': 'white',
-      'width': '40px',
-      'height': '40px',
-      'cursor': 'pointer',
-      'margin-right': `${theme.spacing.unit}px`,
-    },
+  },
+  'left': {
+    display: 'flex',
   },
   'title': {
     'line-height': '40px',
   },
-  'menuIcon': {},
+  'icon': {
+    'fill': 'white',
+    'width': '40px',
+    'height': '40px',
+    'cursor': 'pointer',
+  },
+  'menuIcon': {
+    'extend': 'icon',
+    'margin-right': `${theme.spacing.unit}px`,
+  },
+  'settingsIcon': {
+    'extend': 'icon',
+  },
   'md': {},
 });
 @injectSheet(styles)
@@ -55,21 +64,24 @@ class Header extends React.Component {
   }
   render() {
     const { drawerOpen } = this.state;
-    const { classes, className } = this.props;
+    const { classes, className, openSettings } = this.props;
     return (
-      <div className={classNames(classes.root, className)}>
-        <div>
-          <Ionicon className={classes.menuIcon} icon={'md-menu'} onClick={this.showMenuDrawer} />
-          <Typography className={classes.title} variant={'display2'}>
-            <a href={'/'}>
-              Pontoon Scorer
-            </a>
-          </Typography>
+      <Fragment>
+        <div className={classNames(classes.root, className)}>
+          <div className={classes.left}>
+            <Ionicon className={classes.menuIcon} icon={'md-menu'} onClick={this.showMenuDrawer} />
+            <Typography className={classes.title} variant={'display2'}>
+              <a href={'/'}>
+                Pontoon Scorer
+              </a>
+            </Typography>
+          </div>
+          <Ionicon className={classes.settingsIcon} icon={'md-settings'} onClick={openSettings} />
         </div>
         <Drawer open={drawerOpen} onClose={this.hideMenuDrawer}>
           <Leaderboard />
         </Drawer>
-      </div>
+      </Fragment>
     );
   }
 }

@@ -24,6 +24,9 @@ const doSsr = (activeRoute) => {
 
       // Send the rendered page back to the client
       return renderFullPage(reactAppHtml, store.getState(), sheets);
+    })
+    .catch((e) => {
+      throw e;
     });
 };
 
@@ -38,6 +41,6 @@ export default (req, res, next) => {
   else {
     doSsr(activeRoute)
       .then(html => res.status(200).send(html))
-      .catch(res.status(500));
+      .catch(e => res.status(500).send(e));
   }
 };

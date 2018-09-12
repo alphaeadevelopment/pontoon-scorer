@@ -9,7 +9,9 @@ import { isDrawerOpen } from '../selectors/drawerSelectors';
 import { closeDrawer, gameLoaded } from '../actions';
 import { drawerRef } from '../lib/drawer';
 import { modalRef } from '../lib/modal';
+import { openSettings } from '../pages/Settings/actions';
 import { loadGameFromBrowser } from '../lib/browser';
+import Settings from '../pages/Settings';
 
 const styles = {
   root: {
@@ -35,6 +37,7 @@ const styles = {
 ), {
   closeDrawer,
   gameLoaded,
+  openSettings,
 })
 @injectSheet(styles)
 class App extends React.Component {
@@ -55,13 +58,13 @@ class App extends React.Component {
     this.setState({ footerHeight: h });
   }
   render() {
-    const { classes, location } = this.props;
+    const { classes, location, openSettings } = this.props;
     return (
       <div className={classes.root}>
         <div id='drawer-root' ref={drawerRef} />
         <div id='modal-root' ref={modalRef} />
         <div className={classes.headerContainer}>
-          <Header />
+          <Header openSettings={openSettings} />
         </div>
         <div className={classes.bodyContainer} style={{ marginBottom: this.state.footerHeight }}>
           <Body location={location} />
@@ -69,6 +72,7 @@ class App extends React.Component {
         <div className={classes.footerContainer}>
           <Footer onSetHeight={this.setFooterHeight} />
         </div>
+        <Settings />
       </div>
     );
   }

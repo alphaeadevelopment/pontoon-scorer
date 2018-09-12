@@ -3,8 +3,8 @@ import ModalTitle from './ModalTitle';
 import ModalContent from './ModalContent';
 import ModalActions from './ModalActions';
 
-ModalContainer.ModalTitle = ModalTitle;
-ModalContainer.ModalContent = ModalContent;
-ModalContainer.ModalActions = ModalActions;
+ModalContainer.Title = ModalTitle;
+ModalContainer.Content = ModalContent;
+ModalContainer.Actions = ModalActions;
 
 export default ModalContainer;

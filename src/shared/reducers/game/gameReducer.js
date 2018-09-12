@@ -97,6 +97,7 @@ export default (state = initial, { type, payload }) => {
       return initial;
     case Types.START_GAME:
       return update(state, {
+        settings: { $set: payload.settings },
         currentPlayer: { $set: firstPlayer(state) },
         currentPlayerHand: { $set: 0 },
         phase: { $set: SET_STAKE },

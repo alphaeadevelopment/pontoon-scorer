@@ -30,3 +30,5 @@ export const isBetweenRounds = createSelector(
 export const isDealerHand = createSelector(
   [getActiveHandsInPlay, getPhase],
   (activeHandsInPlay, phase) => phase === DEALER_HAND && activeHandsInPlay > 0);
+
+export const getGameSettings = createSelector(getGame, game => game.settings);
