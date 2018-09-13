@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import injectSheet from 'react-jss';
 import memoize from 'lodash.memoize';
+import omit from 'lodash.omit';
 
 const variantClass = (classes, variant) => {
   if (!classes[variant]) return {};
@@ -78,7 +79,7 @@ const Typography = ({ classes, children, className, noWrap, paragraph, variant =
   };
   const Element = getElement(element);
   return (
-    <Element className={classNames(classes.root, className, otherClasses)} {...rest}>
+    <Element className={classNames(classes.root, className, otherClasses)} {...omit(rest, ['theme'])}>
       {children}
     </Element>
   );

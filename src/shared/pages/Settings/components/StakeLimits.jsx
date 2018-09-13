@@ -14,6 +14,8 @@ const Header = injectSheet(headerStyles)(({ classes, children }) => (
 
 const styles = theme => ({
   root: {
+  },
+  limits: {
     'display': 'flex',
     'justifyContent': 'space-between',
     '&>div': {
@@ -47,29 +49,34 @@ class MinMaxStake extends Component {
     const { classes, minimum, maximum, setMinStake, setMaxStake } = this.props;
     return (
       <div className={classes.root}>
-        <div
-          className={classes.minimum}
-        >
-          <Header>
-            Min:
-          </Header>
-          <ValueRocker
-            minimum={1}
-            maximum={maximum}
-            onChange={setMinStake}
-            value={minimum}
-          />
-        </div>
-        <div className={classes.maximum}>
-          <Header>
-            Max:
-          </Header>
-          <ValueRocker
-            className={classes.maximum}
-            minimum={minimum}
-            onChange={setMaxStake}
-            value={maximum}
-          />
+        <Typography variant={'subheading'}>
+          {'Stake Limits'}
+        </Typography>
+        <div className={classes.limits}>
+          <div
+            className={classes.minimum}
+          >
+            <Header>
+              Min:
+            </Header>
+            <ValueRocker
+              minimum={1}
+              maximum={maximum}
+              onChange={setMinStake}
+              value={minimum}
+            />
+          </div>
+          <div className={classes.maximum}>
+            <Header>
+              Max:
+            </Header>
+            <ValueRocker
+              className={classes.maximum}
+              minimum={minimum}
+              onChange={setMaxStake}
+              value={maximum}
+            />
+          </div>
         </div>
       </div>
     );

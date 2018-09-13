@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import injectSheet from 'react-jss';
 import { Modal } from '../../containers';
-import MinMaxStake from './components/MinMaxStake';
+import StakeLimits from './components/StakeLimits';
 import { closeSettings } from './actions';
 import { isSettingsOpen } from './selectors';
 import { Button } from '../../components';
@@ -35,7 +35,7 @@ class Settings extends Component {
           Settings
         </Modal.Title>
         <Modal.Content>
-          <MinMaxStake />
+          <StakeLimits />
         </Modal.Content>
         <Modal.Actions className={classes.buttons}>
           <Button onClick={onClose}>
