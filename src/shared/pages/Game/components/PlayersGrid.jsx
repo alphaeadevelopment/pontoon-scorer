@@ -7,7 +7,7 @@ import Player from './Player';
 import {
   getDealerIdx,
   getPlayers,
-} from '../gameSelectors';
+} from '../game-selectors';
 import {
   Grid,
 } from '../../../components';

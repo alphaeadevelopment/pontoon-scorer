@@ -12,7 +12,7 @@ import {
   getPhase,
   isBetweenRounds,
   isDealerHand,
-} from '../gameSelectors';
+} from '../game-selectors';
 import {
   allLose,
   allWin,

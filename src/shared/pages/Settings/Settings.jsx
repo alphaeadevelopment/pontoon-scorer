@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import injectSheet from 'react-jss';
 import { Modal } from '../../containers';
 import StakeLimits from './components/StakeLimits';
-import { closeSettings } from './actions';
-import { isSettingsOpen } from './selectors';
+import { closeSettings } from './settings-actions';
+import { isSettingsOpen } from './settings-selectors';
 import { Button } from '../../components';
 
 const styles = {

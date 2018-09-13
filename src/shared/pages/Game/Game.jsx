@@ -8,7 +8,7 @@ import {
   getPlayers,
   isBetweenRounds,
   getPhase,
-} from './gameSelectors';
+} from './game-selectors';
 import PlayersGrid from './components/PlayersGrid';
 import {
   addPlayer,
@@ -18,7 +18,7 @@ import {
 } from './game-actions';
 import { ConfirmButton, Button } from '../../components';
 import { ROUND_OVER } from '../../lib/constants/game-phases';
-import { getGameSettings } from '../Settings/selectors';
+import { getGameSettings } from '../Settings/settings-selectors';
 
 const styles = theme => ({
   root: {

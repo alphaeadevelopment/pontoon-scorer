@@ -1,4 +1,4 @@
-import { getActiveHandsInPlay, getPhase } from '../../../pages/Game/gameSelectors';
+import { getActiveHandsInPlay, getPhase } from '../../../pages/Game/game-selectors';
 import { endRound } from '../../../pages/Game/game-actions';
 import { ADD_PLAYERS } from '../../constants/game-phases';
 

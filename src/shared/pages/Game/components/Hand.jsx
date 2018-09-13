@@ -8,7 +8,7 @@ import {
   getCurrentPlayerHand,
   getDealerIdx,
   getPhase,
-} from '../gameSelectors';
+} from '../game-selectors';
 import {
   addPlayer,
   allLose,

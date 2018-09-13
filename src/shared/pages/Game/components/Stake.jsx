@@ -5,7 +5,7 @@ import injectSheet from 'react-jss';
 import { ValueRocker, Button, Typography } from '../../../components';
 import { GAME_PLAY, SET_STAKE } from '../../../lib/constants/game-phases';
 import { getMaximumStake, getMinimumStake } from '../../../lib/game-logic/stake-limits';
-import { getGameSettings } from '../gameSelectors';
+import { getGameSettings } from '../game-selectors';
 
 const styles = theme => ({
   root: {

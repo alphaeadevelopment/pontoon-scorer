@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import * as Types from './action-types';
+import * as Types from './settings-action-types';
 
 export const openSettings = createAction(Types.OPEN_SETTINGS);
 export const closeSettings = createAction(Types.CLOSE_SETTINGS);

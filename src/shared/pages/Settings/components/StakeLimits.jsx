@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import injectSheet from 'react-jss';
 import { ValueRocker, Typography } from '../../../components';
-import { isSettingsOpen, getMaximumStake, getMinimumStake } from '../selectors';
-import { closeSettings, setMinStake, setMaxStake } from '../actions';
+import { isSettingsOpen, getMaximumStake, getMinimumStake } from '../settings-selectors';
+import { closeSettings, setMinStake, setMaxStake } from '../settings-actions';
 
 const headerStyles = theme => ({ header: { marginRight: theme.spacing.unit * 2 } });
 const Header = injectSheet(headerStyles)(({ classes, children }) => (

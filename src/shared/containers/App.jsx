@@ -14,7 +14,7 @@ import { isDrawerOpen } from '../selectors/drawerSelectors';
 
 // actions
 import { gameLoaded } from '../pages/Game/game-actions';
-import { openSettings } from '../pages/Settings/actions';
+import { openSettings } from '../pages/Settings/settings-actions';
 
 // lib
 import { drawerRef } from '../lib/drawer';

@@ -1,5 +1,5 @@
 import update from 'immutability-helper';
-import * as Types from './action-types';
+import * as Types from './settings-action-types';
 
 const initial = {
   open: false,

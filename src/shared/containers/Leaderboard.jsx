@@ -6,7 +6,7 @@ import { Typography } from '../components';
 import {
   getPlayers,
   getDealerIdx,
-} from '../pages/Game/gameSelectors';
+} from '../pages/Game/game-selectors';
 import {
 } from '../pages/Game/game-actions';
 import Drawer from './Drawer';
