@@ -12,6 +12,7 @@ import { modalRef } from '../lib/modal';
 import { openSettings } from '../pages/Settings/actions';
 import { loadGameFromBrowser } from '../lib/browser';
 import Settings from '../pages/Settings';
+import LoadGameModal from './LoadGameModal';
 
 const styles = {
   root: {
@@ -43,16 +44,23 @@ const styles = {
 class App extends React.Component {
   state = {
     footerHeight: 0,
+    loadedGame: null,
   }
   componentDidMount() {
-    const { gameLoaded } = this.props;
     loadGameFromBrowser()
       .then((g) => {
-        if (g) gameLoaded(g);
+        this.setState({ loadedGame: g });
       })
       .catch((e) => {
         console.log('Error loading game from browser: %s', e);
       });
+  }
+  onLoadGame = () => {
+    this.props.gameLoaded(this.state.loadedGame);
+    this.setState({ loadedGame: null });
+  }
+  onNewGame = () => {
+    this.setState({ loadedGame: null });
   }
   setFooterHeight = (h) => {
     this.setState({ footerHeight: h });
@@ -73,6 +81,7 @@ class App extends React.Component {
           <Footer onSetHeight={this.setFooterHeight} />
         </div>
         <Settings />
+        <LoadGameModal open={!!this.state.loadedGame} onLoadGame={this.onLoadGame} onCancel={this.onNewGame} />
       </div>
     );
   }
