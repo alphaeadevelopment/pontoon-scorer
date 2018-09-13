@@ -28,15 +28,16 @@ const styles = {
 @injectSheet(styles)
 class Drawer extends React.Component {
   render() {
-    const { classes, open, onClose, children, pageHeight } = this.props;
+    const { classes, className, open, onClose, children, pageHeight } = this.props;
     return (
       <DrawerPortal drawerRef={drawerRef}>
         <div
           className={classNames(classes.root)}
+          hidden={!open}
         >
           <ContentOverlay pageHeight={pageHeight} visible={open} onBackgroundClicked={onClose} />
           <div
-            className={classNames(classes.content, { [classes.drawerOpen]: open })}
+            className={classNames(classes.content, className, { [classes.drawerOpen]: open })}
           >
             {children}
           </div>

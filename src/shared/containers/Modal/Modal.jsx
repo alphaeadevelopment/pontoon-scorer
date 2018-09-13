@@ -43,8 +43,9 @@ class Modal extends React.Component {
     const { contentClassName, classes, open, onClose, children, disableBackdropClick, pageHeight } = this.props;
     return (
       <ModalPortal modalRef={modalRef}>
-        <div
+        <aside
           className={classNames(classes.root)}
+          hidden={!open}
         >
           <ContentOverlay
             pageHeight={pageHeight}
@@ -56,7 +57,7 @@ class Modal extends React.Component {
           >
             {children}
           </div>
-        </div>
+        </aside>
       </ModalPortal>
     );
   }

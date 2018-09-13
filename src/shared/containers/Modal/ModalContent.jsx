@@ -8,8 +8,8 @@ const styles = theme => ({
   },
 });
 const ModalContent = ({ children, classes, className }) => (
-  <div className={classNames(classes.root, className)} >
+  <section className={classNames(classes.root, className)} >
     {children}
-  </div>
+  </section>
 );
 export default injectSheet(styles)(ModalContent);

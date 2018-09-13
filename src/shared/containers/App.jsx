@@ -28,7 +28,7 @@ const styles = {
     transform: 'translateY(-100%) translateZ(0)',
   },
   bodyContainer: {
-
+    position: 'relative',
   },
 };
 @connect(state => (
@@ -71,15 +71,9 @@ class App extends React.Component {
       <div className={classes.root}>
         <div id='drawer-root' ref={drawerRef} />
         <div id='modal-root' ref={modalRef} />
-        <div className={classes.headerContainer}>
-          <Header openSettings={openSettings} />
-        </div>
-        <div className={classes.bodyContainer} style={{ marginBottom: this.state.footerHeight }}>
-          <Body location={location} />
-        </div>
-        <div className={classes.footerContainer}>
-          <Footer onSetHeight={this.setFooterHeight} />
-        </div>
+        <Header className={classes.headerContainer} openSettings={openSettings} />
+        <Body className={classes.bodyContainer} footerOffset={this.state.footerHeight} location={location} />
+        <Footer className={classes.footerContainer} onSetHeight={this.setFooterHeight} />
         <Settings />
         <LoadGameModal open={!!this.state.loadedGame} onLoadGame={this.onLoadGame} onCancel={this.onNewGame} />
       </div>

@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import injectSheet from 'react-jss';
 import Ionicon from 'react-ionicons';
 import withSizeClasses from './withSizeClasses';
-import Drawer from './Drawer';
 import Leaderboard from './Leaderboard';
 import { Typography } from '../components';
 
@@ -67,7 +66,7 @@ class Header extends React.Component {
     const { classes, className, openSettings } = this.props;
     return (
       <Fragment>
-        <div className={classNames(classes.root, className)}>
+        <header className={classNames(classes.root, className)}>
           <div className={classes.left}>
             <Ionicon className={classes.menuIcon} icon={'md-menu'} onClick={this.showMenuDrawer} />
             <Typography className={classes.title} variant={'display2'}>
@@ -77,10 +76,8 @@ class Header extends React.Component {
             </Typography>
           </div>
           <Ionicon className={classes.settingsIcon} icon={'md-settings'} onClick={openSettings} />
-        </div>
-        <Drawer open={drawerOpen} onClose={this.hideMenuDrawer}>
-          <Leaderboard />
-        </Drawer>
+        </header>
+        <Leaderboard open={drawerOpen} onClose={this.hideMenuDrawer} />
       </Fragment>
     );
   }

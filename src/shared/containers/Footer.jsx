@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import injectSheet from 'react-jss';
 import { Typography } from '../components';
 
@@ -28,9 +29,9 @@ class Footer extends React.Component {
     this.props.onSetHeight(this.footerRef.current.clientHeight);
   }
   render() {
-    const { classes } = this.props;
+    const { classes, className } = this.props;
     return (
-      <div className={classes.root} ref={this.footerRef}>
+      <footer className={classNames(classes.root, className)} ref={this.footerRef}>
         <div>
           <Typography variant={'body1'}>
             <a target={'_new'} href={'https://github.com/alphaeadevelopment/pontoon-scorer'}>
@@ -47,7 +48,7 @@ class Footer extends React.Component {
             </a>
           </Typography>
         </div>
-      </div>
+      </footer>
     );
   }
 }

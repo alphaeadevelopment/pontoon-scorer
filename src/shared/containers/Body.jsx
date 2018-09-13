@@ -1,17 +1,20 @@
 import React from 'react';
+import classNames from 'classnames';
 import { Switch, Route } from 'react-router';
 import injectSheet from 'react-jss';
 import routes from '../routes';
 
 const styles = {
-  root: { position: 'relative' },
+  root: {
+    marginBottom: props => props.footerOffset,
+  },
 };
 @injectSheet(styles)
 class Body extends React.Component {
   render() {
-    const { classes } = this.props;
+    const { classes, className } = this.props;
     return (
-      <div className={classes.root}>
+      <main className={classNames(classes.root, className)}>
         <Switch>
           {routes.map(({ path, exact, component: C }) => (
             <Route
@@ -22,7 +25,7 @@ class Body extends React.Component {
             />
           ))}
         </Switch>
-      </div>
+      </main>
     );
   }
 }

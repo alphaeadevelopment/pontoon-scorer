@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import sortBy from 'lodash.sortby';
 import injectSheet from 'react-jss';
 import { connect } from 'react-redux';
@@ -9,45 +9,51 @@ import {
 } from '../selectors';
 import {
 } from '../actions';
+import Drawer from './Drawer';
 
 const styles = theme => ({
   root: {
     '& ul li': {
       listStyle: 'none',
     },
-    'margin': theme.spacing.unit * 3,
+    'padding': theme.spacing.unit * 3,
   },
 });
 
 const sortPlayersByPot = players => sortBy(players, p => 0 - p.pot);
 
-export const RawLeaderboard = ({ classes, players, dealerIdx }) => (
-  <div className={classes.root}>
-    <Typography variant={'display1'}>
-      Leaderboard
-    </Typography>
-    <ul>
-      {sortPlayersByPot(players).map(p => (
-        <li key={p.idx}>
-          {p.name}
-          :
-          {' '}
-          {p.pot}
-          {' '}
-          {p.idx === dealerIdx &&
-            <span>
-              (Dealer)
-            </span>
-          }
-        </li>
-      ))}
-    </ul>
-  </div>
-);
-
-const mapStateToProps = state => ({
+@connect(state => ({
   dealerIdx: getDealerIdx(state),
   players: getPlayers(state),
-});
+}))
+@injectSheet(styles)
+class Leaderboard extends Component {
+  render() {
+    const { classes, players, dealerIdx, open, onClose } = this.props;
+    return (
+      <Drawer className={classes.root} open={open} onClose={onClose}>
+        <Typography variant={'display1'}>
+          Leaderboard
+        </Typography>
+        <ul>
+          {sortPlayersByPot(players).map(p => (
+            <li key={p.idx}>
+              {p.name}
+              :
+              {' '}
+              {p.pot}
+              {' '}
+              {p.idx === dealerIdx &&
+                <span>
+                  (Dealer)
+                </span>
+              }
+            </li>
+          ))}
+        </ul>
+      </Drawer>
+    );
+  }
+}
 
-export default connect(mapStateToProps)(injectSheet(styles)(RawLeaderboard));
+export default Leaderboard;
