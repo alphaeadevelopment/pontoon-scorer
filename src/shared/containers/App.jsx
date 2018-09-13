@@ -9,9 +9,6 @@ import Body from './Body';
 import Settings from '../pages/Settings';
 import LoadGameModal from './LoadGameModal';
 
-// selectors
-import { isDrawerOpen } from '../selectors/drawerSelectors';
-
 // actions
 import { gameLoaded } from '../pages/Game/game-actions';
 import { openSettings } from '../pages/Settings/settings-actions';
@@ -38,9 +35,8 @@ const styles = {
     position: 'relative',
   },
 };
-@connect(state => (
+@connect(() => (
   {
-    drawerOpen: isDrawerOpen(state),
   }
 ), {
   gameLoaded,
