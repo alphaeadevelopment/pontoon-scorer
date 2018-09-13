@@ -8,14 +8,14 @@ import {
   getPlayers,
   isBetweenRounds,
   getPhase,
-} from '../../selectors';
-import PlayersGrid from './PlayersGrid';
+} from './gameSelectors';
+import PlayersGrid from './components/PlayersGrid';
 import {
   addPlayer,
   newRound,
   resetGame,
   startGame,
-} from '../../actions';
+} from './game-actions';
 import { ConfirmButton, Button } from '../../components';
 import { ROUND_OVER } from '../../lib/constants/game-phases';
 import { getGameSettings } from '../Settings/selectors';

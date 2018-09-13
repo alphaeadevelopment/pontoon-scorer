@@ -1,18 +1,25 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import injectSheet from 'react-jss';
+
+// components
 import Footer from './Footer';
 import Header from './Header';
 import Body from './Body';
-import { isDrawerOpen } from '../selectors/drawerSelectors';
-import { closeDrawer, gameLoaded } from '../actions';
-import { drawerRef } from '../lib/drawer';
-import { modalRef } from '../lib/modal';
-import { openSettings } from '../pages/Settings/actions';
-import { loadGameFromBrowser } from '../lib/browser';
 import Settings from '../pages/Settings';
 import LoadGameModal from './LoadGameModal';
+
+// selectors
+import { isDrawerOpen } from '../selectors/drawerSelectors';
+
+// actions
+import { gameLoaded } from '../pages/Game/game-actions';
+import { openSettings } from '../pages/Settings/actions';
+
+// lib
+import { drawerRef } from '../lib/drawer';
+import { modalRef } from '../lib/modal';
+import { loadGameFromBrowser } from '../lib/browser';
 
 const styles = {
   root: {
@@ -36,7 +43,6 @@ const styles = {
     drawerOpen: isDrawerOpen(state),
   }
 ), {
-  closeDrawer,
   gameLoaded,
   openSettings,
 })

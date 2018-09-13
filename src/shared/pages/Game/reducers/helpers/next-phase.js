@@ -1,4 +1,4 @@
-import { DEALER_HAND, RESULTS } from '../../../lib/constants/game-phases';
+import { DEALER_HAND, RESULTS } from '../../../../lib/constants/game-phases';
 
 export default ({ phase, players, currentPlayer, currentPlayerHand }) => {
   if (phase === DEALER_HAND) return RESULTS;

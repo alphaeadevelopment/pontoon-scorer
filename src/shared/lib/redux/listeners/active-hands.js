@@ -1,5 +1,5 @@
-import { getActiveHandsInPlay, getPhase } from '../../../selectors';
-import { endRound } from '../../../actions';
+import { getActiveHandsInPlay, getPhase } from '../../../pages/Game/gameSelectors';
+import { endRound } from '../../../pages/Game/game-actions';
 import { ADD_PLAYERS } from '../../constants/game-phases';
 
 let numActive;

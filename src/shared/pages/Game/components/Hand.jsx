@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import injectSheet from 'react-jss';
 import includes from 'lodash.includes';
 import Stake from './Stake';
-import { RESULTS, GAME_PLAY, DEALER_HAND } from '../../lib/constants/game-phases';
+import { RESULTS, GAME_PLAY, DEALER_HAND } from '../../../lib/constants/game-phases';
 import {
   getCurrentPlayerHand,
   getDealerIdx,
   getPhase,
-} from '../../selectors';
+} from '../gameSelectors';
 import {
   addPlayer,
   allLose,
@@ -27,9 +27,9 @@ import {
   startGame,
   startGameProper,
   stick,
-} from '../../actions';
-import { Card, Button } from '../../components';
-import withSizeClasses from '../../containers/withSizeClasses';
+} from '../game-actions';
+import { Card, Button } from '../../../components';
+import withSizeClasses from '../../../containers/withSizeClasses';
 
 const styles = theme => ({
   root: {

@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import includes from 'lodash.includes';
 import injectSheet from 'react-jss';
-import { ValueRocker, Button, Typography } from '../../components';
-import { GAME_PLAY, SET_STAKE } from '../../lib/constants/game-phases';
-import { getMaximumStake, getMinimumStake } from '../../lib/game-logic/stake-limits';
-import { getGameSettings } from '../../selectors/game';
+import { ValueRocker, Button, Typography } from '../../../components';
+import { GAME_PLAY, SET_STAKE } from '../../../lib/constants/game-phases';
+import { getMaximumStake, getMinimumStake } from '../../../lib/game-logic/stake-limits';
+import { getGameSettings } from '../gameSelectors';
 
 const styles = theme => ({
   root: {

@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import injectSheet from 'react-jss';
 import Hand from './Hand';
-import { InlineEditTextField, Card, Grid, Button, Typography } from '../../components';
-import { DEALER_PONTOON, RESULTS } from '../../lib/constants/game-phases';
+import { InlineEditTextField, Card, Grid, Button, Typography } from '../../../components';
+import { DEALER_PONTOON, RESULTS } from '../../../lib/constants/game-phases';
 import {
   getCurrentPlayer,
   getDealerIdx,
   getPhase,
   isBetweenRounds,
   isDealerHand,
-} from '../../selectors';
+} from '../gameSelectors';
 import {
   allLose,
   allWin,
@@ -20,8 +20,8 @@ import {
   setPlayerName,
   startGameProper,
   stick,
-} from '../../actions';
-import withSizeClasses from '../../containers/withSizeClasses';
+} from '../game-actions';
+import withSizeClasses from '../../../containers/withSizeClasses';
 
 const styles = theme => ({
   root: {

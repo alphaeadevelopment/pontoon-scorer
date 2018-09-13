@@ -1,14 +1,8 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import injectSheet from 'react-jss';
-import { Typography } from '../../components';
+import { Typography } from '../../../components';
 
-const styles = {
-  root: {
-
-  },
-};
-export class RawPlayerName extends React.Component {
+class PlayerName extends React.Component {
   state = {
     editing: false,
     value: this.props.initialValue,
@@ -55,4 +49,4 @@ export class RawPlayerName extends React.Component {
     );
   }
 }
-export default injectSheet(styles)(RawPlayerName);
+export default PlayerName;

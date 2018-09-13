@@ -1,5 +1,5 @@
 import firstPlayer from './first-player';
-import { DEALER_HAND } from '../../../lib/constants/game-phases';
+import { DEALER_HAND } from '../../../../lib/constants/game-phases';
 
 export default ({ phase, players, dealer, currentPlayer, currentPlayerHand }) => {
   if (players[currentPlayer].hands.length > (currentPlayerHand + 1)) {

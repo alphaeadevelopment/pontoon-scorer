@@ -1,14 +1,15 @@
 import { createSelector } from 'reselect';
 
-import { ROUND_OVER, DEALER_HAND, ADD_PLAYERS } from '../lib/constants/game-phases';
+import { ROUND_OVER, DEALER_HAND, ADD_PLAYERS } from '../../lib/constants/game-phases';
 
-export const getGame = state => state.game;
+export const getGame = state => state.page.game;
 
 export const getPlayers = createSelector(getGame, game => game.players);
 export const getPhase = createSelector(getGame, game => game.phase);
-export const getDealerIdx = state => state.game.dealer;
-export const getCurrentPlayer = state => state.game.currentPlayer;
-export const getCurrentPlayerHand = state => state.game.currentPlayerHand;
+
+export const getDealerIdx = createSelector(getGame, game => game.dealer);
+export const getCurrentPlayer = createSelector(getGame, game => game.currentPlayer);
+export const getCurrentPlayerHand = createSelector(getGame, game => game.currentPlayerHand);
 export const getAllHands = createSelector(
   getPlayers, players => players.reduce((arr, p) => {
     arr.push(...p.hands);

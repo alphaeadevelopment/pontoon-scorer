@@ -1,5 +1,5 @@
 import { saveGameToBrowser, isBrowser } from '../../../lib/browser';
-import { getGame } from '../../../selectors/game';
+import { getGame } from '../../../pages/Game/gameSelectors';
 
 export default ({ getState }) => next => (action) => {
   next(action);

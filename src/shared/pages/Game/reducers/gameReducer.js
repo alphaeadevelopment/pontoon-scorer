@@ -1,8 +1,8 @@
 import update from 'immutability-helper';
-import * as Types from '../../actions/types';
+import * as Types from '../action-types';
 import { firstPlayer, getGamePhaseAfterSetStake, getPlayerAfterSetStake } from './helpers';
 import { nextHand as updateNextHand, handLoses } from './updaters';
-import { ADD_PLAYERS, SET_STAKE, GAME_PLAY, ROUND_OVER } from '../../lib/constants/game-phases';
+import { ADD_PLAYERS, SET_STAKE, GAME_PLAY, ROUND_OVER } from '../../../lib/constants/game-phases';
 
 const initial = {
   players: [],

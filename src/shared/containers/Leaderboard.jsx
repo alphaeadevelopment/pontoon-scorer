@@ -6,9 +6,9 @@ import { Typography } from '../components';
 import {
   getPlayers,
   getDealerIdx,
-} from '../selectors';
+} from '../pages/Game/gameSelectors';
 import {
-} from '../actions';
+} from '../pages/Game/game-actions';
 import Drawer from './Drawer';
 
 const styles = theme => ({

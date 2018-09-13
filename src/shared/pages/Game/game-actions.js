@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import * as Types from './types';
+import * as Types from './action-types';
 
 export const addPlayer = createAction(Types.ADD_PLAYER);
 export const allLose = createAction(Types.ALL_LOSE);
