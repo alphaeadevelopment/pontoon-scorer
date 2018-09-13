@@ -1,0 +1,5 @@
+{
+  "verbose": true,
+  "roots": ["../../src"],
+  "testRegex": "/__tests__/.*\\.spec\\.jsx?$"
+}

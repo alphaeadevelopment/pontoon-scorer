@@ -6,16 +6,19 @@ import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import chaiEnzyme from 'chai-enzyme';
 import sinonChai from 'sinon-chai';
-import App from './App';
+import App from '../App';
 
 chai.use(chaiEnzyme()); // Note the invocation at the end
 chai.use(sinonChai);
 
 Enzyme.configure({ adapter: new Adapter() });
 
+const Component = App.WrappedComponent;
+const render = props => shallow(<Component {...props} />);
+
 describe('<App />', () => {
   it('renders', () => {
-    const wrapper = shallow(<App />);
+    const wrapper = render();
     expect(wrapper).to.exist;
   });
 });

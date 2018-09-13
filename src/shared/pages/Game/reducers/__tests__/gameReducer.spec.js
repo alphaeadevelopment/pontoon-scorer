@@ -1,6 +1,6 @@
 /* globals describe, it, expect */
-import gameReducer from './gameReducer';
-import { RESET_GAME, HAND_LOSES } from '../../actions/types';
+import gameReducer from '../gameReducer';
+import { RESET_GAME, HAND_LOSES } from '../../action-types';
 
 const resultsState = {
   players: [

@@ -1,5 +1,13 @@
 module.exports = {
-  extends: 'airbnb',
+  "extends": "airbnb",
+  "globals": {
+    "describe": true,
+    "it": true,
+    "fit": true,
+    "xit": true,
+    "expect": true,
+  },
+  "parser": "babel-eslint",
   "plugins": [
     "class-property"
   ],
@@ -25,5 +33,4 @@ module.exports = {
     "react/prefer-stateless-function": "off",
     "react/prop-types": "off",
   },
-  "parser": "babel-eslint"
 }

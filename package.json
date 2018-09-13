@@ -1,14 +1,15 @@
 {
-  "name": "oms-app",
+  "name": "pontoon-scorer",
   "version": "1.0.0",
-  "description": "Order Management System",
+  "description": "Pontoon Scorer",
   "main": "index.js",
   "engines": {
     "node": "8.9.4",
     "npm": "5.8.0"
   },
   "scripts": {
-    "test": "jest",
+    "test": "npm run jest",
+    "jest": "jest --config ./test/config/jest.config.json",
     "test:ci": "mocha-webpack --webpack-config config/webpack.mocha.js --glob \"*.spec.js*\" --recursive --require mocha.setup.js --reporter mochawesome --reporter-options reportDir=mochawesome-report-unit src/client",
     "postinstall": "npm run build",
     "build": "npm run build:client && npm run build:server",
