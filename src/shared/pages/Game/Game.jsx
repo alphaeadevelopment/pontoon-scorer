@@ -58,10 +58,10 @@ const styles = theme => ({
 )
 @injectSheet(styles)
 export class Game extends React.Component {
-  componentWillReceiveProps(nextProps) {
-    const { phase: currentPhase } = this.props;
-    const { phase: nextPhase } = nextProps;
-    if (nextPhase === ROUND_OVER && nextPhase !== currentPhase) {
+  componentDidUpdate(prevProps) {
+    const { phase: previousPhase } = prevProps;
+    const { phase: nextPhase } = this.props;
+    if (nextPhase === ROUND_OVER && nextPhase !== previousPhase) {
       window.scrollTo(0, 0);
     }
   }

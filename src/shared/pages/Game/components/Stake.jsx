@@ -33,34 +33,14 @@ const styles = theme => ({
 )
 @injectSheet(styles)
 class Stake extends React.Component {
+  static getDerivedStateFromProps(props) {
+    return ({
+      maximum: getMaximumStake(props.maximumStake, props.initialStake, props.hand.lastBid),
+      minimum: getMinimumStake(props.minimumStake, props.initialStake, props.hand.lastBid),
+      value: getMinimumStake(props.minimumStake, props.initialStake, props.hand.lastBid),
+    });
+  }
   state = {
-    maximum: getMaximumStake(this.props.maximumStake, this.props.initialStake, this.props.hand.lastBid),
-    minimum: getMinimumStake(this.props.minimumStake, this.props.initialStake, this.props.hand.lastBid),
-    value: getMinimumStake(this.props.minimumStake, this.props.initialStake, this.props.hand.lastBid),
-  }
-  componentWillReceiveProps = (nextProps) => {
-    const minimum = getMinimumStake(this.props.minimumStake, nextProps.initialStake, nextProps.hand.lastBid);
-    this.setState({
-      minimum,
-      value: minimum,
-      maximum: getMaximumStake(this.props.maximumStake, nextProps.initialStake, nextProps.hand.lastBid),
-    });
-  }
-  onChange = (value) => {
-    const { minimum, maximum } = this.state;
-    let error;
-    let num;
-    try {
-      num = Number(value);
-    }
-    catch (e) {
-      error = true;
-    }
-    if (isNaN(num) || num < minimum || num > maximum) error = true; // eslint-disable-line
-    this.setState({
-      value,
-      error,
-    });
   }
   onSetStake = () => {
     const { error, value, minimum, maximum } = this.state;

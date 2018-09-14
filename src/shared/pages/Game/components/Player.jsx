@@ -76,9 +76,9 @@ class Player extends React.Component {
     super(props);
     this.ref = React.createRef();
   }
-  componentWillReceiveProps(nextProps) {
-    const wasCurrentPlayer = this.isCurrentPlayer(this.props);
-    const willBeCurrentPlayer = this.isCurrentPlayer(nextProps);
+  componentDidUpdate(prevProps) {
+    const wasCurrentPlayer = this.isCurrentPlayer(prevProps);
+    const willBeCurrentPlayer = this.isCurrentPlayer(this.props);
     if (!wasCurrentPlayer && willBeCurrentPlayer) {
       window.scrollTo(this.ref.current.offsetLeft, this.ref.current.offsetTop);
     }
