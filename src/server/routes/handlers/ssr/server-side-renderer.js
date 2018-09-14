@@ -41,6 +41,9 @@ export default (req, res, next) => {
   else {
     doSsr(activeRoute)
       .then(html => res.status(200).send(html))
-      .catch(e => res.status(500).send(e));
+      .catch((e) => {
+        console.error(e);
+        res.status(500).send(e);
+      });
   }
 };

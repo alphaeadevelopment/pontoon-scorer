@@ -6,6 +6,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 
 import { jss } from '../styles';
 import WindowEventProvider from './WindowEventProvider';
+import ScrollListener from './ScrollListener';
 import theme from '../styles/theme';
 import App from './App';
 
@@ -18,10 +19,12 @@ class AppContainer extends Component {
         <JssProvider jss={jss} registry={jssRegistry}>
           <ThemeProvider theme={theme}>
             <WindowEventProvider>
-              <Fragment>
-                <CssBaseline />
-                <App location={location} />
-              </Fragment>
+              <ScrollListener>
+                <Fragment>
+                  <CssBaseline />
+                  <App location={location} />
+                </Fragment>
+              </ScrollListener>
             </WindowEventProvider>
           </ThemeProvider>
         </JssProvider>

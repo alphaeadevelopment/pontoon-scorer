@@ -22,6 +22,7 @@ import {
   stick,
 } from '../game-actions';
 import withSizeClasses from '../../../containers/withSizeClasses';
+import { requestScrollPosition } from '../../../actions/viewport';
 
 const styles = theme => ({
   root: {
@@ -68,6 +69,7 @@ const styles = theme => ({
     onDealerStick: stick.bind(null, 0),
     onMakeDealer: makeDealer,
     onStartGameProper: startGameProper,
+    requestScrollPosition,
   })
 @injectSheet(styles)
 @withSizeClasses
@@ -77,10 +79,11 @@ class Player extends React.Component {
     this.ref = React.createRef();
   }
   componentDidUpdate(prevProps) {
+    const { requestScrollPosition } = this.props;
     const wasCurrentPlayer = this.isCurrentPlayer(prevProps);
     const willBeCurrentPlayer = this.isCurrentPlayer(this.props);
     if (!wasCurrentPlayer && willBeCurrentPlayer) {
-      window.scrollTo(this.ref.current.offsetLeft, this.ref.current.offsetTop);
+      requestScrollPosition({ x: this.ref.current.offsetLeft, y: this.ref.current.offsetTop });
     }
   }
   onMakeDealer = () => {

@@ -1,1 +1,3 @@
 export const RESIZE = 'RESIZE';
+export const REQUEST_SCROLL_POSITION = 'REQUEST_SCROLL_POSITION';
+

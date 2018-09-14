@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-export const getViewport = state => state.viewport;
+export const rootSelector = state => state.viewport;
 
 const breakpoints = {
   sm: 375,
@@ -9,8 +9,12 @@ const breakpoints = {
   xl: 1600,
 };
 
-export const getWidth = createSelector(getViewport, viewport => viewport.width);
-export const getHeight = createSelector(getViewport, viewport => viewport.height);
+export const getWidth = createSelector(rootSelector, viewport => viewport.width);
+export const getHeight = createSelector(rootSelector, viewport => viewport.height);
+
+export const getRequestedScrollPosition = createSelector(rootSelector, viewport => viewport.scrollTo);
+export const getRequestedScrollX = createSelector(getRequestedScrollPosition, scroll => scroll.x);
+export const getRequestedScrollY = createSelector(getRequestedScrollPosition, scroll => scroll.y);
 
 const createIsMinSelector = breakpoint => createSelector(getWidth, width => width >= breakpoints[breakpoint]);
 export const isMinSm = createIsMinSelector('sm');

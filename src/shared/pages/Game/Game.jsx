@@ -19,6 +19,7 @@ import {
 import { ConfirmButton, Button } from '../../components';
 import { ROUND_OVER } from '../../lib/constants/game-phases';
 import { getGameSettings } from '../Settings/settings-selectors';
+import { requestScrollPosition } from '../../actions/viewport';
 
 const styles = theme => ({
   root: {
@@ -54,15 +55,17 @@ const styles = theme => ({
     onNewRound: newRound,
     onResetGame: resetGame,
     onStartGame: startGame,
+    requestScrollPosition,
   },
 )
 @injectSheet(styles)
 export class Game extends React.Component {
   componentDidUpdate(prevProps) {
+    const { requestScrollPosition } = this.props;
     const { phase: previousPhase } = prevProps;
     const { phase: nextPhase } = this.props;
     if (nextPhase === ROUND_OVER && nextPhase !== previousPhase) {
-      window.scrollTo(0, 0);
+      requestScrollPosition({ x: 0, y: 0 });
     }
   }
   onStartGame = () => {
