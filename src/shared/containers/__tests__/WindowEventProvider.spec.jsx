@@ -1,23 +1,21 @@
-/* eslint-disable import/no-webpack-loader-syntax,import/no-extraneous-dependencies,import/no-unresolved,no-unused-expressions,max-len */
 import React from 'react';
-import chai, { expect } from 'chai';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import chaiEnzyme from 'chai-enzyme';
-import sinonChai from 'sinon-chai';
-import App from '../App';
+import WindowEventProvider from '../WindowEventProvider';
 
-chai.use(chaiEnzyme()); // Note the invocation at the end
-chai.use(sinonChai);
+import { createRender } from '../../../../test/src/helpers/render-helpers';
 
-Enzyme.configure({ adapter: new Adapter() });
+const render = createRender(WindowEventProvider, { wrapped: true });
 
-const Component = App.WrappedComponent;
-const render = props => shallow(<Component {...props} />);
+describe('<WindowEventProvider />', () => {
+  it('renders children', () => {
+    const { getTree } = render({
+      classes: {},
+      children: (
+        <p>
+          Content
+        </p>
+      ),
+    });
 
-describe('<App />', () => {
-  it('renders', () => {
-    const wrapper = render();
-    expect(wrapper).to.exist;
+    expect(getTree()).toMatchSnapshot();
   });
 });

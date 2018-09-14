@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<WindowEventProvider /> renders 1`] = `
+<React.Fragment>
+  <p>
+    Content
+  </p>
+</React.Fragment>
+`;
+
+exports[`<WindowEventProvider /> renders children 1`] = `
+<React.Fragment>
+  <p>
+    Content
+  </p>
+</React.Fragment>
+`;
