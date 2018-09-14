@@ -1,24 +1,14 @@
-/* globals describe, it */
-/* eslint-disable import/no-webpack-loader-syntax,import/no-extraneous-dependencies,import/no-unresolved,no-unused-expressions,max-len */
-import React from 'react';
-import chai, { expect } from 'chai';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import chaiEnzyme from 'chai-enzyme';
-import sinonChai from 'sinon-chai';
 import App from '../App';
 
-chai.use(chaiEnzyme()); // Note the invocation at the end
-chai.use(sinonChai);
+import { createRender } from '../../../../test/src/helpers/render-helpers';
 
-Enzyme.configure({ adapter: new Adapter() });
-
-const Component = App.WrappedComponent;
-const render = props => shallow(<Component {...props} />);
+const render = createRender(App, { wrapped: true });
 
 describe('<App />', () => {
   it('renders', () => {
-    const wrapper = render();
-    expect(wrapper).to.exist;
+    const { wrapper, getTree } = render({ classes: {} });
+
+    expect(wrapper.exists()).toBe(true);
+    expect(getTree()).toMatchSnapshot();
   });
 });

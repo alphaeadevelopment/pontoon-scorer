@@ -1,5 +1,8 @@
 {
+  "rootDir": "../../",
+  "roots": ["<rootDir>/src"],
   "verbose": true,
-  "roots": ["../../src"],
+  "setupTestFrameworkScriptFile": "<rootDir>/test/config/unit-test-setup.js",
+  "testResultsProcessor": "./node_modules/jest-junit-reporter",
   "testRegex": "/__tests__/.*\\.spec\\.jsx?$"
 }
