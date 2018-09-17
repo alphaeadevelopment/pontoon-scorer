@@ -11,6 +11,9 @@ module.exports = {
   "plugins": [
     "class-property"
   ],
+  "parserOptions": {
+    "sourceType": "module",
+  },
   "rules": {
     "arrow-body-style": "warn",
     "brace-style": ["error", "stroustrup"],
