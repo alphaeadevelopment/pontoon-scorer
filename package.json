@@ -8,15 +8,17 @@
     "npm": "5.8.0"
   },
   "scripts": {
-    "test": "npm run jest",
-    "jest": "jest --config ./test/config/jest.config.json",
-    "test:ci": "mocha-webpack --webpack-config config/webpack.mocha.js --glob \"*.spec.js*\" --recursive --require mocha.setup.js --reporter mochawesome --reporter-options reportDir=mochawesome-report-unit src/client",
-    "postinstall": "npm run build",
-    "build": "npm run build:client && npm run build:server",
+    "boo": "node -r dotenv/config scripts/boo.js",
     "build:client": "webpack --config config/webpack.client.js",
     "build:server": "cross-env NODE_ENV=production webpack --config config/webpack.server.js",
+    "build": "npm run build:client && npm run build:server",
+    "flow": "flow",
+    "jest": "jest --config ./test/config/jest.config.json",
+    "postinstall": "npm run build",
     "start:dev": "node src/server/index.js",
-    "start": "NODE_ENV=production node dist-server/index.js"
+    "start": "NODE_ENV=production node dist-server/index.js",
+    "test:ci": "mocha-webpack --webpack-config config/webpack.mocha.js --glob \"*.spec.js*\" --recursive --require mocha.setup.js --reporter mochawesome --reporter-options reportDir=mochawesome-report-unit src/client",
+    "test": "npm run jest"
   },
   "repository": {
     "type": "git",

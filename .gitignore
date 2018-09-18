@@ -10,3 +10,4 @@ dist-server
 pontoon-scorer.code-workspace
 .history/
 test-report.xml
+/.env
