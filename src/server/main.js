@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 
 app.use(rootRouter);
 // serve static files from webpack dist dir
+console.log(publicPath);
 app.use(express.static(publicPath));
 configureWebpack(app);
 

@@ -137,9 +137,9 @@ const config = {
   plugins: [
     extractScss,
     extractCss,
-    new HtmlWebpackPlugin({
-      template: 'src/shared/html/index.html',
-    }),
+    // new HtmlWebpackPlugin({
+    //   template: 'src/shared/html/index.html',
+    // }),
     new webpack.optimize.CommonsChunkPlugin({
       name: ['vendor', 'manifest'],
     }),
@@ -172,10 +172,10 @@ else {
     //     },
     //   },
     // }),
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'server',
-      openAnalyzer: false,
-    }),
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: 'server',
+    //   openAnalyzer: false,
+    // }),
   );
   config.entry.main.splice(0, 0, 'webpack-hot-middleware/client');
   // config.module.rules.push(
