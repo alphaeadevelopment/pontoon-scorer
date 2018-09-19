@@ -1,4 +1,4 @@
-import { getActiveRouteForUrl, doSsr } from '../../../ssr';
+import { getActiveRouteForUrl, doSsr } from '../../ssr';
 
 export default (req, h) => {
   const activeRoute = getActiveRouteForUrl(req.url.path);
