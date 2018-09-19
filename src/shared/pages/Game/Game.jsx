@@ -9,12 +9,7 @@ import {
   getPhase,
 } from './game-selectors';
 import PlayersGrid from './components/PlayersGrid';
-import {
-  addPlayer,
-  newRound,
-  resetGame,
-  startGame,
-} from './game-actions';
+import { addPlayer, newRound, resetGame, startGame } from './game-actions';
 import { ConfirmButton, Button } from '../../components';
 import { ROUND_OVER } from '../../lib/constants/game-phases';
 import { getGameSettings } from '../Settings/settings-selectors';
@@ -37,7 +32,7 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 5,
   },
   leaderboardCtr: {
-    'background': 'lightgrey',
+    background: 'lightgrey',
   },
 });
 @connect(
@@ -70,7 +65,7 @@ export class Game extends React.Component {
   onStartGame = () => {
     const { onStartGame, gameSettings } = this.props;
     onStartGame({ settings: gameSettings });
-  }
+  };
   render() {
     const {
       activeHandsInPlay,
@@ -88,16 +83,16 @@ export class Game extends React.Component {
           <Button disabled={!betweenRounds} onClick={onAddPlayer}>
             Add Player
           </Button>
-          {currentPlayer === null &&
+          {currentPlayer === null && (
             <Button disabled={players.length < 2} onClick={this.onStartGame}>
               Start Game
             </Button>
-          }
-          {currentPlayer !== null &&
+          )}
+          {currentPlayer !== null && (
             <Button disabled={activeHandsInPlay > 0} onClick={onNewRound}>
               New Round
             </Button>
-          }
+          )}
         </div>
         <PlayersGrid />
         <div>

@@ -1,12 +1,12 @@
 
-import Hapi from 'hapi';
+import { Server } from 'hapi';
 import inert from 'inert';
 import routes from './routes';
 import configureWebpack from './configure-webpack';
 
 const port = process.env.PORT || 3000;
 
-const server = Hapi.server({
+const server = new Server({
   port,
   host: 'localhost',
 });

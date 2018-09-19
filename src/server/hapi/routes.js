@@ -1,13 +1,9 @@
+import ssr from './handlers/ssr';
+
 export default [
   {
     method: 'GET',
     path: '/{param*}',
-    handler: {
-      directory: {
-        path: '.',
-        redirectToSlash: true,
-        index: true,
-      },
-    },
+    handler: ssr,
   },
 ];
