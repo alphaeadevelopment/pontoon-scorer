@@ -15,7 +15,7 @@
     "postinstall": "npm run build",
     "dev": "NODE_ENV=development npm run serve:hapi",
     "serve:express": "node --inspect -r babel-register/lib/node src/server/express/",
-    "serve:hapi": "node --inspect -r babel-register/lib/node src/server/hapi/",
+    "serve:hapi": "node -r babel-register/lib/node src/server/hapi/",
     "start": "NODE_ENV=production npm run serve:hapi",
     "test:ci": "mocha-webpack --webpack-config config/webpack.mocha.js --glob \"*.spec.js*\" --recursive --require mocha.setup.js --reporter mochawesome --reporter-options reportDir=mochawesome-report-unit src/client",
     "test": "npm run jest",
