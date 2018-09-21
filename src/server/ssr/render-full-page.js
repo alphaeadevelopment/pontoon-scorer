@@ -11,7 +11,7 @@ export default (html, preloadedState, sheets) => Promise.resolve(
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <meta charset='utf-8'>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <link href="/static/style.css" rel="stylesheet"></head>
+  <link href="/style.css" rel="stylesheet"></head>
   <style type="text/css" id="jss-server-side">
       ${sheets.toString()}
   </style>
@@ -23,7 +23,7 @@ export default (html, preloadedState, sheets) => Promise.resolve(
     // http://redux.js.org/recipes/ServerRendering.html#security-considerations
     window.__PRELOADED_STATE__ = ${sanitise(preloadedState)}
   </script>
-<script type="text/javascript" src="/static/manifest.js"></script><script type="text/javascript" src="/static/vendor.js"></script><script type="text/javascript" src="static/main.js"></script></body>
+<script type="text/javascript" src="/manifest.js"></script><script type="text/javascript" src="/vendor.js"></script><script type="text/javascript" src="/main.js"></script></body>
 
 </html>`,
 );

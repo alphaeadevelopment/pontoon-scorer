@@ -8,7 +8,6 @@ import configureWebpack from './configure-webpack';
 const port = process.env.PORT || 3000;
 
 const distDir = path.join(__dirname, '../../../dist');
-console.log(distDir);
 const server = new Server({
   port,
   host: 'localhost',

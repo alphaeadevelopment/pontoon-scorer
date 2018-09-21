@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 app.use(router);
 // serve static files from webpack dist dir
-app.use(express.static(publicPath));
+app.use('static', express.static(publicPath));
 configureWebpack(app);
 
 const server = http.createServer(app);
