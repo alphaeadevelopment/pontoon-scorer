@@ -8,19 +8,21 @@
     "npm": "5.8.0"
   },
   "scripts": {
-    "boo": "node -r dotenv/config scripts/boo.js",
     "build:client": "webpack --config config/webpack.client.js",
-    "build:server": "cross-env NODE_ENV=production webpack --config config/webpack.server.js",
-    "build": "npm run build:client && npm run build:server",
+    "build": "NODE_ENV=production npm run build:client",
     "flow": "flow",
     "jest": "jest --config ./test/config/jest.config.json",
     "postinstall": "npm run build",
-    "start:dev": "node src/server/index.js",
-    "start": "NODE_ENV=${NODE_ENV:production} node dist-server/index.js",
+    "start:dev": "NODE_ENV=development npm run start:hapi",
     "start:express": "node --inspect -r babel-register/lib/node src/server/express/",
     "start:hapi": "node --inspect -r babel-register/lib/node src/server/hapi/",
+    "start": "NODE_ENV=production npm run start:hapi",
     "test:ci": "mocha-webpack --webpack-config config/webpack.mocha.js --glob \"*.spec.js*\" --recursive --require mocha.setup.js --reporter mochawesome --reporter-options reportDir=mochawesome-report-unit src/client",
-    "test": "npm run jest"
+    "test": "npm run jest",
+    "x.build:server": "cross-env NODE_ENV=production webpack --config config/webpack.server.js",
+    "x.build": "npm run build:client && npm run build:server",
+    "x.start:dev": "node src/server/index.js",
+    "x.start": "NODE_ENV=${NODE_ENV:production} node dist-server/index.js"
   },
   "repository": {
     "type": "git",

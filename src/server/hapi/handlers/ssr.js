@@ -3,7 +3,7 @@ import { getActiveRouteForUrl, doSsr } from '../../ssr';
 export default (req, h) => {
   const activeRoute = getActiveRouteForUrl(req.url.path);
   if (!activeRoute) {
-    return h.continue;
+    return h.redirect(`/static${req.url.path}`);
   }
 
   return doSsr(activeRoute)

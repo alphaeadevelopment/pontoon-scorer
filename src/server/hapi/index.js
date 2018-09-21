@@ -1,14 +1,22 @@
 
 import { Server } from 'hapi';
 import inert from 'inert';
+import path from 'path';
 import routes from './routes';
 import configureWebpack from './configure-webpack';
 
 const port = process.env.PORT || 3000;
 
+const distDir = path.join(__dirname, '../../../dist');
+console.log(distDir);
 const server = new Server({
   port,
   host: 'localhost',
+  routes: {
+    files: {
+      relativeTo: distDir,
+    },
+  },
 });
 
 const init = () => {
