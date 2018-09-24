@@ -13,7 +13,7 @@
     "flow": "flow",
     "jest": "jest --config ./test/config/jest.config.json",
     "postinstall": "npm run build",
-    "dev": "NODE_ENV=development npm run serve:hapi",
+    "dev": "NODE_ENV=development webpack-dashboard -- npm run serve:hapi",
     "serve:express": "node --inspect -r babel-register/lib/node src/server/express/",
     "serve:hapi": "node -r babel-register/lib/node src/server/hapi/",
     "start": "NODE_ENV=production npm run serve:hapi",
@@ -125,6 +125,7 @@
     "url-loader": "^1.0.1",
     "webpack": "^3.11.0",
     "webpack-bundle-analyzer": "^2.11.1",
+    "webpack-dashboard": "^2.0.0",
     "webpack-dev-middleware": "^2.0.6",
     "webpack-hot-middleware": "^2.21.2"
   }

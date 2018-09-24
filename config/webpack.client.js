@@ -161,7 +161,7 @@ if (process.env.NODE_ENV === 'production') {
 else {
   config.plugins.push(
     // new CleanWebpackPlugin([path.join(__dirname, '../dist')], { root: process.cwd() }),
-    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
     // new webpack.LoaderOptionsPlugin({
     //   options: {
     //     eslint: {
@@ -177,7 +177,7 @@ else {
     //   openAnalyzer: false,
     // }),
   );
-  config.entry.main.splice(0, 0, 'webpack-hot-middleware/client');
+  // config.entry.main.splice(0, 0, 'webpack-hot-middleware/client');
   // config.module.rules.push(
   //   { enforce: 'pre', test: /\.jsx?$/, loader: 'eslint-loader', exclude: babelExclude },
   // );
