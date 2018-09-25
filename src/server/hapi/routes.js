@@ -6,15 +6,15 @@ export default [
     path: '/{param*}',
     handler: ssr,
   },
-  {
-    method: 'GET',
-    path: '/static/{param*}',
-    handler: {
-      directory: {
-        path: '.',
-        redirectToSlash: true,
-        index: true,
-      },
-    },
-  },
+  // {
+  //   method: 'GET',
+  //   path: '/static/{param*}',
+  //   handler: {
+  //     directory: {
+  //       path: '.',
+  //       redirectToSlash: true,
+  //       index: true,
+  //     },
+  //   },
+  // },
 ];

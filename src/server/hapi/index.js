@@ -1,5 +1,5 @@
 
-import { Server } from 'hapi';
+import Hapi from 'hapi';
 import inert from 'inert';
 import path from 'path';
 import routes from './routes';
@@ -8,7 +8,7 @@ import configureWebpack from './configure-webpack';
 const port = process.env.PORT || 3000;
 
 const distDir = path.join(__dirname, '../../../dist');
-const server = new Server({
+const server = Hapi.server({
   port,
   host: 'localhost',
   routes: {

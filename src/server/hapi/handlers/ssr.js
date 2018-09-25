@@ -1,9 +1,10 @@
 import { getActiveRouteForUrl, doSsr } from '../../ssr';
+import serveFile from './serve-file';
 
 export default (req, h) => {
   const activeRoute = getActiveRouteForUrl(req.url.path);
   if (!activeRoute) {
-    return h.redirect(`/static${req.url.path}`);
+    return serveFile(req, h);
   }
 
   return doSsr(activeRoute)
