@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000;
 const distDir = path.join(__dirname, '../../../dist');
 const server = Hapi.server({
   port,
-  host: 'localhost',
+  address: '0.0.0.0',
   routes: {
     files: {
       relativeTo: distDir,
