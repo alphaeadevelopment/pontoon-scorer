@@ -6,7 +6,7 @@ export default (app) => {
     // eslint-disable-next-line import/no-extraneous-dependencies,global-require
     const DashboardPlugin = require('webpack-dashboard/plugin');
 
-    compiler.apply(new DashboardPlugin());
+    compiler.apply(new DashboardPlugin({ port: process.env.PORT || 3000 }));
 
     // eslint-disable-next-line import/no-extraneous-dependencies,global-require
     app.use(require('webpack-dev-middleware')(compiler, devMiddlewareOptions));

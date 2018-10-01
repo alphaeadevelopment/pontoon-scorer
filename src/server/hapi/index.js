@@ -8,7 +8,7 @@ import configureWebpack from './configure-webpack';
 const port = process.env.PORT || 3000;
 
 const distDir = path.join(__dirname, '../../../dist');
-const server = Hapi.server({
+let hapiConfig = {
   port,
   address: '0.0.0.0',
   routes: {
@@ -16,7 +16,14 @@ const server = Hapi.server({
       relativeTo: distDir,
     },
   },
-});
+};
+if (process.env.NODE_ENV !== 'production') {
+  hapiConfig = {
+    ...hapiConfig,
+    host: 'localhost',
+  };
+}
+const server = Hapi.server(hapiConfig);
 
 const init = () => {
   Promise.all([

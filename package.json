@@ -13,7 +13,7 @@
     "flow": "flow",
     "jest": "jest --config ./test/config/jest.config.json",
     "postinstall": "npm run build",
-    "dev": "NODE_ENV=development webpack-dashboard -- npm run serve:hapi",
+    "dev": "DASHBOARD_PORT=3005 NODE_ENV=development webpack-dashboard -p 3005 -- npm run serve:hapi",
     "serve:express": "node --inspect -r babel-register/lib/node src/server/express/",
     "serve:hapi": "node -r babel-register/lib/node src/server/hapi/",
     "start": "NODE_ENV=production npm run serve:hapi",
