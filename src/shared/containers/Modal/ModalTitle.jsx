@@ -5,7 +5,7 @@ import { Typography } from '../../components';
 
 const styles = theme => ({
   root: {
-    padding: theme.spacing.unit,
+    margin: `${theme.spacing.unit * 2}px 0`,
   },
 });
 const ModalTitle = ({ children, classes, className }) => (

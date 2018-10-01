@@ -6,7 +6,7 @@ const styles = theme => ({
   root: {
     display: 'flex',
     justifyContent: 'space-around',
-    marginTop: theme.spacing.unit * 2,
+    margin: `${theme.spacing.unit * 2}px 0`,
   },
 });
 const ModalActions = ({ children, classes, className }) => (
