@@ -18,4 +18,5 @@ export const START_GAME = 'START_GAME';
 export const START_GAME_PROPER = 'START_GAME_PROPER';
 export const STICK_HAND = 'STICK_HAND';
 export const UNDO = 'UNDO';
+export const REDO = 'REDO';
 

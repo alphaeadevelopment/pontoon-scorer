@@ -4,8 +4,10 @@ import { ROUND_OVER, DEALER_HAND, ADD_PLAYERS } from '../../lib/constants/game-p
 
 export const getGame = state => state.page.game.present;
 export const getUndoHistory = state => state.page.game.past || [];
+export const getRedoHistory = state => state.page.game.future || [];
 
 export const canUndo = createSelector(getUndoHistory, history => history.length > 0);
+export const canRedo = createSelector(getRedoHistory, history => history.length > 0);
 export const getPlayers = createSelector(getGame, game => game.players);
 export const getPhase = createSelector(getGame, game => game.phase);
 

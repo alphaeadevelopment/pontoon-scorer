@@ -21,3 +21,4 @@ export const startGame = createAction(Types.START_GAME);
 export const startGameProper = createAction(Types.START_GAME_PROPER);
 export const stick = createAction(Types.STICK_HAND);
 export const undo = createAction(Types.UNDO);
+export const redo = createAction(Types.REDO);

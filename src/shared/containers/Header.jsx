@@ -6,8 +6,8 @@ import Ionicon from 'react-ionicons';
 import withSizeClasses from './withSizeClasses';
 import Leaderboard from './Leaderboard';
 import { Typography } from '../components';
-import { undo } from '../pages/Game/game-actions';
-import { canUndo } from '../pages/Game/game-selectors';
+import { undo, redo } from '../pages/Game/game-actions';
+import { canUndo, canRedo } from '../pages/Game/game-selectors';
 
 const styles = theme => ({
   'root': {
@@ -42,7 +42,11 @@ const styles = theme => ({
     'width': '40px',
     'height': '40px',
     'cursor': 'pointer',
-    'margin': `0 ${theme.spacing.unit * 2}px`,
+    'margin': `0 ${theme.spacing.unit}px`,
+    '&:not($active)': {
+      'fill': 'grey',
+      'cursor': 'initial',
+    },
   },
   'menuIcon': {
     'extend': 'icon',
@@ -59,15 +63,20 @@ const styles = theme => ({
       'cursor': 'initial',
     },
   },
+  'redoIcon': {
+    'extend': 'icon',
+  },
   'md': {},
   'active': {},
 });
 @connect(state => ({
   canUndo: canUndo(state),
+  canRedo: canRedo(state),
 }),
-{
-  undo,
-},
+  {
+    undo,
+    redo,
+  },
 )
 @injectSheet(styles)
 @withSizeClasses
@@ -83,12 +92,12 @@ class Header extends React.Component {
   }
   render() {
     const { drawerOpen } = this.state;
-    const { classes, className, openSettings, canUndo, undo } = this.props;
+    const { classes, className, openSettings, canUndo, undo, canRedo, redo } = this.props;
     return (
       <Fragment>
         <header className={classNames(classes.root, className)}>
           <div className={classes.left}>
-            <Ionicon className={classes.menuIcon} icon={'md-menu'} onClick={this.showMenuDrawer} />
+            <Ionicon className={classNames(classes.menuIcon, classes.active)} icon={'md-menu'} onClick={this.showMenuDrawer} />
             <Typography className={classes.title} variant={'display2'}>
               <a href={'/'}>
                 Pontoon Scorer
@@ -101,7 +110,13 @@ class Header extends React.Component {
             icon={'md-undo'}
             onClick={canUndo ? undo : null}
           />
-          <Ionicon className={classes.settingsIcon} icon={'md-settings'} onClick={openSettings} />
+          <Ionicon
+            className={classNames(classes.redoIcon, { [classes.active]: canRedo })}
+            disabled={!canRedo}
+            icon={'md-redo'}
+            onClick={canRedo ? redo : null}
+          />
+          <Ionicon className={classNames(classes.settingsIcon, classes.active)} icon={'md-settings'} onClick={openSettings} />
         </header>
         <Leaderboard open={drawerOpen} onClose={this.hideMenuDrawer} />
       </Fragment>

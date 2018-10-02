@@ -1,6 +1,62 @@
-import { createPast } from '../undoable';
+import { createPast, doUndo, doRedo } from '../undoable';
 
 describe('undoable', () => {
+  describe('doUndo', () => {
+    it('default', () => {
+      const state = {
+        past: [1],
+        present: 2,
+        future: [],
+      };
+      const expected = {
+        past: [],
+        present: 1,
+        future: [2],
+      };
+      expect(doUndo(state)).toEqual(expected);
+    });
+    it('works with multiple past', () => {
+      const state = {
+        past: [1, 2],
+        present: 3,
+        future: [],
+      };
+      const expected = {
+        past: [1],
+        present: 2,
+        future: [3],
+      };
+      expect(doUndo(state)).toEqual(expected);
+    });
+    it('works with multiple past and future', () => {
+      const state = {
+        past: [1, 2],
+        present: 3,
+        future: [5, 4],
+      };
+      const expected = {
+        past: [1],
+        present: 2,
+        future: [5, 4, 3],
+      };
+      expect(doUndo(state)).toEqual(expected);
+    });
+  });
+  describe('doRedo', () => {
+    it('default', () => {
+      const state = {
+        past: [1],
+        present: 2,
+        future: [4, 3],
+      };
+      const expected = {
+        past: [1, 2],
+        present: 3,
+        future: [4],
+      };
+      expect(doRedo(state)).toEqual(expected);
+    });
+  });
   describe('createPast', () => {
     it('adds present to empty past', () => {
       const past = [];

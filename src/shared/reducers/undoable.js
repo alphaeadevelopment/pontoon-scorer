@@ -11,8 +11,14 @@ export const doUndo = ({ past, present, future }) => {
   return newState;
 };
 
-export const doRedo = state => state;
-
+export const doRedo = ({ past, present, future }) => {
+  const newState = ({
+    past: [...past, present],
+    present: future.slice(-1)[0],
+    future: future.slice(0, future.length - 1),
+  });
+  return newState;
+};
 export const truncatePast = past => past.slice(-10);
 
 export const createPast = (past, present) => {
