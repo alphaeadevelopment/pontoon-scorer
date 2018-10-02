@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 import { ROUND_OVER, DEALER_HAND, ADD_PLAYERS } from '../../lib/constants/game-phases';
 
-export const getGame = state => state.page.game;
+export const getGame = state => state.page.game.present;
 
 export const getPlayers = createSelector(getGame, game => game.players);
 export const getPhase = createSelector(getGame, game => game.phase);

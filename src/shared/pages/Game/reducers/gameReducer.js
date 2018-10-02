@@ -3,6 +3,7 @@ import * as Types from '../action-types';
 import { firstPlayer, getGamePhaseAfterSetStake, getPlayerAfterSetStake } from './helpers';
 import { nextHand as updateNextHand, handLoses } from './updaters';
 import { ADD_PLAYERS, SET_STAKE, GAME_PLAY, ROUND_OVER } from '../../../lib/constants/game-phases';
+import undoable from '../../../reducers/undoable';
 
 const initial = {
   players: [],
@@ -71,7 +72,7 @@ const newPlayer = idx => ({
   idx,
 });
 
-export default (state = initial, { type, payload }) => {
+export const gameReducer = (state = initial, { type, payload }) => {
   switch (type) {
     case Types.ADD_PLAYER:
       return update(state, {
@@ -222,3 +223,4 @@ export default (state = initial, { type, payload }) => {
       return state;
   }
 };
+export default undoable(gameReducer);
