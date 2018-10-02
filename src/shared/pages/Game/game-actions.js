@@ -20,3 +20,4 @@ export const splitHand = createAction(Types.SPLIT_HAND);
 export const startGame = createAction(Types.START_GAME);
 export const startGameProper = createAction(Types.START_GAME_PROPER);
 export const stick = createAction(Types.STICK_HAND);
+export const undo = createAction(Types.UNDO);

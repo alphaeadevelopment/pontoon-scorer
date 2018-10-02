@@ -1,10 +1,13 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 import injectSheet from 'react-jss';
 import Ionicon from 'react-ionicons';
 import withSizeClasses from './withSizeClasses';
 import Leaderboard from './Leaderboard';
 import { Typography } from '../components';
+import { undo } from '../pages/Game/game-actions';
+import { canUndo } from '../pages/Game/game-selectors';
 
 const styles = theme => ({
   'root': {
@@ -39,16 +42,33 @@ const styles = theme => ({
     'width': '40px',
     'height': '40px',
     'cursor': 'pointer',
+    'margin': `0 ${theme.spacing.unit * 2}px`,
   },
   'menuIcon': {
     'extend': 'icon',
     'margin-right': `${theme.spacing.unit}px`,
+    'margin-left': 0,
   },
   'settingsIcon': {
     'extend': 'icon',
   },
+  'undoIcon': {
+    'extend': 'icon',
+    '&:not($active)': {
+      'fill': 'grey',
+      'cursor': 'initial',
+    },
+  },
   'md': {},
+  'active': {},
 });
+@connect(state => ({
+  canUndo: canUndo(state),
+}),
+{
+  undo,
+},
+)
 @injectSheet(styles)
 @withSizeClasses
 class Header extends React.Component {
@@ -63,7 +83,7 @@ class Header extends React.Component {
   }
   render() {
     const { drawerOpen } = this.state;
-    const { classes, className, openSettings } = this.props;
+    const { classes, className, openSettings, canUndo, undo } = this.props;
     return (
       <Fragment>
         <header className={classNames(classes.root, className)}>
@@ -75,6 +95,12 @@ class Header extends React.Component {
               </a>
             </Typography>
           </div>
+          <Ionicon
+            className={classNames(classes.undoIcon, { [classes.active]: canUndo })}
+            disabled={!canUndo}
+            icon={'md-undo'}
+            onClick={canUndo ? undo : null}
+          />
           <Ionicon className={classes.settingsIcon} icon={'md-settings'} onClick={openSettings} />
         </header>
         <Leaderboard open={drawerOpen} onClose={this.hideMenuDrawer} />

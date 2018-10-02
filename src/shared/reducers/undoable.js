@@ -1,31 +1,43 @@
-const undoBlacklist = ['RESIZE'];
+import includes from 'lodash.includes';
 
-const doUndo = ({ past, present, future }) => {
-  console.log('do undo', past, present, 'future', future);
+const undoBlacklist = ['RESIZE', '@@INIT', 'REQUEST_SCROLL_POSITION'];
+
+export const doUndo = ({ past, present, future }) => {
   const newState = ({
-    past: past.slice(1),
+    past: past.slice(0, past.length - 1),
     present: past.slice(-1)[0],
     future: [...future, present],
   });
   return newState;
 };
 
-const doRedo = state => state;
+export const doRedo = state => state;
 
-const createPast = (past, present) => {
+export const truncatePast = past => past.slice(-10);
+
+export const createPast = (past, present) => {
   const newPast = past ? [...past] : [];
-  return (present) ? [...newPast, present] : newPast;
+  return truncatePast((present) ? [...newPast, present] : newPast);
 };
-const doAction = (oldState, newPresent) => {
-  const { past, present } = oldState;
-  console.log('doAction', past, present, newPresent);
 
-  const completeNewState = ({
-    present: newPresent,
-    past: createPast(past, present),
-    future: [],
-  });
-  return completeNewState;
+export const doAction = (oldState, { type }, newPresent) => {
+  const { past, present, future } = oldState;
+  let rv;
+  if (includes(undoBlacklist, type)) {
+    rv = ({
+      past,
+      present: newPresent,
+      future,
+    });
+  }
+  else {
+    rv = ({
+      present: newPresent,
+      past: createPast(past, present),
+      future: [],
+    });
+  }
+  return rv;
 };
 
 export default wrapped => (state = {}, action) => {
@@ -37,6 +49,6 @@ export default wrapped => (state = {}, action) => {
       return doRedo(state);
 
     default:
-      return doAction(state, wrapped(state.present, action));
+      return doAction(state, action, wrapped(state.present, action));
   }
 };
